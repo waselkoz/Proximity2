@@ -172,7 +172,7 @@ export default function Home() {
                 <div className="group flex flex-col gap-4 w-full">
                   <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
                     <div className="relative w-full overflow-hidden">
-                      <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                      <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" width={1000} height={1000} className="w-full h-auto object-contain group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
                       <div className="absolute inset-0 bg-black mix-blend-color opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
@@ -186,7 +186,7 @@ export default function Home() {
                 <div className="group flex flex-col gap-4 w-full">
                   <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
                     <div className="relative w-full overflow-hidden">
-                      <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                      <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" width={1000} height={1000} className="w-full h-auto object-contain group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
                       <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
@@ -200,7 +200,7 @@ export default function Home() {
                 <div className="group flex flex-col gap-4 w-full">
                   <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
                     <div className="relative w-full overflow-hidden">
-                      <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                      <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" width={1000} height={1000} className="w-full h-auto object-contain group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
                       <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ export default function Home() {
                   </div>
                   <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
                     <div className="relative w-full h-full overflow-hidden">
-                      <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" fill className="object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
+                      <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" fill className="object-cover transition-all duration-700" />
                       <div className="absolute inset-0 bg-black mix-blend-color opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
@@ -239,7 +239,7 @@ export default function Home() {
                   </div>
                   <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
                     <div className="relative w-full h-full overflow-hidden">
-                      <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" fill className="object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
+                      <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" fill className="object-cover transition-all duration-700" />
                       <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
@@ -253,7 +253,7 @@ export default function Home() {
                   </div>
                   <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
                     <div className="relative w-full h-full overflow-hidden">
-                      <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" fill className="object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
+                      <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" fill className="object-cover transition-all duration-700" />
                       <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
