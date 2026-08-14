@@ -217,8 +217,8 @@ export default function Home() {
                 className="md:hidden relative w-[60vw] sm:w-[45vw] aspect-[3/4] mx-auto mt-16 mb-32 perspective-1000"
               >
                 
-                {/* Card 1: Brand Identity */}
-                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:-rotate-6 hover:scale-110 cursor-pointer z-10 ${deckExpanded ? 'rotate-[-12deg] -translate-x-[22vw] translate-y-12 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                {/* Card 1: Brand Identity (Bottom Left) */}
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-40 hover:-translate-y-12 hover:-rotate-6 hover:scale-110 cursor-pointer z-20 ${deckExpanded ? 'rotate-[-10deg] -translate-x-[18vw] translate-y-16 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
                   <div className="flex justify-between items-center h-[12%] px-1 pb-1">
                     <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Brand Identity</span>
                     <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
@@ -231,8 +231,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Card 2: Website */}
-                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer z-20 ${deckExpanded ? 'rotate-[0deg] -translate-y-4 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                {/* Card 2: Website (Hero Top) */}
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer z-30 ${deckExpanded ? 'rotate-[2deg] -translate-y-8 scale-105' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
                   <div className="flex justify-between items-center h-[12%] px-1 pb-1">
                     <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Website</span>
                     <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
@@ -245,8 +245,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Card 3: Video */}
-                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:rotate-6 hover:scale-110 cursor-pointer z-30 ${deckExpanded ? 'rotate-[12deg] translate-x-[22vw] translate-y-12 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                {/* Card 3: Video (Pushed Right) */}
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-40 hover:-translate-y-12 hover:rotate-6 hover:scale-110 cursor-pointer z-10 ${deckExpanded ? 'rotate-[12deg] translate-x-[30vw] translate-y-8 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
                   <div className="flex justify-between items-center h-[12%] px-1 pb-1">
                     <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Video Editing</span>
                     <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
