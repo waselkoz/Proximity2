@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -10,6 +10,28 @@ export default function Home() {
   
   // State for the mechanical background flipper
   const [activeBgIndex, setActiveBgIndex] = useState(0);
+
+  // State and Ref for Scroll-Triggered Mobile Deck
+  const deckRef = useRef<HTMLDivElement>(null);
+  const [deckExpanded, setDeckExpanded] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setDeckExpanded(true);
+        } else {
+          setDeckExpanded(false);
+        }
+      },
+      { threshold: 0.4 } // Trigger when 40% of the deck is visible
+    );
+
+    if (deckRef.current) {
+      observer.observe(deckRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -131,50 +153,113 @@ export default function Home() {
               <span>01 // Capabilities</span>
               <div className="flex-1 h-[1px] bg-[#E5E5E5]"></div>
             </div>
+            {/* The Refined Manifesto */}
+            <div className="w-full max-w-[95vw] md:max-w-6xl mb-24 sm:mb-40 pt-10">
+              <h2 className="text-[clamp(2.5rem,7vw,7.5rem)] font-black uppercase tracking-[-0.04em] leading-[1.15] text-[#0A0A0A]">
+                Whether it&apos;s a <br className="hidden lg:block"/>
+                <span className="bg-[#0A0A0A] text-white px-3 md:px-5 pb-1 md:pb-2">Website</span>, a <span className="text-[#90243B] underline decoration-[4px] md:decoration-[8px] underline-offset-[6px] md:underline-offset-[12px]">Brand Identity</span>, <br className="hidden lg:block"/>
+                or <span className="text-[#90243B]">Video Editing</span>—we&apos;ve <br className="hidden lg:block"/>
+                got it covered.
+              </h2>
+            </div>
             
-            <h2 className="text-[10vw] sm:text-[5rem] lg:text-[6.5rem] font-black uppercase tracking-tighter leading-[0.85] mb-20 sm:mb-32 max-w-5xl">
-              Whether it's a <span className="text-white bg-[#0A0A0A] px-2 italic font-serif">website</span>, a <span className="text-[#90243B] underline decoration-4 underline-offset-8">logo</span>, or a <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#90243B]">video</span>—we've got it covered.
-            </h2>
-            
-            {/* The Mobile Parallax Stack & Desktop Grid */}
-            <div className="flex flex-col md:grid md:grid-cols-3 gap-0 md:gap-10 relative mt-12 md:mt-0">
+            {/* The Innovative Mobile Deck & Desktop Grid */}
+            <div className="relative w-full mt-12 md:mt-0">
               
-              {/* Card 1: Websites */}
-              <div className="group flex flex-col gap-4 w-full sticky top-[10vh] md:static md:top-auto z-10 md:z-auto bg-white md:bg-transparent pt-6 md:pt-0 pb-12 md:pb-0 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.05)] md:shadow-none">
-                <div className="w-full aspect-[3/2] md:aspect-[4/5] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] flex items-center justify-center p-4">
-                  <Image src="/Parfum.png" alt="Website Architecture" fill className="object-contain p-4 sm:p-8 grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                  <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              {/* --- DESKTOP GRID (Hidden on Mobile) --- */}
+              <div className="hidden md:grid md:grid-cols-3 gap-10">
+                {/* Card 1: Websites */}
+                <div className="group flex flex-col gap-4 w-full">
+                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
+                    <div className="relative w-full overflow-hidden">
+                      <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                      <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
+                    <span className="font-black uppercase text-2xl tracking-tighter">Website</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                  <span className="font-black uppercase text-2xl tracking-tighter">Websites</span>
-                  <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
+
+                {/* Card 2: Logos */}
+                <div className="group flex flex-col gap-4 w-full">
+                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
+                    <div className="relative w-full overflow-hidden">
+                      <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                      <div className="absolute inset-0 bg-black mix-blend-color opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
+                    <span className="font-black uppercase text-2xl tracking-tighter">Brand Identity</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
+                  </div>
+                </div>
+
+                {/* Card 3: Video */}
+                <div className="group flex flex-col gap-4 w-full">
+                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
+                    <div className="relative w-full overflow-hidden">
+                      <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                      <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
+                    <span className="font-black uppercase text-2xl tracking-tighter">Video Editing</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Card 2: Logos */}
-              <div className="group flex flex-col gap-4 w-full sticky top-[15vh] md:static md:top-auto z-20 md:z-auto bg-white md:bg-transparent pt-6 md:pt-16 pb-12 md:pb-0 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.05)] md:shadow-none">
-                <div className="w-full aspect-[3/2] md:aspect-[4/5] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] flex items-center justify-center p-4">
-                  <Image src="/ITNCp.jpg" alt="Visual Identity / Logo" fill className="object-contain p-4 sm:p-8 grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                  <div className="absolute inset-0 bg-black mix-blend-color opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
+              {/* --- INNOVATIVE MOBILE DECK (Hidden on Desktop) --- */}
+              <div 
+                ref={deckRef}
+                className="md:hidden relative w-[80vw] sm:w-[60vw] aspect-[3/4] mx-auto mt-16 mb-32 perspective-1000"
+              >
+                
+                {/* Card 1: Websites */}
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:-rotate-6 hover:scale-110 cursor-pointer z-10 ${deckExpanded ? 'rotate-[-12deg] -translate-x-[32vw] translate-y-12 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                  <div className="flex justify-between items-center h-[12%] px-1 pb-1">
+                    <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Website</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
+                  </div>
+                  <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
+                    <div className="relative w-full h-full overflow-hidden">
+                      <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" fill className="object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
+                      <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                  <span className="font-black uppercase text-2xl tracking-tighter">Logos</span>
-                  <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
-                </div>
-              </div>
 
-              {/* Card 3: Video */}
-              <div className="group flex flex-col gap-4 w-full sticky top-[20vh] md:static md:top-auto z-30 md:z-auto bg-white md:bg-transparent pt-6 md:pt-32 pb-12 md:pb-0 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.05)] md:shadow-none">
-                <div className="w-full aspect-[3/2] md:aspect-[4/5] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] flex items-center justify-center p-4">
-                  <Image src="/photo-1574717025058-2f8737d2e2b7.avif" alt="Cinematic Video" fill className="object-contain p-4 sm:p-8 grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                  <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                {/* Card 2: Logos */}
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer z-20 ${deckExpanded ? 'rotate-[0deg] -translate-y-4 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                  <div className="flex justify-between items-center h-[12%] px-1 pb-1">
+                    <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Brand Identity</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
+                  </div>
+                  <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
+                    <div className="relative w-full h-full overflow-hidden">
+                      <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" fill className="object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
+                      <div className="absolute inset-0 bg-black mix-blend-color opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                  <span className="font-black uppercase text-2xl tracking-tighter">Video</span>
-                  <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
-                </div>
-              </div>
 
+                {/* Card 3: Video */}
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:rotate-6 hover:scale-110 cursor-pointer z-30 ${deckExpanded ? 'rotate-[12deg] translate-x-[32vw] translate-y-12 scale-100' : 'rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                  <div className="flex justify-between items-center h-[12%] px-1 pb-1">
+                    <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Video Editing</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
+                  </div>
+                  <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
+                    <div className="relative w-full h-full overflow-hidden">
+                      <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" fill className="object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
+                      <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </section>

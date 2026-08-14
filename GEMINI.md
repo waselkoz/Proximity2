@@ -15,21 +15,21 @@ These rules apply to all development on the Proximity project. Do not ignore the
 
 ## 3. Design Aesthetic
 
-- **Vibe**: Minimalistic with a "cooling" design.
+- **Vibe**: "cooling" design.
 - **Clarity**: Clear UI/UX environment that intuitively guides the user.
 - **Context**: Proximity is an agency for websites, graphic design, and video editing. The site needs to look professional, premium, and state-of-the-art without being bloated.
   and make sure not use anything that resmble the style of vibe coded apps or websites
   Key Creative Guidelines:
+
 1. Aesthetic & Vibe:
-   - Hyper-minimalist, disciplined, and editorial aesthetic (high-end architectural studio meets avant-garde editorial design).
+   -, disciplined, and editorial aesthetic (high-end architectural studio meets avant-garde editorial design).
    - Strict avoidance of generic SaaS or "vibe-coded" trends: NO rainbow gradients, NO purple neon glows, NO 3D emoji graphics, and NO flashy bloated animations.
    - Strict Color Palette:
-     * Pure Stark White (#FFFFFF) and Deep Obsidian Black (#0A0A0A / #000000) for structural contrast and generous whitespace/blackspace.
-     * Crimson Red (#990000 / #DC143C) used exclusively as an intentional, high-impact accent (e.g., active indicators, subtle hairline borders, micro-badges, or focused CTAs).
+     - Pure Stark White (#FFFFFF) and Deep Obsidian Black (#0A0A0A / #000000) for structural contrast and generous whitespace/blackspace.
+     - Crimson Red (#990000 / #DC143C) used exclusively as an intentional, high-impact accent (e.g., active indicators, subtle hairline borders, micro-badges, or focused CTAs).
    - Typography: Bold neo-grotesque sans-serif for headings (e.g., Neue Montreal / General Sans style) paired with refined monospace micro-details for metadata and labels.
 
 2. Structure & Sections to Include:
-   - Minimal Navigation Bar: Brand wordmark ("PROXIMITY"), index links (Work, Disciplines, Studio, Contact), and a live availability indicator featuring a Crimson pulse/dot.
    - Hero Section: High-impact typography, crisp contrast, micro-label "[ PROXIMITY — DIGITAL ATELIER ]", clear positioning statement: "We craft websites, visual identities, and cinematic motion for brands that value precision.", and a discrete crimson-accented CTA button.
    - Selected Works (Portfolio Grid): Asymmetric, editorial showcase cards featuring project visuals/stills, discipline metadata tags, client name, and a one-sentence impact statement.
    - Core Disciplines (Services): Minimal, scannable 3-pillar breakdown (01 Digital Experiences, 02 Visual Identity & Graphics, 03 Motion & Cinematic Editing).
