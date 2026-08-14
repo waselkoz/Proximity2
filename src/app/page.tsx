@@ -24,7 +24,7 @@ export default function Home() {
           setDeckExpanded(false);
         }
       },
-      { threshold: 0.8 } // Wait until the deck is mostly in view before expanding
+      { threshold: 0.4 } // Wait until the deck is mostly in view before expanding
     );
 
     if (deckRef.current) {
@@ -166,99 +166,54 @@ export default function Home() {
               </h2>
             </div>
             
-            {/* The Innovative Mobile Deck & Desktop Grid */}
+            {/* The Universal Interactive Deck */}
             <div className="relative w-full mt-12 md:mt-0">
               
-              {/* --- DESKTOP GRID (Hidden on Mobile) --- */}
-              <div className="hidden md:grid md:grid-cols-3 gap-10">
-                {/* Card 1: Websites */}
-                <div className="group flex flex-col gap-4 w-full">
-                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
-                    <div className="relative w-full overflow-hidden">
-                      <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                      <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                    <span className="font-black uppercase text-2xl tracking-tighter">Website</span>
-                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
-                  </div>
-                </div>
-
-                {/* Card 2: Logos */}
-                <div className="group flex flex-col gap-4 w-full">
-                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
-                    <div className="relative w-full overflow-hidden">
-                      <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                      <div className="absolute inset-0 bg-black mix-blend-color opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                    <span className="font-black uppercase text-2xl tracking-tighter">Brand Identity</span>
-                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
-                  </div>
-                </div>
-
-                {/* Card 3: Video */}
-                <div className="group flex flex-col gap-4 w-full">
-                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-4">
-                    <div className="relative w-full overflow-hidden">
-                      <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" width={1000} height={1000} className="w-full h-auto object-contain grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                      <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                    <span className="font-black uppercase text-2xl tracking-tighter">Video Editing</span>
-                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* --- INNOVATIVE MOBILE DECK (Hidden on Desktop) --- */}
+              {/* --- UNIVERSAL DECK (Mobile & Desktop) --- */}
               <div 
                 ref={deckRef}
-                className="md:hidden relative w-[60vw] sm:w-[45vw] aspect-[3/4] mx-auto mt-16 mb-32 perspective-1000"
+                className="relative w-[60vw] sm:w-[45vw] lg:w-[25vw] aspect-[3/4] mx-auto mt-16 lg:mt-32 mb-40 lg:mb-64 perspective-1000"
               >
                 
                 {/* Card 1: Brand Identity (Bottom Left) */}
-                <div className={`group absolute inset-0 w-full flex flex-col gap-4 bg-white border border-[#E5E5E5] p-4 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:-rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-40 rotate-[-10deg] -translate-x-[18vw] translate-y-32 scale-100' : 'z-20 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
-                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-2 aspect-[4/3]">
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:-rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-40 rotate-[-10deg] -translate-x-[18vw] lg:-translate-x-[12vw] translate-y-32 lg:translate-y-24 scale-100' : 'z-20 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                  <div className="flex justify-between items-center h-[12%] px-1 pb-1">
+                    <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Brand Identity</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
+                  </div>
+                  <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
                     <div className="relative w-full h-full overflow-hidden">
                       <Image src="/cap-logo.jpg" alt="Visual Identity / Logo" fill className="object-cover transition-all duration-700" />
                       <div className="absolute inset-0 bg-black mix-blend-color opacity-0 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                    <span className="font-black uppercase text-xl sm:text-2xl tracking-tighter text-[#0A0A0A]">Brand Identity</span>
-                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
-                  </div>
                 </div>
 
                 {/* Card 2: Website (Hero Top) */}
-                <div className={`group absolute inset-0 w-full flex flex-col gap-4 bg-white border border-[#E5E5E5] p-4 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-10 rotate-[2deg] -translate-y-24 scale-105' : 'z-30 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
-                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-2 aspect-[4/3]">
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-10 rotate-[2deg] -translate-y-24 scale-105' : 'z-30 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                  <div className="flex justify-between items-center h-[12%] px-1 pb-1">
+                    <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Website</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
+                  </div>
+                  <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
                     <div className="relative w-full h-full overflow-hidden">
                       <Image src="/cap-website-pc.jpg" alt="Corporate Website Design" fill className="object-cover transition-all duration-700" />
                       <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                    <span className="font-black uppercase text-xl sm:text-2xl tracking-tighter text-[#0A0A0A]">Website</span>
-                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
-                  </div>
                 </div>
 
                 {/* Card 3: Video (Pushed Right) */}
-                <div className={`group absolute inset-0 w-full flex flex-col gap-4 bg-white border border-[#E5E5E5] p-4 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-30 rotate-[12deg] translate-x-[30vw] translate-y-28 scale-100' : 'z-10 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
-                  <div className="w-full bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-2 aspect-[4/3]">
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-30 rotate-[12deg] translate-x-[30vw] lg:translate-x-[20vw] translate-y-28 lg:translate-y-20 scale-100' : 'z-10 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                  <div className="flex justify-between items-center h-[12%] px-1 pb-1">
+                    <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Video Editing</span>
+                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
+                  </div>
+                  <div className="w-full h-[88%] bg-[#0A0A0A] relative overflow-hidden border border-[#E5E5E5] p-1">
                     <div className="relative w-full h-full overflow-hidden">
                       <Image src="/cap-video-ui.jpg" alt="Cinematic Video Editing" fill className="object-cover transition-all duration-700" />
                       <div className="absolute inset-0 bg-[#90243B] mix-blend-color opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-center border-t border-[#0A0A0A] pt-3">
-                    <span className="font-black uppercase text-xl sm:text-2xl tracking-tighter text-[#0A0A0A]">Video Editing</span>
-                    <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
                   </div>
                 </div>
 
