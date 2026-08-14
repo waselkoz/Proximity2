@@ -24,7 +24,7 @@ export default function Home() {
           setDeckExpanded(false);
         }
       },
-      { threshold: 0.4 } // Trigger when 40% of the deck is visible
+      { threshold: 0.8 } // Wait until the deck is mostly in view before expanding
     );
 
     if (deckRef.current) {
@@ -232,7 +232,7 @@ export default function Home() {
                 </div>
 
                 {/* Card 2: Website (Hero Top) */}
-                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-10 rotate-[2deg] -translate-y-16 scale-105' : 'z-30 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-10 rotate-[2deg] -translate-y-24 scale-105' : 'z-30 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
                   <div className="flex justify-between items-center h-[12%] px-1 pb-1">
                     <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Website</span>
                     <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
