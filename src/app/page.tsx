@@ -155,10 +155,13 @@ export default function Home() {
             </div>
             {/* The Refined Manifesto */}
             <div className="w-full max-w-[95vw] md:max-w-6xl mb-24 sm:mb-40 pt-10">
-              <h2 className="text-[clamp(2.5rem,7vw,7.5rem)] font-black uppercase tracking-[-0.04em] leading-[1.15] text-[#0A0A0A]">
+              <h2 className="text-[clamp(1.5rem,5vw,4.5rem)] font-black uppercase tracking-[-0.04em] leading-[1.6] sm:leading-[1.5] text-[#0A0A0A]">
                 Whether it&apos;s a <br className="hidden lg:block"/>
-                <span className="bg-[#0A0A0A] text-white px-3 md:px-5 pb-1 md:pb-2">Website</span>, a <span className="text-[#90243B] underline decoration-[4px] md:decoration-[8px] underline-offset-[6px] md:underline-offset-[12px]">Brand Identity</span>, <br className="hidden lg:block"/>
-                or <span className="text-[#90243B]">Video Editing</span>—we&apos;ve <br className="hidden lg:block"/>
+                <span className="inline-block bg-white text-[#0A0A0A] border-2 sm:border-4 border-[#0A0A0A] shadow-[4px_4px_0px_0px_#0A0A0A] sm:shadow-[8px_8px_0px_0px_#0A0A0A] px-3 sm:px-6 py-1 sm:py-2 mx-1 sm:mx-3 -rotate-3 transform transition-transform hover:scale-105 hover:rotate-0">Website</span>, 
+                a <br className="hidden lg:block"/>
+                <span className="inline-block bg-[#0A0A0A] text-white border-2 sm:border-4 border-[#0A0A0A] px-3 sm:px-6 py-1 sm:py-2 mx-1 sm:mx-3 rotate-2 transform transition-transform hover:scale-105 hover:-rotate-2">Brand Identity</span>, 
+                <br className="hidden lg:block"/>
+                or <span className="inline-block bg-[#90243B] text-white border-2 sm:border-4 border-[#90243B] px-3 sm:px-6 py-1 sm:py-2 mx-1 sm:mx-3 -rotate-1 transform transition-transform hover:scale-105 hover:rotate-2">Video Editing</span>—<br className="hidden lg:block"/>we&apos;ve 
                 got it covered.
               </h2>
             </div>
