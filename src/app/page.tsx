@@ -3,7 +3,6 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { playHoverTick, playMechanicalClick } from "../utils/audio";
 
 export default function Home() {
@@ -469,49 +468,14 @@ export default function Home() {
             })}
           </div>
         </section>
-
-        {/* 5. The Redacted Manifesto */}
-        <section className="w-full bg-white text-[#0A0A0A] px-5 sm:px-12 py-32 sm:py-48 border-t border-[#E5E5E5] relative overflow-hidden z-10">
-           <div className="max-w-[1400px] mx-auto flex flex-col items-start lg:items-center">
-             <div className="w-full font-mono text-[9px] sm:text-[10px] text-[#0A0A0A]/40 uppercase tracking-[0.2em] mb-16 lg:text-center">
-                03 // Manifesto
-             </div>
-             
-             <div className="flex flex-col gap-4 sm:gap-6 w-full max-w-5xl">
-                {[
-                  "WE DO NOT BUILD WEBSITES.",
-                  "WE ENGINEER DIGITAL EXPERIENCES.",
-                  "NO TEMPLATES. NO BLOAT.",
-                  "PURE PERFORMANCE AND FORM.",
-                  "WE STRIP AWAY THE NOISE",
-                  "UNTIL ONLY THE TRUTH REMAINS."
-                ].map((line, i) => (
-                  <div key={i} className="relative w-max overflow-hidden group/redact cursor-default">
-                    <h2 className="text-[6.5vw] sm:text-[4rem] lg:text-[5rem] font-black uppercase tracking-tighter leading-[0.85] text-[#0A0A0A]">
-                      {line}
-                    </h2>
-                    {/* The Redaction Bar */}
-                    <motion.div 
-                      className="absolute inset-0 bg-[#0A0A0A] origin-right"
-                      initial={{ scaleX: 1 }}
-                      whileInView={{ scaleX: 0 }}
-                      viewport={{ once: true, margin: "-10%" }}
-                      transition={{ duration: 0.8, delay: i * 0.1, ease: [0.76, 0, 0.24, 1] }}
-                    />
-                  </div>
-                ))}
-             </div>
-           </div>
-        </section>
-
-        {/* 6. Full-Screen Terminal Takeover (App-like Mobile Footer) */}
+        {/* 5. Full-Screen Terminal Takeover (App-like Mobile Footer) */}
         <section className="w-full bg-[#0A0A0A] text-white px-5 sm:px-12 py-20 sm:py-32 border-t border-[#1F1F1F] relative min-h-[100dvh] flex flex-col justify-center z-10">
-          
+           
           <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between gap-16 sm:gap-24 lg:gap-32 w-full">
             
             <div className="lg:w-[45%] flex flex-col">
               <div className="font-mono text-[9px] sm:text-[10px] text-white/30 mb-8 sm:mb-16 uppercase tracking-[0.2em]">
-                 04 // Initiate
+                 03 // Initiate
               </div>
               <h2 className="text-[18vw] sm:text-[14vw] lg:text-[8rem] font-black uppercase tracking-tighter mb-6 sm:mb-12 leading-[0.8]">
                 Let's <br/> build.
