@@ -469,7 +469,7 @@ export default function Home() {
           </div>
         </section>
         {/* 5. Full-Screen Terminal Takeover (App-like Mobile Footer) */}
-        <section className="w-full bg-[#0A0A0A] text-white px-5 sm:px-12 py-20 sm:py-32 border-t border-[#1F1F1F] relative min-h-[100dvh] flex flex-col justify-center z-10">
+        <section className="w-full bg-[#90243B] text-white px-5 sm:px-12 py-20 sm:py-32 border-t-8 border-[#0A0A0A] relative min-h-[100dvh] flex flex-col justify-center z-10">
            
           <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between gap-16 sm:gap-24 lg:gap-32 w-full">
             
@@ -477,41 +477,41 @@ export default function Home() {
               <div className="font-mono text-[9px] sm:text-[10px] text-white/30 mb-8 sm:mb-16 uppercase tracking-[0.2em]">
                  03 // Initiate
               </div>
-              <h2 className="text-[18vw] sm:text-[14vw] lg:text-[8rem] font-black uppercase tracking-tighter mb-6 sm:mb-12 leading-[0.8]">
+              <h2 className="text-[18vw] sm:text-[14vw] lg:text-[8rem] font-black uppercase tracking-tighter mb-6 sm:mb-12 leading-[0.8] text-[#0A0A0A]">
                 Let's <br/> build.
               </h2>
-              <a href="mailto:hello@proximity.agency" className="text-lg sm:text-2xl text-white hover:text-[#90243B] transition-colors mb-12 sm:mb-20 border-b-2 border-white/20 hover:border-[#90243B] pb-2 self-start font-black tracking-tighter uppercase break-all">
+              <a href="mailto:hello@proximity.agency" className="text-lg sm:text-2xl text-white hover:text-[#0A0A0A] transition-colors mb-12 sm:mb-20 border-b-2 border-white/30 hover:border-[#0A0A0A] pb-2 self-start font-black tracking-tighter uppercase break-all">
                 hello@proximity.agency
               </a>
               
               <div className="font-mono text-[8px] sm:text-[9px] text-white/40 uppercase tracking-[0.2em] flex flex-col gap-2 sm:gap-3 hidden sm:flex">
                 <span>Operating Timezone</span>
-                <span className="text-white border border-[#1F1F1F] px-3 sm:px-4 py-2 self-start bg-[#0A0A0A]">GMT / LONDON — ACTIVE</span>
+                <span className="text-white border border-white/20 px-3 sm:px-4 py-2 self-start bg-transparent">GMT / LONDON — ACTIVE</span>
               </div>
             </div>
 
             {/* Sleek Terminal Form */}
             <div className="lg:w-[55%] flex flex-col gap-6 sm:gap-10">
               <div className="flex flex-col gap-2 group">
-                <label className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-[0.2em] group-focus-within:text-[#90243B] transition-colors">Name / Organization</label>
-                <input type="text" className="w-full bg-transparent border-b-2 border-[#1F1F1F] text-xl sm:text-2xl py-3 outline-none focus:border-[#90243B] transition-colors font-black uppercase tracking-tighter text-white placeholder:text-white/10 rounded-none" placeholder="ENTER IDENTITY" />
+                <label className="font-mono text-[8px] sm:text-[9px] text-white/50 uppercase tracking-[0.2em] group-focus-within:text-[#0A0A0A] transition-colors">Name / Organization</label>
+                <input type="text" className="w-full bg-transparent border-b-2 border-white/20 text-xl sm:text-2xl py-3 outline-none focus:border-[#0A0A0A] transition-colors font-black uppercase tracking-tighter text-white placeholder:text-white/30 rounded-none" placeholder="ENTER IDENTITY" />
               </div>
               
               <div className="flex flex-col gap-2 group">
-                <label className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-[0.2em] group-focus-within:text-[#90243B] transition-colors">Email Address</label>
-                <input type="email" className="w-full bg-transparent border-b-2 border-[#1F1F1F] text-xl sm:text-2xl py-3 outline-none focus:border-[#90243B] transition-colors font-black uppercase tracking-tighter text-white placeholder:text-white/10 rounded-none" placeholder="ENTER COMMS LINK" />
+                <label className="font-mono text-[8px] sm:text-[9px] text-white/50 uppercase tracking-[0.2em] group-focus-within:text-[#0A0A0A] transition-colors">Email Address</label>
+                <input type="email" className="w-full bg-transparent border-b-2 border-white/20 text-xl sm:text-2xl py-3 outline-none focus:border-[#0A0A0A] transition-colors font-black uppercase tracking-tighter text-white placeholder:text-white/30 rounded-none" placeholder="ENTER COMMS LINK" />
               </div>
               
               <div className="flex flex-col gap-2 group">
-                <label className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-[0.2em] group-focus-within:text-[#90243B] transition-colors">Project Brief</label>
-                <textarea rows={2} className="w-full bg-transparent border-b-2 border-[#1F1F1F] text-xl sm:text-2xl py-3 outline-none focus:border-[#90243B] transition-colors font-black uppercase tracking-tighter text-white resize-none placeholder:text-white/10 rounded-none" placeholder="DEFINE DIRECTIVE"></textarea>
+                <label className="font-mono text-[8px] sm:text-[9px] text-white/50 uppercase tracking-[0.2em] group-focus-within:text-[#0A0A0A] transition-colors">Project Brief</label>
+                <textarea rows={2} className="w-full bg-transparent border-b-2 border-white/20 text-xl sm:text-2xl py-3 outline-none focus:border-[#0A0A0A] transition-colors font-black uppercase tracking-tighter text-white resize-none placeholder:text-white/30 rounded-none" placeholder="DEFINE DIRECTIVE"></textarea>
               </div>
 
               <div className="flex justify-between items-end mt-4 sm:mt-12">
-                <button className="bg-white text-[#0A0A0A] px-8 sm:px-10 py-4 sm:py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#90243B] hover:text-white transition-colors flex items-center gap-4 sm:gap-6 group">
+                <button className="bg-[#0A0A0A] text-white px-8 sm:px-10 py-4 sm:py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-[#0A0A0A] transition-colors flex items-center gap-4 sm:gap-6 group">
                   Submit
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-[#0A0A0A] rounded-full flex items-center justify-center group-hover:bg-white transition-colors">
-                    <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white group-hover:text-[#90243B] transition-transform group-hover:translate-x-[1px]" />
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full flex items-center justify-center group-hover:bg-[#0A0A0A] transition-colors">
+                    <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#0A0A0A] group-hover:text-white transition-transform group-hover:translate-x-[1px]" />
                   </div>
                 </button>
               </div>

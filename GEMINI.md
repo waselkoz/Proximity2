@@ -69,3 +69,4 @@ be as innovative as you can think, come up with ideas that would make the user s
 ##debugging:
 you need to minimize contexte and token usage you go through the whole code base never stoping until you find the issue and fix it then you test again to make sure it is fixed, and you keep doing this until the issue is fixed, and not changing anything else that is working
 think throught of what the user input and try to replicate exactly what he said,
+refrain from using futuristic words
