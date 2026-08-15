@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowRight, Plus, Minus, Check } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useRef } from "react";
 
 // Audio Fallbacks
@@ -61,6 +62,15 @@ export default function SoftwareEngineering() {
   // Assembly Line State (Mobile Accordion)
   const [activeStep, setActiveStep] = useState(0);
 
+  // Chat Section Parallax
+  const chatRef = useRef(null);
+  const { scrollYProgress: chatScroll } = useScroll({
+    target: chatRef,
+    offset: ["start end", "end start"]
+  });
+  const chatBgY = useTransform(chatScroll, [0, 1], ["-15%", "15%"]);
+  const chatBgScale = useTransform(chatScroll, [0, 1], [1.1, 1]);
+
   // Arsenal State
   const [activeTech, setActiveTech] = useState(techCategories[0]);
 
@@ -85,7 +95,7 @@ export default function SoftwareEngineering() {
             [ Back to Home ]
           </Link>
           <div className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase text-[#90243B] bg-black/80 backdrop-blur-md px-4 py-2 border border-[#1F1F1F] hidden sm:block">
-            Service // Software Engineering
+            Service &mdash; Software Engineering
           </div>
       </div>
 
@@ -127,7 +137,7 @@ export default function SoftwareEngineering() {
              
              <div className="mb-20 sm:mb-32">
                  <div className="font-mono text-[10px] text-[#90243B] uppercase tracking-[0.2em] mb-4">
-                     02 // Bespoke Delivery
+                     02 &mdash; Bespoke Delivery
                  </div>
                  <h2 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85] text-white">
                      STRUCTURAL<br/>INTEGRITY.
@@ -176,7 +186,7 @@ export default function SoftwareEngineering() {
                                }}
                              >
                                  <h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter group-hover:text-[#90243B] transition-colors duration-300">
-                                     <span className="text-[#90243B] mr-4 lg:hidden">{step.num} //</span>
+                                     <span className="text-[#90243B] mr-4 lg:hidden">{step.num} &mdash;</span>
                                      {step.title}
                                  </h3>
                                  {/* Mobile Toggle Icon */}
@@ -202,13 +212,131 @@ export default function SoftwareEngineering() {
          </div>
       </section>
 
+      {/* 2.5. LIVE CHAT BOX (Precision Tailoring) */}
+      <section ref={chatRef} className="relative w-full py-32 sm:py-48 bg-[#0A0A0A] text-white overflow-hidden border-t border-[#1F1F1F]">
+         
+         {/* Extraordinary Background: Cinematic Brutalist Parallax */}
+         <motion.div 
+            style={{ y: chatBgY, scale: chatBgScale }}
+            className="absolute inset-0 z-0 w-full h-[130%]"
+         >
+             <Image
+                 src="/software-bg.jpg"
+                 alt="Software Engineering Architecture"
+                 fill
+                 className="object-cover object-center opacity-50 grayscale mix-blend-luminosity"
+                 priority
+             />
+             {/* Vignette Overlay for Text Legibility */}
+             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent"></div>
+             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]"></div>
+         </motion.div>
+
+         <div className="max-w-[1400px] mx-auto px-5 sm:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+             
+             {/* Left Column: Typography */}
+             <div className="flex flex-col gap-6">
+                 <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#90243B]">
+                     02.5 &mdash; Precision Tailoring
+                 </div>
+                 <h2 className="text-[clamp(3rem,6vw,7rem)] font-black uppercase tracking-tighter leading-[0.85] text-white">
+                     WE DELIVER THE PRODUCT <br/>
+                     EXACTLY HOW <span className="text-[#90243B]">YOU</span> LIKE IT.
+                 </h2>
+                 <p className="font-mono text-xs sm:text-sm uppercase tracking-wider opacity-60 max-w-md mt-4 text-[#E5E5E5]">
+                     No restrictive templates. No agency pushback. You define the exact vision, and we build it precisely to your specifications.
+                 </p>
+             </div>
+
+             {/* Right Column: The Live Chat Box */}
+             <div className="w-full flex justify-center lg:justify-end">
+                 <div className="w-full max-w-md relative group">
+                     
+                     {/* Brutalist Solid Offset Shadow (Highlights the crack) */}
+                     <div className="absolute inset-0 bg-[#90243B] translate-x-4 translate-y-4"></div>
+
+                     {/* The Shattered Chat Panel */}
+                     <div 
+                        className="relative w-full bg-white p-6 sm:p-10 flex flex-col gap-8 z-10"
+                        style={{
+                           // A harsh, aggressive shattered polygon cut
+                           clipPath: 'polygon(0% 0%, 100% 0%, 100% 60%, 88% 68%, 100% 76%, 100% 100%, 10% 100%, 0% 90%)'
+                        }}
+                     >
+                         
+                         {/* Chat Header */}
+                         <div className="flex items-center justify-between border-b border-[#E5E5E5] pb-4 mb-2">
+                             <div className="flex items-center gap-3">
+                                 <div className="w-2 h-2 bg-green-500 animate-pulse"></div>
+                                 <span className="font-mono text-[10px] uppercase text-[#0A0A0A] tracking-widest font-bold">Proximity Direct</span>
+                             </div>
+                             <span className="font-mono text-[10px] text-[#0A0A0A]/40 uppercase">Connected</span>
+                         </div>
+
+                         {/* Chat Sequence */}
+                         
+                         {/* Client Message 1 */}
+                         <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, margin: "-50px" }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
+                            className="self-start bg-[#F5F5F5] text-[#0A0A0A] p-4 max-w-[85%] border-l-4 border-[#0A0A0A] relative z-10"
+                         >
+                             <div className="font-mono text-[9px] text-[#0A0A0A]/40 mb-2 uppercase tracking-wider">Client &mdash; 09:41 AM</div>
+                             <p className="text-sm font-bold leading-relaxed">The hero section looks great, but could we try a darker, more premium aesthetic?</p>
+                         </motion.div>
+
+                         {/* Proximity Message 1 */}
+                         <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, margin: "-50px" }}
+                            transition={{ duration: 0.3, delay: 1.4 }}
+                            className="self-end bg-[#0A0A0A] text-white p-4 max-w-[85%] border-r-4 border-[#90243B] relative z-10"
+                         >
+                             <div className="font-mono text-[9px] text-white/50 mb-2 uppercase tracking-wider text-right">Proximity &mdash; 09:42 AM</div>
+                             <p className="text-sm font-medium leading-relaxed">Absolutely. We have updated the background to pure black and increased the font weight. Check the staging link.</p>
+                         </motion.div>
+
+                         {/* Client Message 2 */}
+                         <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, margin: "-50px" }}
+                            transition={{ duration: 0.3, delay: 3.0 }}
+                            className="self-start bg-[#F5F5F5] text-[#0A0A0A] p-4 max-w-[85%] border-l-4 border-[#0A0A0A] relative z-10"
+                         >
+                             <div className="font-mono text-[9px] text-[#0A0A0A]/40 mb-2 uppercase tracking-wider">Client &mdash; 09:45 AM</div>
+                             <p className="text-sm font-bold leading-relaxed">Perfect. One more thing, can we add a smooth transition when scrolling down?</p>
+                         </motion.div>
+                         
+                         {/* Proximity Message 2 */}
+                         <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, margin: "-50px" }}
+                            transition={{ duration: 0.3, delay: 4.4 }}
+                            className="self-end bg-[#0A0A0A] text-white p-4 max-w-[85%] border-r-4 border-[#90243B] relative z-10"
+                         >
+                             <div className="font-mono text-[9px] text-white/50 mb-2 uppercase tracking-wider text-right">Proximity &mdash; 09:46 AM</div>
+                             <p className="text-sm font-medium leading-relaxed">Just added a seamless curtain reveal effect. It is completely optimized for mobile as well. Let us know what you think.</p>
+                         </motion.div>
+
+                     </div>
+                 </div>
+             </div>
+             
+         </div>
+      </section>
+
       {/* 3. THE ARSENAL: THE INTERACTIVE DIRECTORY */}
       <section className="relative w-full py-24 sm:py-40 bg-white text-[#0A0A0A] overflow-hidden">
          <div className="max-w-[1400px] mx-auto px-5 sm:px-12 relative z-10">
              
              <div className="mb-20">
                  <div className="font-mono text-[10px] text-[#90243B] uppercase tracking-[0.2em] mb-4">
-                     03 // System Specifications
+                     03 &mdash; System Specifications
                  </div>
                  <h2 className="text-[clamp(3rem,8vw,8rem)] font-black uppercase tracking-tighter leading-none">
                    THE ARSENAL
@@ -271,7 +399,7 @@ export default function SoftwareEngineering() {
              {/* Left: Configuration Form */}
              <div className="w-full lg:w-1/2">
                  <div className="font-mono text-[10px] text-[#90243B] mb-8 uppercase tracking-[0.2em]">
-                    04 // Submit Brief
+                    04 &mdash; Submit Brief
                  </div>
                  
                  <h2 className="text-[clamp(2.5rem,5vw,5rem)] font-black uppercase tracking-tighter leading-[0.85] mb-16">
