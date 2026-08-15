@@ -387,14 +387,18 @@ export default function Home() {
                     <div className="w-full lg:w-7/12 h-[200px] lg:h-[400px] relative overflow-hidden bg-[#0A0A0A] shadow-2xl">
                          {/* 01: Software Engineering (Clean Image Mockup) */}
                          {pillar.num === "01" && (
-                              <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] flex items-center justify-center group/art border border-[#1F1F1F]">
-                                 <Image src={pillar.image} alt="Software Engineering Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top opacity-90 group-hover/art:scale-110 group-hover/art:opacity-100 transition-all duration-[3000ms] ease-out" />
+                              <div className="w-full h-full relative overflow-hidden bg-[#111111] flex items-center justify-center group/art border border-[#1F1F1F]">
+                                 <div className="relative w-full h-full p-4 sm:p-8 flex items-center justify-center">
+                                     <div className="relative w-full h-full border border-[#222222] shadow-2xl bg-black">
+                                        <Image src={pillar.image} alt="Software Engineering Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top opacity-90 group-hover/art:opacity-100 transition-all duration-[3000ms] ease-out" />
+                                     </div>
+                                 </div>
                                  
                                  {/* Geometric Crop Marks Overlay */}
-                                 <div className="absolute top-6 left-6 w-8 h-8 border-l-2 border-t-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
-                                 <div className="absolute top-6 right-6 w-8 h-8 border-r-2 border-t-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
-                                 <div className="absolute bottom-6 left-6 w-8 h-8 border-l-2 border-b-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
-                                 <div className="absolute bottom-6 right-6 w-8 h-8 border-r-2 border-b-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
+                                 <div className="absolute top-4 left-4 w-6 h-6 border-l border-t border-white/30 group-hover/art:-translate-x-1 group-hover/art:-translate-y-1 transition-transform duration-1000 z-10"></div>
+                                 <div className="absolute top-4 right-4 w-6 h-6 border-r border-t border-white/30 group-hover/art:translate-x-1 group-hover/art:-translate-y-1 transition-transform duration-1000 z-10"></div>
+                                 <div className="absolute bottom-4 left-4 w-6 h-6 border-l border-b border-white/30 group-hover/art:-translate-x-1 group-hover/art:translate-y-1 transition-transform duration-1000 z-10"></div>
+                                 <div className="absolute bottom-4 right-4 w-6 h-6 border-r border-b border-white/30 group-hover/art:translate-x-1 group-hover/art:translate-y-1 transition-transform duration-1000 z-10"></div>
                               </div>
                          )}
 
