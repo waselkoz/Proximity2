@@ -265,24 +265,37 @@ export default function Home() {
                 title: "Websites", 
                 label: "Digital Architecture",
                 desc: "We architect high-performance, conversion-optimized digital experiences. Every interaction is calculated. Every millisecond counts.",
-                image: "/cap-website-pc.jpg",
-                shape: "rectangle"
+                image: "/acc-website.jpg",
+                shape: "rectangle",
+                bgStyle: {
+                  backgroundImage: 'linear-gradient(to right, #00000008 1px, transparent 1px), linear-gradient(to bottom, #00000008 1px, transparent 1px)',
+                  backgroundSize: '40px 40px'
+                }
               },
               { 
                 num: "02", 
                 title: "Branding", 
                 label: "Visual Identity",
                 desc: "We strip away the noise. We build monolithic brands that command authority through stark contrast and disciplined design systems.",
-                image: "/cap-logo.jpg",
-                shape: "circle"
+                image: "/acc-branding.jpg",
+                shape: "circle",
+                bgStyle: {
+                  backgroundImage: 'radial-gradient(#00000010 2px, transparent 2px)',
+                  backgroundSize: '20px 20px',
+                  backgroundPosition: '0 0, 10px 10px'
+                }
               },
               { 
                 num: "03", 
                 title: "Video", 
                 label: "Motion Design",
                 desc: "Cinematic precision. We construct motion graphics and video edits with the exactness of an architectural blueprint.",
-                image: "/cap-video-ui.jpg",
-                shape: "triangle"
+                image: "/acc-video.jpg",
+                shape: "triangle",
+                bgStyle: {
+                  backgroundImage: 'repeating-linear-gradient(45deg, #00000005 0px, #00000005 1px, transparent 1px, transparent 4px)',
+                  backgroundSize: '100% 100%'
+                }
               }
             ].map((pillar, idx) => {
               const isActive = activePillar === idx;
@@ -302,6 +315,12 @@ export default function Home() {
                       : 'flex-1 bg-[#0A0A0A]'}
                 `}
               >
+                {/* Unique Creative Background (Visible only when active) */}
+                <div 
+                  className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}
+                  style={pillar.bgStyle}
+                ></div>
+
                 {/* Header Section */}
                 <div className="relative z-10 flex justify-between w-full items-start">
                    <div className={`font-mono text-[8px] sm:text-[10px] tracking-[0.2em] uppercase transition-colors duration-500 ${isActive ? 'text-[#90243B]' : 'text-white/40'}`}>
@@ -318,12 +337,22 @@ export default function Home() {
                 
                 {/* Expanded Content (Images & Words) */}
                 <div className={`z-10 flex-1 flex flex-col lg:flex-row justify-center lg:items-center gap-6 lg:gap-12 mt-8 lg:mt-0 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? 'relative opacity-100 translate-y-0' : 'absolute opacity-0 translate-y-8 pointer-events-none invisible'}`}>
-                    <div className="w-full lg:w-1/2 font-sans font-medium text-sm sm:text-base leading-relaxed tracking-tight max-w-sm lg:pr-8">
-                         {pillar.desc}
+                    <div className="w-full lg:w-1/2 flex flex-col items-start lg:pr-8">
+                        <div className="font-sans font-medium text-sm sm:text-base leading-relaxed tracking-tight max-w-sm">
+                             {pillar.desc}
+                        </div>
+                        {/* Brutalist Explore Button */}
+                        <button className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center gap-3 group/btn">
+                          Explore Module 
+                          <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
+                        </button>
                     </div>
-                    <div className="w-full lg:w-1/2 aspect-video lg:aspect-[4/3] relative overflow-hidden border border-[#E5E5E5] p-2 bg-white">
+                    
+                    <div className="w-full lg:w-1/2 aspect-video lg:aspect-[4/3] relative overflow-hidden border border-[#E5E5E5] p-2 bg-white shadow-xl transform transition-transform duration-700 hover:scale-[1.02]">
                          <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A]">
                             <Image src={pillar.image} alt={pillar.title} fill className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500" />
+                            {/* Scanning line animation over image */}
+                            <div className="absolute inset-0 w-full h-[2px] bg-[#90243B]/50 animate-[scan_3s_ease-in-out_infinite]"></div>
                          </div>
                     </div>
                 </div>

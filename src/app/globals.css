@@ -14,6 +14,7 @@
   --animate-shutter-up: shutterUp 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
   --animate-shutter-down: shutterDown 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
   --animate-spin-slow: spinSlow 60s linear infinite;
+  --animate-scan: scan 3s ease-in-out infinite;
 
   @keyframes shutterUp {
     0% { transform: translateY(0); }
@@ -22,6 +23,11 @@
   @keyframes shutterDown {
     0% { transform: translateY(0); }
     100% { transform: translateY(100%); }
+  }
+  @keyframes scan {
+    0% { top: -5%; }
+    50% { top: 105%; }
+    100% { top: -5%; }
   }
   @keyframes spinSlow {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
