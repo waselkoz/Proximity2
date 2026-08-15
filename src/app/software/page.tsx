@@ -86,20 +86,6 @@ export default function SoftwareEngineering() {
   useEffect(() => {
       setFixedHeight(`${window.innerHeight}px`);
   }, []);
-
-  // Spacer ref for accurate scroll tracking
-  const spacerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-      target: spacerRef,
-      offset: ["start start", "end start"]
-  });
-
-  // Scroll animations for the Monolith Curtain
-  const splitTop = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
-  const splitBottom = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const monolithTextOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const monolithTextScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
-
   const toggleFeature = (id: string) => {
     playMechanicalClick();
     setSelectedFeatures(prev => 
