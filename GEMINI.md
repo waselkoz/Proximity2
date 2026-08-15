@@ -15,7 +15,7 @@ These rules apply to all development on the Proximity project. Do not ignore the
 
 ## 3. Design Aesthetic
 
-- **Vibe**: "cooling" design.
+- **Vibe**: be creative and innovate make it spectacular looking with a"cooling" design.
 - **Clarity**: Clear UI/UX environment that intuitively guides the user.
 - **Context**: Proximity is an agency for websites, graphic design, and video editing. The site needs to look professional, premium, and state-of-the-art without being bloated.
   and make sure not use anything that resmble the style of vibe coded apps or websites

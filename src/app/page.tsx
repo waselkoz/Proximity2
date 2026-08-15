@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { playHoverTick, playMechanicalClick } from "../utils/audio";
 
 export default function Home() {
@@ -468,57 +469,77 @@ export default function Home() {
             })}
           </div>
         </section>
-        {/* 5. Full-Screen Terminal Takeover (App-like Mobile Footer) */}
-        <section className="w-full bg-[#90243B] text-white px-5 sm:px-12 py-20 sm:py-32 border-t-8 border-[#0A0A0A] relative min-h-[100dvh] flex flex-col justify-center z-10">
-           
-          <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between gap-16 sm:gap-24 lg:gap-32 w-full">
-            
-            <div className="lg:w-[45%] flex flex-col">
-              <div className="font-mono text-[9px] sm:text-[10px] text-white/30 mb-8 sm:mb-16 uppercase tracking-[0.2em]">
-                 03 // Initiate
-              </div>
-              <h2 className="text-[18vw] sm:text-[14vw] lg:text-[8rem] font-black uppercase tracking-tighter mb-6 sm:mb-12 leading-[0.8] text-[#0A0A0A]">
-                Let's <br/> build.
-              </h2>
-              <a href="mailto:hello@proximity.agency" className="text-lg sm:text-2xl text-white hover:text-[#0A0A0A] transition-colors mb-12 sm:mb-20 border-b-2 border-white/30 hover:border-[#0A0A0A] pb-2 self-start font-black tracking-tighter uppercase break-all">
-                hello@proximity.agency
-              </a>
-              
-              <div className="font-mono text-[8px] sm:text-[9px] text-white/40 uppercase tracking-[0.2em] flex flex-col gap-2 sm:gap-3 hidden sm:flex">
-                <span>Operating Timezone</span>
-                <span className="text-white border border-white/20 px-3 sm:px-4 py-2 self-start bg-transparent">GMT / LONDON — ACTIVE</span>
-              </div>
-            </div>
-
-            {/* Sleek Terminal Form */}
-            <div className="lg:w-[55%] flex flex-col gap-6 sm:gap-10">
-              <div className="flex flex-col gap-2 group">
-                <label className="font-mono text-[8px] sm:text-[9px] text-white/50 uppercase tracking-[0.2em] group-focus-within:text-[#0A0A0A] transition-colors">Name / Organization</label>
-                <input type="text" className="w-full bg-transparent border-b-2 border-white/20 text-xl sm:text-2xl py-3 outline-none focus:border-[#0A0A0A] transition-colors font-black uppercase tracking-tighter text-white placeholder:text-white/30 rounded-none" placeholder="ENTER IDENTITY" />
-              </div>
-              
-              <div className="flex flex-col gap-2 group">
-                <label className="font-mono text-[8px] sm:text-[9px] text-white/50 uppercase tracking-[0.2em] group-focus-within:text-[#0A0A0A] transition-colors">Email Address</label>
-                <input type="email" className="w-full bg-transparent border-b-2 border-white/20 text-xl sm:text-2xl py-3 outline-none focus:border-[#0A0A0A] transition-colors font-black uppercase tracking-tighter text-white placeholder:text-white/30 rounded-none" placeholder="ENTER COMMS LINK" />
-              </div>
-              
-              <div className="flex flex-col gap-2 group">
-                <label className="font-mono text-[8px] sm:text-[9px] text-white/50 uppercase tracking-[0.2em] group-focus-within:text-[#0A0A0A] transition-colors">Project Brief</label>
-                <textarea rows={2} className="w-full bg-transparent border-b-2 border-white/20 text-xl sm:text-2xl py-3 outline-none focus:border-[#0A0A0A] transition-colors font-black uppercase tracking-tighter text-white resize-none placeholder:text-white/30 rounded-none" placeholder="DEFINE DIRECTIVE"></textarea>
-              </div>
-
-              <div className="flex justify-between items-end mt-4 sm:mt-12">
-                <button className="bg-[#0A0A0A] text-white px-8 sm:px-10 py-4 sm:py-5 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-[#0A0A0A] transition-colors flex items-center gap-4 sm:gap-6 group">
-                  Submit
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full flex items-center justify-center group-hover:bg-[#0A0A0A] transition-colors">
-                    <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#0A0A0A] group-hover:text-white transition-transform group-hover:translate-x-[1px]" />
-                  </div>
-                </button>
-              </div>
-            </div>
-            
+        {/* 5. The Monolithic Reveal (Initiate Section) */}
+        <motion.section 
+          className="w-full bg-[#030611] text-white px-5 sm:px-12 py-10 sm:py-20 relative min-h-[100dvh] flex flex-col justify-between overflow-hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          
+          {/* Monolithic Pillars Overlay */}
+          <div className="absolute inset-0 z-50 pointer-events-none flex">
+             {[...Array(6)].map((_, i) => (
+                <motion.div 
+                  key={i}
+                  className="flex-1 bg-black h-[120%] -translate-y-[10%]"
+                  variants={{
+                    hidden: { y: "-10%" },
+                    visible: { 
+                      y: i % 2 === 0 ? "-120%" : "120%", 
+                      transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.1 + (i * 0.08) } 
+                    }
+                  }}
+                />
+             ))}
           </div>
-        </section>
+
+          {/* Footer Content */}
+          <div className="w-full flex justify-between items-start mb-10 sm:mb-20 relative z-10">
+             <div className="font-mono text-[9px] sm:text-[10px] text-white/60 uppercase tracking-[0.2em]">
+                03 // Contact
+             </div>
+             <div className="font-mono text-[9px] sm:text-[10px] text-white uppercase tracking-[0.2em] flex items-center gap-3">
+                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                ACCEPTING NEW CLIENTS
+             </div>
+          </div>
+
+          {/* Typography Header */}
+          <div className="w-full flex items-center mb-16 sm:mb-32 relative group cursor-default">
+             <h2 className="text-[13vw] sm:text-[9rem] lg:text-[11rem] font-black uppercase tracking-tighter leading-[0.8] text-white flex items-end gap-3 sm:gap-6 transition-transform duration-1000 group-hover:translate-x-4">
+               LET'S BUILD.
+               <span className="w-[6vw] h-[10vw] sm:w-[4rem] sm:h-[6.5rem] lg:w-[5rem] lg:h-[8rem] bg-white animate-[pulse_1s_ease-in-out_infinite] inline-block mb-[1vw] sm:mb-[1rem]"></span>
+             </h2>
+          </div>
+
+          {/* Grid Layout for Contact & Form */}
+          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mt-auto">
+             
+             {/* Left: Contact info */}
+             <div className="lg:col-span-5 flex flex-col justify-end border-t lg:border-t-0 lg:border-r border-white/20 pt-10 lg:pt-0 lg:pr-12 relative z-10">
+               <a href="mailto:hello@proximity.agency" className="text-2xl sm:text-4xl text-white hover:text-white/60 transition-colors border-b-[3px] border-white/20 hover:border-white pb-2 self-start font-black tracking-tighter uppercase mb-8">
+                 hello@proximity.agency
+               </a>
+               <div className="font-mono text-[9px] sm:text-[10px] text-white/50 uppercase tracking-[0.2em] flex flex-col gap-2">
+                 <span>Operating HQ // London</span>
+                 <span>Worldwide Remote // Available</span>
+               </div>
+             </div>
+
+             {/* Right: Stripped Form */}
+             <div className="lg:col-span-7 flex flex-col gap-6 w-full lg:pl-12 relative z-10">
+               <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="01 // NAME / ORGANIZATION" />
+               <input type="email" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="02 // EMAIL ADDRESS" />
+               <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="03 // PROJECT DETAILS" />
+               
+               <button className="w-full bg-white text-black py-6 sm:py-8 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#1A233A] hover:text-white transition-colors mt-6">
+                 [ SUBMIT INQUIRY ]
+               </button>
+             </div>
+
+          </div>
+        </motion.section>
 
       </main>
     </div>
