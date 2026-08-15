@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, TerminalSquare } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowRight, Plus, Minus, Check } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 
 // Audio Fallbacks
 const playMechanicalClick = () => {
@@ -18,44 +18,62 @@ const playHoverTick = () => {
   }
 };
 
+const steps = [
+  { num: "01", title: "Audit & Architect", desc: "We analyze the operational payload. We draft the structural blueprint." },
+  { num: "02", title: "Precision Build", desc: "Zero bloat. Engineered to the exact pixel and processing cycle." },
+  { num: "03", title: "Stress Testing", desc: "We break it. We reinforce it. It becomes indestructible." },
+  { num: "04", title: "Deployment", desc: "The platform goes live. Scalable. Perfect." }
+];
+
+const techCategories = [
+  { id: "frontend", label: "FRONT-END", tools: ["Next.js", "React", "Framer Motion", "Tailwind CSS"], reason: "Selected for zero-latency routing and fluid cinematic interactions." },
+  { id: "backend", label: "BACK-END", tools: ["Node.js", "PostgreSQL", "Redis", "Prisma"], reason: "Architected for high-throughput data processing and absolute reliability." },
+  { id: "infrastructure", label: "INFRA", tools: ["Vercel", "AWS", "Docker", "Cloudflare"], reason: "Deployed on edge networks for global micro-second delivery." },
+];
+
+const projectTypes = [
+  { id: "web_app", label: "Web Application", baseTimeline: "6-8 Weeks", basePrice: "$10k+" },
+  { id: "ecommerce", label: "E-Commerce System", baseTimeline: "8-12 Weeks", basePrice: "$15k+" },
+  { id: "marketing", label: "Marketing Platform", baseTimeline: "4-6 Weeks", basePrice: "$8k+" },
+];
+
+const featuresList = [
+  { id: "auth", label: "User Authentication" },
+  { id: "cms", label: "Custom CMS / Database" },
+  { id: "payments", label: "Payment Gateway" },
+  { id: "3d", label: "WebGL / Advanced Motion" },
+];
+
 export default function SoftwareEngineering() {
-  const { scrollY } = useScroll();
+  // Hero Scroll Animation
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
   
-  // 1. Terminal Shatter Transforms (Hero Only)
-  const shatterY = useTransform(scrollY, [0, 800], [0, -300]);
-  const shatterOpacity = useTransform(scrollY, [0, 600], [1, 0]);
-  const shatterScale = useTransform(scrollY, [0, 800], [1, 1.2]);
-  const shatterBlur = useTransform(scrollY, [0, 600], ["blur(0px)", "blur(20px)"]);
+  // The split calculation: starts at 0, moves to 50% / -50% to open the monolith
+  const splitTop = useTransform(heroScroll, [0, 0.4], ["0%", "-51%"]);
+  const splitBottom = useTransform(heroScroll, [0, 0.4], ["0%", "51%"]);
+  const monolithTextOpacity = useTransform(heroScroll, [0, 0.1], [1, 0]);
+  const heroBgOpacity = useTransform(heroScroll, [0.8, 1], [1, 0]);
+
+  // Assembly Line State (Mobile Accordion)
+  const [activeStep, setActiveStep] = useState(0);
+
+  // Arsenal State
+  const [activeTech, setActiveTech] = useState(techCategories[0]);
 
   // Configurator State
-  const [selectedType, setSelectedType] = useState<string>("webapp");
-  const [selectedModules, setSelectedModules] = useState<string[]>([]);
-  
-  const toggleModule = (mod: string) => {
+  const [selectedType, setSelectedType] = useState(projectTypes[0]);
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+
+  const toggleFeature = (id: string) => {
     playMechanicalClick();
-    setSelectedModules(prev => 
-      prev.includes(mod) ? prev.filter(m => m !== mod) : [...prev, mod]
+    setSelectedFeatures(prev => 
+      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
     );
   };
-
-  const commandString = `> build_project --type=${selectedType}${selectedModules.length > 0 ? ` --features=${selectedModules.join(',')}` : ''} --status=ready`;
-
-  // Typewriter effect for Hero
-  const [typedText, setTypedText] = useState("");
-  const fullText = "WE DON'T JUST WRITE CODE. WE ARCHITECT DIGITAL MONOLITHS.";
-  
-  useEffect(() => {
-    let i = 0;
-    const typing = setInterval(() => {
-      if (i < fullText.length) {
-        setTypedText(fullText.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typing);
-      }
-    }, 50);
-    return () => clearInterval(typing);
-  }, []);
 
   return (
     <div className="bg-[#0A0A0A] text-white selection:bg-[#90243B] selection:text-white font-sans overflow-x-hidden min-h-screen">
@@ -71,330 +89,317 @@ export default function SoftwareEngineering() {
           </div>
       </div>
 
-      {/* 1. HERO: THE TERMINAL SHATTER */}
-      <section className="relative w-full h-screen min-h-[600px] flex flex-col justify-center items-center px-5 overflow-hidden bg-[#0A0A0A]">
-        
-        {/* The Text that Shatters */}
-        <motion.div 
-          style={{ y: shatterY, opacity: shatterOpacity, scale: shatterScale, filter: shatterBlur }}
-          className="max-w-[1200px] text-center relative z-10"
-        >
-           <h1 className="text-[clamp(2.5rem,6vw,8rem)] font-black uppercase tracking-tighter leading-[0.85] text-white">
-             {typedText}
-             <span className="inline-block w-[4vw] h-[7vw] bg-[#90243B] animate-pulse ml-2 align-baseline"></span>
-           </h1>
-        </motion.div>
+      {/* 1. HERO: THE MONOLITH SPLIT */}
+      <section ref={heroRef} className="relative w-full h-[200vh] bg-[#0A0A0A]">
+         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+            
+            {/* The Hidden Content (Revealed when Monolith Splits) */}
+            <motion.div style={{ opacity: heroBgOpacity }} className="absolute inset-0 flex flex-col items-center justify-center bg-white text-[#0A0A0A] px-5 text-center z-10 pt-20">
+                <div className="font-mono text-[10px] sm:text-xs text-[#0A0A0A]/40 uppercase tracking-[0.2em] mb-8">
+                  Proximity // Digital Architecture
+                </div>
+                <h2 className="text-[clamp(2.5rem,6vw,7rem)] font-black uppercase tracking-tighter leading-[0.85] max-w-6xl">
+                   We don&apos;t just write code.<br/>We architect <span className="text-white bg-[#0A0A0A] px-2 leading-tight">systems</span> that scale.
+                </h2>
+            </motion.div>
 
-        {/* Ambient Grid */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-30" style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
-          `,
-          backgroundSize: '100px 100px'
-        }}></div>
+            {/* Top Half of Monolith */}
+            <motion.div style={{ y: splitTop }} className="absolute top-0 left-0 w-full h-1/2 bg-[#0A0A0A] flex items-end justify-center overflow-hidden z-20 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+               <motion.h1 style={{ opacity: monolithTextOpacity }} className="text-[15vw] font-black uppercase text-white leading-none translate-y-[50%] tracking-tighter">
+                 DIGITAL
+               </motion.h1>
+               <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20"></div>
+            </motion.div>
+
+            {/* Bottom Half of Monolith */}
+            <motion.div style={{ y: splitBottom }} className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0A0A0A] flex items-start justify-center overflow-hidden z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+               <div className="absolute top-0 left-0 w-full h-[1px] bg-white/20"></div>
+               <motion.h1 style={{ opacity: monolithTextOpacity }} className="text-[15vw] font-black uppercase text-white leading-none -translate-y-[50%] tracking-tighter">
+                 MONOLITH
+               </motion.h1>
+               
+               {/* Scroll Indicator */}
+               <motion.div style={{ opacity: monolithTextOpacity }} className="absolute bottom-12 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
+                   <span>Scroll to Open</span>
+                   <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
+               </motion.div>
+            </motion.div>
+
+         </div>
       </section>
 
-      {/* 2. BESPOKE DELIVERY: STRUCTURAL INTEGRITY (Reliable Grid Layout) */}
-      <section className="relative w-full bg-white text-[#0A0A0A] py-32 px-5 sm:px-12 overflow-hidden border-t-[12px] border-[#90243B]">
-         
-         <div className="max-w-[1400px] mx-auto">
-             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
-                 <div>
-                    <div className="font-mono text-[10px] text-[#0A0A0A]/40 uppercase tracking-[0.2em] mb-4">
-                        02 // Bespoke Delivery
-                    </div>
-                    <h2 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85]">
-                        STRUCTURAL<br/>INTEGRITY.
-                    </h2>
+      {/* 2. BESPOKE DELIVERY: THE STICKY ASSEMBLY LINE */}
+      <section className="relative w-full bg-[#0A0A0A] border-t-[1px] border-white/10">
+         <div className="max-w-[1400px] mx-auto px-5 sm:px-12 py-24 sm:py-40">
+             
+             <div className="mb-20 sm:mb-32">
+                 <div className="font-mono text-[10px] text-[#90243B] uppercase tracking-[0.2em] mb-4">
+                     02 // Bespoke Delivery
                  </div>
-                 <p className="max-w-md text-sm sm:text-base font-medium text-[#0A0A0A]/80 leading-relaxed">
-                     We do not use templates. We do not use off-the-shelf themes. Every system is architected from scratch to ensure maximum performance, security, and conversion rates.
-                 </p>
+                 <h2 className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.85] text-white">
+                     STRUCTURAL<br/>INTEGRITY.
+                 </h2>
              </div>
 
-             {/* 4-Step Grid */}
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                {/* Step 1 */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                  className="bg-[#0A0A0A] text-white p-8 sm:p-12 relative overflow-hidden group shadow-2xl"
-                >
-                   <div className="absolute top-0 right-0 p-8 text-6xl sm:text-8xl font-black text-white/10 group-hover:text-[#90243B]/20 transition-colors duration-500">01</div>
-                   <h3 className="font-mono text-[10px] sm:text-sm text-[#90243B] font-bold uppercase tracking-widest mb-4">Audit & Architect</h3>
-                   <p className="text-xl sm:text-3xl font-medium leading-tight mb-8">We analyze the operational payload. We draft the blueprint.</p>
-                   <div className="w-full h-1 bg-[#1F1F1F] overflow-hidden">
-                       <div className="w-0 h-full bg-[#90243B] group-hover:w-full transition-all duration-1000 ease-out"></div>
-                   </div>
-                </motion.div>
+             {/* Desktop: Sticky Scrolling, Mobile: Accordion */}
+             <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 relative">
+                 
+                 {/* Desktop Sticky Number */}
+                 <div className="hidden lg:flex w-1/3 sticky top-40 h-[60vh] flex-col justify-start">
+                     <AnimatePresence mode="wait">
+                         <motion.div
+                           key={activeStep}
+                           initial={{ opacity: 0, y: 20 }}
+                           animate={{ opacity: 1, y: 0 }}
+                           exit={{ opacity: 0, y: -20 }}
+                           transition={{ duration: 0.3 }}
+                           className="text-[18rem] font-black text-white/10 leading-none tracking-tighter select-none"
+                         >
+                           {steps[activeStep].num}
+                         </motion.div>
+                     </AnimatePresence>
+                 </div>
 
-                {/* Step 2 */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-                  className="bg-[#1F1F1F] text-white p-8 sm:p-12 relative overflow-hidden group shadow-2xl border border-white/5"
-                >
-                   <div className="absolute top-0 right-0 p-8 text-6xl sm:text-8xl font-black text-white/5 group-hover:text-white/20 transition-colors duration-500">02</div>
-                   <h3 className="font-mono text-[10px] sm:text-sm text-white/50 font-bold uppercase tracking-widest mb-4">Precision Build</h3>
-                   <p className="text-xl sm:text-3xl font-medium leading-tight mb-8">Zero bloat. Engineered to the exact pixel and processing cycle.</p>
-                   <div className="w-full h-1 bg-[#0A0A0A] overflow-hidden">
-                       <div className="w-0 h-full bg-white group-hover:w-full transition-all duration-1000 ease-out"></div>
-                   </div>
-                </motion.div>
-
-                {/* Step 3 */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
-                  className="bg-[#90243B] text-white p-8 sm:p-12 relative overflow-hidden group shadow-2xl"
-                >
-                   <div className="absolute top-0 right-0 p-8 text-6xl sm:text-8xl font-black text-black/20 transition-colors duration-500">03</div>
-                   <h3 className="font-mono text-[10px] sm:text-sm text-black font-bold uppercase tracking-widest mb-4">Stress Testing</h3>
-                   <p className="text-xl sm:text-3xl font-medium leading-tight mb-8 text-black">We break it. We reinforce it. It becomes indestructible.</p>
-                   <div className="w-full h-1 bg-black/20 overflow-hidden">
-                       <div className="w-0 h-full bg-black group-hover:w-full transition-all duration-1000 ease-out"></div>
-                   </div>
-                </motion.div>
-
-                {/* Step 4 */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
-                  className="bg-black text-white p-8 sm:p-12 relative overflow-hidden group shadow-2xl border-2 border-white/20"
-                >
-                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full pointer-events-none"></div>
-                   <div className="absolute top-0 right-0 p-8 text-6xl sm:text-8xl font-black text-white/10 group-hover:text-[#90243B]/40 transition-colors duration-500">04</div>
-                   <h3 className="font-mono text-[10px] sm:text-sm text-[#90243B] font-bold uppercase tracking-widest mb-4">Deployment</h3>
-                   <p className="text-xl sm:text-3xl font-medium leading-tight mb-8">The monolith goes live. Scalable. Perfect.</p>
-                   <div className="w-full h-1 bg-white/10 overflow-hidden">
-                       <div className="w-0 h-full bg-[#90243B] group-hover:w-full transition-all duration-1000 ease-out"></div>
-                   </div>
-                </motion.div>
+                 {/* The Steps Content */}
+                 <div className="w-full lg:w-2/3 flex flex-col border-t border-white/10">
+                     {steps.map((step, index) => (
+                         <div 
+                           key={step.num}
+                           className="border-b border-white/10 py-8 sm:py-16 group"
+                           onMouseEnter={() => {
+                               if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+                                   setActiveStep(index);
+                                   playHoverTick();
+                               }
+                           }}
+                         >
+                             <div 
+                               className="flex items-center justify-between cursor-pointer lg:cursor-default"
+                               onClick={() => {
+                                   if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+                                       playMechanicalClick();
+                                       setActiveStep(activeStep === index ? -1 : index);
+                                   }
+                               }}
+                             >
+                                 <h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter group-hover:text-[#90243B] transition-colors duration-300">
+                                     <span className="text-[#90243B] mr-4 lg:hidden">{step.num} //</span>
+                                     {step.title}
+                                 </h3>
+                                 {/* Mobile Toggle Icon */}
+                                 <div className="lg:hidden text-white/50 group-hover:text-white transition-colors">
+                                     {activeStep === index ? <Minus size={24} /> : <Plus size={24} />}
+                                 </div>
+                             </div>
+                             
+                             {/* Content Panel */}
+                             <div className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${activeStep === index || (typeof window !== 'undefined' && window.innerWidth >= 1024 && activeStep === index) ? 'max-h-[500px] opacity-100 mt-6 sm:mt-8' : 'max-h-0 opacity-0'}`}>
+                                 <p className="text-lg sm:text-2xl font-medium text-white/70 max-w-2xl leading-relaxed">
+                                     {step.desc}
+                                 </p>
+                                 <div className="w-full h-[1px] bg-white/10 mt-8 relative overflow-hidden hidden lg:block">
+                                     <div className={`absolute top-0 left-0 h-full bg-[#90243B] transition-all duration-1000 ease-out ${activeStep === index ? 'w-full' : 'w-0'}`}></div>
+                                 </div>
+                             </div>
+                         </div>
+                     ))}
+                 </div>
 
              </div>
          </div>
       </section>
 
-      {/* 3. THE ARSENAL: PARALLAX MATRIX (Reliable Static Grid version for zero layout bugs) */}
-      <section className="relative w-full py-32 bg-[#0A0A0A] overflow-hidden">
-         <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] bg-[size:32px_32px] opacity-10"></div>
-         
+      {/* 3. THE ARSENAL: THE INTERACTIVE DIRECTORY */}
+      <section className="relative w-full py-24 sm:py-40 bg-white text-[#0A0A0A] overflow-hidden">
          <div className="max-w-[1400px] mx-auto px-5 sm:px-12 relative z-10">
-             <div className="text-center mb-20">
-                 <h2 className="text-[clamp(3rem,8vw,8rem)] font-black uppercase tracking-tighter leading-none text-white">
+             
+             <div className="mb-20">
+                 <div className="font-mono text-[10px] text-[#90243B] uppercase tracking-[0.2em] mb-4">
+                     03 // System Specifications
+                 </div>
+                 <h2 className="text-[clamp(3rem,8vw,8rem)] font-black uppercase tracking-tighter leading-none">
                    THE ARSENAL
                  </h2>
-                 <p className="font-mono text-[10px] text-[#90243B] uppercase tracking-[0.2em] mt-4">
-                   System Specifications
-                 </p>
              </div>
 
-             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[
-                  "REACT", "NEXT.JS", "TYPESCRIPT", "TAILWIND",
-                  "PYTHON", "NODE.JS", "POSTGRESQL", "AWS",
-                  "FRAMER", "WEBGL", "THREE.JS", "GSAP"
-                ].map((tech, i) => (
-                   <motion.div 
-                     initial={{ opacity: 0, scale: 0.9 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
-                     viewport={{ once: true }}
-                     transition={{ duration: 0.5, delay: i * 0.05 }}
-                     key={i} 
-                     onMouseEnter={playHoverTick}
-                     className="bg-[#1F1F1F] border border-white/5 aspect-square sm:aspect-auto sm:h-48 flex items-center justify-center p-4 text-center cursor-crosshair group/tech relative overflow-hidden transition-colors duration-500 hover:bg-[#90243B] hover:border-[#90243B]"
-                   >
-                      <div className="absolute inset-0 bg-[#0A0A0A] opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 flex items-center justify-center p-2 sm:p-4">
-                         <div className="w-full h-full border border-white/20 p-2 flex flex-col justify-between">
-                            <div className="font-mono text-[8px] text-white/50 text-left">SYS.{tech.replace(/[^a-zA-Z]/g, '')}</div>
-                            <div className="w-full h-[1px] bg-white/20 relative"><div className="absolute left-0 top-0 h-full bg-white w-1/3 animate-pulse"></div></div>
-                         </div>
-                      </div>
-                      <span className="font-black text-xl sm:text-3xl text-white/30 group-hover/tech:opacity-0 transition-opacity duration-300 break-words w-full">
-                        {tech}
-                      </span>
-                   </motion.div>
-                 ))}
+             <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+                 
+                 {/* Directory Tree */}
+                 <div className="w-full lg:w-1/3 font-mono text-sm sm:text-base border border-[#E5E5E5] bg-[#FAFAFA] p-6 sm:p-8">
+                     <div className="text-[#0A0A0A]/40 mb-6 tracking-widest uppercase">/root/tech_stack/</div>
+                     <div className="flex flex-col gap-4">
+                         {techCategories.map((cat) => (
+                             <button
+                               key={cat.id}
+                               onClick={() => { playMechanicalClick(); setActiveTech(cat); }}
+                               onMouseEnter={playHoverTick}
+                               className={`text-left uppercase tracking-widest flex items-center gap-3 transition-colors ${activeTech.id === cat.id ? 'text-[#90243B] font-bold' : 'text-[#0A0A0A]/60 hover:text-[#0A0A0A]'}`}
+                             >
+                                 <div className={`w-2 h-2 ${activeTech.id === cat.id ? 'bg-[#90243B]' : 'bg-transparent border border-[#0A0A0A]/30'}`}></div>
+                                 [{cat.label}]
+                             </button>
+                         ))}
+                     </div>
+                 </div>
+
+                 {/* Typography Display */}
+                 <div className="w-full lg:w-2/3 flex flex-col justify-center min-h-[300px]">
+                     <AnimatePresence mode="wait">
+                         <motion.div
+                           key={activeTech.id}
+                           initial={{ opacity: 0, x: 20 }}
+                           animate={{ opacity: 1, x: 0 }}
+                           exit={{ opacity: 0, x: -20 }}
+                           transition={{ duration: 0.3 }}
+                           className="flex flex-col"
+                         >
+                             <div className="flex flex-wrap gap-4 sm:gap-6 mb-8">
+                                 {activeTech.tools.map(tool => (
+                                     <span key={tool} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter border-b-4 border-[#0A0A0A] leading-tight">
+                                         {tool}
+                                     </span>
+                                 ))}
+                             </div>
+                             <p className="text-lg sm:text-2xl font-medium text-[#0A0A0A]/70 border-l-2 border-[#90243B] pl-4">
+                                 {activeTech.reason}
+                             </p>
+                         </motion.div>
+                     </AnimatePresence>
+                 </div>
+
              </div>
          </div>
       </section>
 
-      {/* 4. LIVE DEPLOYMENTS: VERTICAL PARALLAX (Replaces buggy horizontal scroll) */}
-      <section className="relative w-full bg-white text-[#0A0A0A] py-32 px-5 sm:px-12 border-t-[12px] border-black">
-        <div className="max-w-[1400px] mx-auto">
-            
-            <div className="font-mono text-[10px] text-[#0A0A0A]/40 uppercase tracking-[0.2em] mb-12 flex items-center gap-4 w-full">
-               <span>04 // Live Deployments</span>
-               <div className="flex-1 h-[1px] bg-[#E5E5E5]"></div>
-            </div>
-
-            <div className="flex flex-col gap-24 sm:gap-48">
-               
-               {/* Project 1 */}
-               <motion.div 
-                 initial={{ opacity: 0, y: 100 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true, margin: "-100px" }}
-                 transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-                 className="flex flex-col lg:flex-row gap-8 lg:gap-20 items-center group"
-               >
-                  <div className="w-full lg:w-3/5 aspect-video bg-[#0A0A0A] border-4 border-[#0A0A0A] relative overflow-hidden shadow-2xl group-hover:shadow-[20px_20px_0px_0px_#90243B] transition-shadow duration-700">
-                     <div className="absolute inset-0 bg-[radial-gradient(#ffffff20_1px,transparent_1px)] bg-[size:16px_16px] opacity-30 group-hover:scale-110 transition-transform duration-[2000ms] ease-out"></div>
-                     <div className="absolute top-4 right-4 bg-[#90243B] text-white font-mono text-[8px] px-2 py-1 uppercase">Operational</div>
-                  </div>
-                  <div className="w-full lg:w-2/5">
-                      <h3 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tighter mb-4 leading-[0.9]">Fintech Monolith</h3>
-                      <div className="font-mono text-[10px] sm:text-[12px] text-[#0A0A0A]/60 uppercase tracking-widest mb-6 border-l-2 border-[#90243B] pl-4">Next.js // Python // Scale: Massive</div>
-                      <p className="text-sm sm:text-base font-medium text-[#0A0A0A]/80 leading-relaxed">
-                         Engineered to handle thousands of concurrent transactions with absolute zero latency. The architecture is built on a distributed microservices network.
-                      </p>
-                  </div>
-               </motion.div>
-
-               {/* Project 2 */}
-               <motion.div 
-                 initial={{ opacity: 0, y: 100 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true, margin: "-100px" }}
-                 transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-                 className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-20 items-center group"
-               >
-                  <div className="w-full lg:w-3/5 aspect-video bg-[#0A0A0A] border-4 border-[#0A0A0A] relative overflow-hidden shadow-2xl group-hover:shadow-[-20px_20px_0px_0px_#1F1F1F] transition-shadow duration-700">
-                     <div className="absolute inset-0 bg-[linear-gradient(45deg,#ffffff10_25%,transparent_25%,transparent_50%,#ffffff10_50%,#ffffff10_75%,transparent_75%,transparent)] bg-[size:32px_32px] opacity-30 group-hover:scale-110 transition-transform duration-[2000ms] ease-out"></div>
-                     <div className="absolute top-4 left-4 bg-white text-black font-mono text-[8px] px-2 py-1 uppercase font-bold">Classified</div>
-                  </div>
-                  <div className="w-full lg:w-2/5 lg:text-right">
-                      <h3 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tighter mb-4 leading-[0.9]">E-Commerce Engine</h3>
-                      <div className="font-mono text-[10px] sm:text-[12px] text-[#0A0A0A]/60 uppercase tracking-widest mb-6 border-r-2 border-[#0A0A0A] pr-4 lg:ml-auto">React // Stripe // Architecture</div>
-                      <p className="text-sm sm:text-base font-medium text-[#0A0A0A]/80 leading-relaxed">
-                         A hyper-optimized storefront capable of rendering massive inventories instantly. Built for extreme conversion rates and flawless user journeys.
-                      </p>
-                  </div>
-               </motion.div>
-
-            </div>
-        </div>
-      </section>
-
-      {/* 5. SERVICES: THE COMMAND LINE CONFIGURATOR */}
-      <section className="w-full bg-[#030611] text-white py-32 sm:py-48 px-5 sm:px-12 border-t border-[#1F1F1F] relative overflow-hidden">
-        
-        {/* Ambient Glow */}
-        <div className="absolute inset-0 pointer-events-none">
-            <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] sm:w-[50vw] sm:h-[50vw] bg-[#90243B] blur-[100px] sm:blur-[250px] rounded-full opacity-20"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            />
-        </div>
-
-        <div className="max-w-[1200px] mx-auto relative z-10 flex flex-col items-center">
+      {/* 4. THE CONFIGURATOR: THE EDITORIAL RECEIPT */}
+      <section className="relative w-full py-24 sm:py-40 bg-[#0A0A0A] overflow-hidden border-t border-white/10">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-12 flex flex-col lg:flex-row gap-16 lg:gap-24 relative z-10">
              
-             <div className="font-mono text-[10px] text-[#90243B] mb-8 uppercase tracking-[0.2em] flex items-center gap-3">
-                <TerminalSquare size={14} />
-                05 // Start Project
-             </div>
-             
-             <h2 className="text-[clamp(2.5rem,6vw,7rem)] font-black uppercase tracking-tighter leading-[0.8] mb-12 sm:mb-20 text-center">
-               CONFIGURE YOUR <br/> <span className="text-[#90243B]">SYSTEM.</span>
-             </h2>
-
-             {/* The Terminal UI */}
-             <div className="w-full max-w-4xl bg-black border border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.8)] font-mono flex flex-col overflow-hidden group/term">
-                 
-                 {/* Terminal Header */}
-                 <div className="w-full bg-white/10 px-4 py-2 flex items-center justify-between border-b border-white/20">
-                     <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-[#90243B]"></div>
-                        <div className="w-3 h-3 rounded-full bg-white/20"></div>
-                        <div className="w-3 h-3 rounded-full bg-white/20"></div>
-                     </div>
-                     <div className="text-[10px] text-white/50 tracking-widest">PROJECT BUILDER // PROXIMITY</div>
+             {/* Left: Configuration Form */}
+             <div className="w-full lg:w-1/2">
+                 <div className="font-mono text-[10px] text-[#90243B] mb-8 uppercase tracking-[0.2em]">
+                    04 // Submit Brief
                  </div>
+                 
+                 <h2 className="text-[clamp(2.5rem,5vw,5rem)] font-black uppercase tracking-tighter leading-[0.85] mb-16">
+                   DEFINE THE <br/> <span className="text-[#90243B]">SCOPE.</span>
+                 </h2>
 
-                 {/* Terminal Body */}
-                 <div className="p-5 sm:p-12 flex flex-col gap-8 sm:gap-10">
-                     
-                     {/* Select Type */}
-                     <div>
-                        <div className="text-[#90243B] text-[10px] sm:text-xs uppercase tracking-widest mb-4">Select Project Type:</div>
-                        <div className="flex flex-wrap gap-2 sm:gap-4">
-                           {["webapp", "ecommerce", "backend", "landing_page"].map((type) => (
-                             <button 
-                               key={type}
+                 {/* Project Type */}
+                 <div className="mb-12">
+                     <h3 className="font-mono text-[10px] sm:text-xs text-white/50 uppercase tracking-widest mb-6">Select Architecture Type</h3>
+                     <div className="flex flex-col gap-3">
+                         {projectTypes.map(type => (
+                             <button
+                               key={type.id}
                                onClick={() => { playMechanicalClick(); setSelectedType(type); }}
                                onMouseEnter={playHoverTick}
-                               className={`px-3 py-2 sm:px-4 sm:py-2 border transition-colors text-[10px] sm:text-xs uppercase tracking-widest
-                                 ${selectedType === type ? 'bg-white text-black border-white font-bold' : 'bg-transparent text-white/50 border-white/20 hover:border-white/50 hover:text-white'}
-                               `}
+                               className={`w-full text-left p-5 border flex justify-between items-center transition-all ${selectedType.id === type.id ? 'border-white bg-white text-black' : 'border-white/20 bg-transparent hover:border-white/50 text-white'}`}
                              >
-                               --{type}
+                                 <span className="font-black uppercase tracking-widest text-sm sm:text-base">{type.label}</span>
+                                 <span className={`font-mono text-[10px] ${selectedType.id === type.id ? 'text-black/60' : 'text-white/40'}`}>[ SELECT ]</span>
                              </button>
-                           ))}
-                        </div>
+                         ))}
                      </div>
+                 </div>
 
-                     {/* Select Modules */}
-                     <div>
-                        <div className="text-[#90243B] text-[10px] sm:text-xs uppercase tracking-widest mb-4">Select Features (Optional):</div>
-                        <div className="flex flex-wrap gap-2 sm:gap-4">
-                           {["auth", "payments", "ai_llm", "websockets", "cms"].map((mod) => {
-                             const isSelected = selectedModules.includes(mod);
+                 {/* Features */}
+                 <div className="mb-12">
+                     <h3 className="font-mono text-[10px] sm:text-xs text-white/50 uppercase tracking-widest mb-6">Select Features (Optional)</h3>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                         {featuresList.map(feature => {
+                             const isSelected = selectedFeatures.includes(feature.id);
                              return (
-                               <button 
-                                 key={mod}
-                                 onClick={() => toggleModule(mod)}
-                                 onMouseEnter={playHoverTick}
-                                 className={`px-3 py-2 sm:px-4 sm:py-2 border transition-colors text-[10px] sm:text-xs uppercase tracking-widest flex items-center gap-2
-                                   ${isSelected ? 'bg-[#90243B]/20 text-[#90243B] border-[#90243B]' : 'bg-transparent text-white/50 border-white/20 hover:border-white/50 hover:text-white'}
-                                 `}
-                               >
-                                 <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${isSelected ? 'bg-[#90243B]' : 'bg-transparent border border-white/50'}`}></div>
-                                 {mod}
-                               </button>
+                                 <button
+                                   key={feature.id}
+                                   onClick={() => toggleFeature(feature.id)}
+                                   onMouseEnter={playHoverTick}
+                                   className={`p-4 border text-left flex items-center gap-4 transition-all ${isSelected ? 'border-[#90243B] bg-[#90243B]/10 text-white' : 'border-white/10 hover:border-white/30 text-white/70'}`}
+                                 >
+                                     <div className={`w-4 h-4 border flex items-center justify-center shrink-0 ${isSelected ? 'border-[#90243B] bg-[#90243B]' : 'border-white/30'}`}>
+                                         {isSelected && <Check size={12} className="text-white" />}
+                                     </div>
+                                     <span className="font-mono text-[10px] uppercase tracking-widest">{feature.label}</span>
+                                 </button>
                              );
-                           })}
-                        </div>
+                         })}
                      </div>
+                 </div>
+                 
+                 {/* Email & Submit */}
+                 <div className="flex flex-col gap-4 mt-8 pt-8 border-t border-white/10">
+                     <input 
+                       type="email" 
+                       placeholder="ENTER YOUR EMAIL ADDRESS" 
+                       className="w-full bg-transparent border-b border-white/20 py-4 font-mono text-sm tracking-widest uppercase text-white outline-none focus:border-white transition-colors" 
+                     />
+                     <button 
+                       onClick={playMechanicalClick} 
+                       className="w-full bg-white text-black py-5 font-black uppercase tracking-[0.3em] text-xs hover:bg-[#90243B] hover:text-white transition-colors flex items-center justify-center gap-4 group mt-4"
+                     >
+                       SUBMIT REQUEST
+                       <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                     </button>
+                 </div>
+             </div>
 
-                     {/* Live Command Output */}
-                     <div className="mt-4 sm:mt-8 pt-4 sm:pt-8 border-t border-white/10">
-                         <div className="text-white/30 text-[10px] uppercase tracking-widest mb-2">Request Summary:</div>
-                         <div className="bg-white/5 p-3 sm:p-4 border border-white/10 text-white font-bold text-[10px] sm:text-sm break-all flex items-center gap-2 sm:gap-3 relative overflow-hidden">
-                            <span className="text-[#90243B] shrink-0">root@proximity:~#</span> 
-                            <span>{commandString}</span>
-                            <span className="inline-block w-1.5 sm:w-2 h-3 sm:h-4 bg-white animate-pulse shrink-0"></span>
+             {/* Right: The Editorial Receipt */}
+             <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                 <div className="w-full max-w-md bg-[#F4F4F4] text-[#0A0A0A] p-8 sm:p-12 shadow-2xl relative rotate-1 hover:rotate-0 transition-transform duration-500">
+                     
+                     {/* Receipt Header */}
+                     <div className="border-b-2 border-[#0A0A0A] pb-6 mb-6 text-center">
+                         <div className="font-black text-2xl uppercase tracking-tighter mb-2">Proximity Studio</div>
+                         <div className="font-mono text-[10px] uppercase tracking-widest opacity-60">Project Scope Estimate</div>
+                         <div className="font-mono text-[10px] mt-4 opacity-40">DATE: {new Date().toLocaleDateString()}</div>
+                     </div>
+                     
+                     {/* Receipt Body */}
+                     <div className="font-mono text-xs uppercase tracking-widest flex flex-col gap-6 mb-12">
+                         <div>
+                             <div className="opacity-50 mb-1">Architecture</div>
+                             <div className="flex justify-between font-bold border-b border-dashed border-[#0A0A0A]/20 pb-1">
+                                 <span>{selectedType.label}</span>
+                             </div>
+                         </div>
+                         
+                         <div>
+                             <div className="opacity-50 mb-1">Features</div>
+                             {selectedFeatures.length === 0 ? (
+                                 <div className="opacity-50 italic">None Selected</div>
+                             ) : (
+                                 selectedFeatures.map(fId => {
+                                     const feature = featuresList.find(f => f.id === fId);
+                                     return (
+                                         <div key={fId} className="flex justify-between border-b border-dashed border-[#0A0A0A]/20 pb-1 mb-2">
+                                             <span>+ {feature?.label}</span>
+                                         </div>
+                                     );
+                                 })
+                             )}
+                         </div>
+                     </div>
+                     
+                     {/* Receipt Footer */}
+                     <div className="border-t-2 border-[#0A0A0A] pt-6 flex flex-col gap-2">
+                         <div className="flex justify-between items-center font-mono text-[10px] uppercase tracking-widest opacity-60">
+                             <span>Est. Timeline</span>
+                             <span>{selectedType.baseTimeline}</span>
+                         </div>
+                         <div className="flex justify-between items-end font-black uppercase mt-4">
+                             <span className="text-sm">Base Value</span>
+                             <span className="text-2xl">{selectedType.basePrice}</span>
+                         </div>
+                         <div className="text-[8px] font-mono uppercase text-center mt-8 opacity-40">
+                             Final scope pending audit.<br/>Thank you for your business.
                          </div>
                      </div>
 
-                     {/* Execute */}
-                     <div className="flex flex-col sm:flex-row gap-4 mt-2 sm:mt-4">
-                         <input 
-                           type="email" 
-                           placeholder="ENTER YOUR EMAIL ADDRESS" 
-                           className="flex-1 bg-transparent border-b border-white/20 py-3 sm:py-4 font-mono text-xs sm:text-sm tracking-widest uppercase text-white outline-none focus:border-[#90243B] transition-colors" 
-                         />
-                         <button 
-                           onClick={playMechanicalClick} 
-                           className="bg-white text-black px-6 sm:px-8 py-3 sm:py-4 font-black uppercase tracking-[0.3em] text-[10px] sm:text-xs hover:bg-[#90243B] hover:text-white transition-colors flex items-center justify-center gap-4 group shrink-0"
-                         >
-                           SUBMIT REQUEST
-                           <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
-                         </button>
-                     </div>
-
+                     {/* Jagged Bottom Edge (CSS trick) */}
+                     <div className="absolute -bottom-2 left-0 w-full h-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBvbHlnb24gcG9pbnRzPSIwLDEwIDUsMCAxMCwxMCIgZmlsbD0iI0Y0RjRGNCIvPjwvc3ZnPg==')] bg-repeat-x"></div>
                  </div>
              </div>
+
         </div>
       </section>
 
