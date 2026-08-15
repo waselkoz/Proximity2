@@ -131,6 +131,12 @@ export default function SoftwareEngineering() {
              </motion.h1>
              {/* Raw Structural Edge */}
              <div className="absolute z-10 bottom-0 left-0 w-full h-[1px] bg-[#90243B]"></div>
+
+             {/* Scroll Indicator (Anchored to the Top Door so it slides UP) */}
+             <motion.div style={{ opacity: monolithTextOpacity }} className="absolute z-20 bottom-12 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
+                 <span>Scroll to Open</span>
+                 <div className="w-[1px] h-12 bg-[#90243B]"></div>
+             </motion.div>
           </motion.div>
 
           {/* Bottom Half of Monolith */}
@@ -149,12 +155,6 @@ export default function SoftwareEngineering() {
              <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL MONOLITH
              </motion.h1>
-          </motion.div>
-
-          {/* Scroll Indicator (Fixed outside doors so it doesn't drop off screen) */}
-          <motion.div style={{ opacity: monolithTextOpacity }} className="absolute z-20 bottom-12 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
-              <span>Scroll to Open</span>
-              <div className="w-[1px] h-12 bg-[#90243B]"></div>
           </motion.div>
       </div>
 
