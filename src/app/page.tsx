@@ -260,37 +260,93 @@ export default function Home() {
           
           <div className="flex flex-col lg:flex-row w-full min-h-[60vh] lg:h-[75vh]">
             {[
-              { num: "01", title: "Websites", label: "Digital Architecture" },
-              { num: "02", title: "Branding", label: "Visual Identity" },
-              { num: "03", title: "Video", label: "Motion Design" }
-            ].map((pillar, idx) => (
+              { 
+                num: "01", 
+                title: "Websites", 
+                label: "Digital Architecture",
+                desc: "We architect high-performance, conversion-optimized digital experiences. Every interaction is calculated. Every millisecond counts.",
+                image: "/cap-website-pc.jpg",
+                shape: "rectangle"
+              },
+              { 
+                num: "02", 
+                title: "Branding", 
+                label: "Visual Identity",
+                desc: "We strip away the noise. We build monolithic brands that command authority through stark contrast and disciplined design systems.",
+                image: "/cap-logo.jpg",
+                shape: "circle"
+              },
+              { 
+                num: "03", 
+                title: "Video", 
+                label: "Motion Design",
+                desc: "Cinematic precision. We construct motion graphics and video edits with the exactness of an architectural blueprint.",
+                image: "/cap-video-ui.jpg",
+                shape: "triangle"
+              }
+            ].map((pillar, idx) => {
+              const isActive = activePillar === idx;
+              const isOtherActive = activePillar !== null && activePillar !== idx;
+              
+              return (
               <div 
                 key={idx}
                 onMouseEnter={() => setActivePillar(idx)}
                 onMouseLeave={() => setActivePillar(null)}
-                onClick={() => setActivePillar(activePillar === idx ? null : idx)}
+                onClick={() => setActivePillar(isActive ? null : idx)}
                 className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden min-h-[140px] sm:min-h-[200px]
-                  ${activePillar === idx 
-                    ? 'flex-[2.5] lg:flex-[2.5] bg-white text-black' 
-                    : activePillar !== null 
+                  ${isActive 
+                    ? 'flex-[3.5] lg:flex-[3.5] bg-white text-black' 
+                    : isOtherActive 
                       ? 'flex-[0.5] lg:flex-[0.5] opacity-50 bg-[#0A0A0A]' 
                       : 'flex-1 bg-[#0A0A0A]'}
                 `}
               >
-                <div className={`font-mono text-[8px] sm:text-[10px] tracking-[0.2em] uppercase transition-colors duration-500 ${activePillar === idx ? 'text-[#90243B]' : 'text-white/40'}`}>
-                  {pillar.num} // {pillar.label}
+                {/* Header Section */}
+                <div className="relative z-10 flex justify-between w-full items-start">
+                   <div className={`font-mono text-[8px] sm:text-[10px] tracking-[0.2em] uppercase transition-colors duration-500 ${isActive ? 'text-[#90243B]' : 'text-white/40'}`}>
+                     {pillar.num} // {pillar.label}
+                   </div>
+                   
+                   {/* Tiny Brutalist Shape Icon */}
+                   <div className={`transition-opacity duration-700 delay-200 ${isActive ? 'opacity-100' : 'opacity-0 hidden'}`}>
+                      {pillar.shape === 'rectangle' && <div className="w-3 h-3 border-2 border-black"></div>}
+                      {pillar.shape === 'circle' && <div className="w-3 h-3 rounded-full border-2 border-black"></div>}
+                      {pillar.shape === 'triangle' && <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-black"></div>}
+                   </div>
                 </div>
                 
-                <div className="w-full flex justify-start">
+                {/* Expanded Content (Images & Words) */}
+                <div className={`z-10 flex-1 flex flex-col lg:flex-row justify-center lg:items-center gap-6 lg:gap-12 mt-8 lg:mt-0 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? 'relative opacity-100 translate-y-0' : 'absolute opacity-0 translate-y-8 pointer-events-none invisible'}`}>
+                    <div className="w-full lg:w-1/2 font-sans font-medium text-sm sm:text-base leading-relaxed tracking-tight max-w-sm lg:pr-8">
+                         {pillar.desc}
+                    </div>
+                    <div className="w-full lg:w-1/2 aspect-video lg:aspect-[4/3] relative overflow-hidden border border-[#E5E5E5] p-2 bg-white">
+                         <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A]">
+                            <Image src={pillar.image} alt={pillar.title} fill className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500" />
+                         </div>
+                    </div>
+                </div>
+
+                {/* Footer Section */}
+                <div className={`w-full flex justify-start relative z-10 transition-all duration-700 ${isActive ? 'mt-8 lg:mt-auto' : 'mt-auto'}`}>
                   <h3 className={`text-4xl sm:text-6xl font-black uppercase tracking-tighter origin-left transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]
-                    ${activePillar === idx ? 'scale-100 lg:scale-[1.8] translate-y-[-5px] sm:translate-y-[-10px]' : 'scale-90 lg:scale-100'}
-                    ${activePillar !== null && activePillar !== idx ? 'scale-75 lg:scale-75 opacity-50' : ''}
+                    ${isActive ? 'scale-100 lg:scale-[1.8] translate-y-[-5px] sm:translate-y-[-10px]' : 'scale-90 lg:scale-100'}
+                    ${isOtherActive ? 'scale-75 lg:scale-75 opacity-50' : ''}
                   `}>
                     {pillar.title}
                   </h3>
                 </div>
+                
+                {/* Background Brutalist Shape Watermark */}
+                <div className={`absolute -right-10 -bottom-10 lg:-right-20 lg:-bottom-20 opacity-[0.03] pointer-events-none transition-all duration-1000 ${isActive ? 'scale-100 rotate-12' : 'scale-50 rotate-0'}`}>
+                   {pillar.shape === 'rectangle' && <div className="w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] border-[40px] border-black"></div>}
+                   {pillar.shape === 'circle' && <div className="w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] rounded-full bg-black"></div>}
+                   {pillar.shape === 'triangle' && <div className="w-0 h-0 border-l-[150px] lg:border-l-[250px] border-l-transparent border-r-[150px] lg:border-r-[250px] border-b-[260px] lg:border-b-[433px] border-b-black"></div>}
+                </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
