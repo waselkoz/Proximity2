@@ -258,7 +258,7 @@ export default function Home() {
              </div>
           </div>
           
-          <div className="flex flex-col lg:flex-row w-full min-h-[60vh] lg:h-[75vh]">
+          <div className="flex flex-col lg:flex-row w-full h-[850px] sm:h-[1000px] lg:h-[75vh]">
             {[
               { 
                 num: "01", 
@@ -321,11 +321,19 @@ export default function Home() {
                      {pillar.num} // {pillar.label}
                    </div>
                    
-                   {/* Tiny Brutalist Shape Icon */}
-                   <div className={`transition-opacity duration-700 delay-200 ${isActive ? 'opacity-100' : 'opacity-0 hidden'}`}>
-                      {pillar.shape === 'rectangle' && <div className="w-3 h-3 border-2 border-black"></div>}
-                      {pillar.shape === 'circle' && <div className="w-3 h-3 rounded-full border-2 border-black"></div>}
-                      {pillar.shape === 'triangle' && <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-black"></div>}
+                   <div className="flex items-center gap-3">
+                     {/* Open Indicator */}
+                     <div className={`flex items-center gap-2 transition-all duration-300 ${isActive ? 'opacity-0 hidden' : 'opacity-100 text-white/40 group-hover:text-white'}`}>
+                       <div className="w-1.5 h-1.5 bg-[#90243B] animate-pulse rounded-full"></div>
+                       <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] uppercase">TAP TO EXPAND</span>
+                     </div>
+                     
+                     {/* Tiny Brutalist Shape Icon */}
+                     <div className={`transition-opacity duration-700 delay-200 ${isActive ? 'opacity-100' : 'opacity-0 hidden'}`}>
+                        {pillar.shape === 'rectangle' && <div className="w-3 h-3 border-2 border-black"></div>}
+                        {pillar.shape === 'circle' && <div className="w-3 h-3 rounded-full border-2 border-black"></div>}
+                        {pillar.shape === 'triangle' && <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-black"></div>}
+                     </div>
                    </div>
                 </div>
                 
