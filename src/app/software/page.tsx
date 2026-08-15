@@ -56,8 +56,8 @@ export default function SoftwareEngineering() {
   });
   
   // The split calculation: starts at 0, completely opens by 0.7
-  const splitTop = useTransform(heroScroll, [0, 0.7], ["0%", "-100%"]);
-  const splitBottom = useTransform(heroScroll, [0, 0.7], ["0%", "100%"]);
+  const splitTop = useTransform(heroScroll, [0, 1], ["0%", "-150%"]);
+  const splitBottom = useTransform(heroScroll, [0, 1], ["0%", "150%"]);
   const monolithTextOpacity = useTransform(heroScroll, [0, 0.3], [1, 0]);
   const monolithTextScale = useTransform(heroScroll, [0, 0.5], [1, 1.1]);
 
