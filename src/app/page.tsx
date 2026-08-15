@@ -385,57 +385,16 @@ export default function Home() {
                     
                     {/* The Living Modules (Pure CSS Interactive Art) */}
                     <div className="w-full lg:w-7/12 h-[200px] lg:h-[400px] relative overflow-hidden bg-[#0A0A0A] shadow-2xl">
-                         {/* 01: Software Engineering (Quantum Core 3D Art) */}
+                         {/* 01: Software Engineering (Clean Image Mockup) */}
                          {pillar.num === "01" && (
-                              <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] p-4 flex flex-col justify-center items-center group/art border border-[#1F1F1F] [perspective:1000px]">
-                                  
-                                  {/* Grid Background */}
-                                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-
-                                  {/* The Quantum Core (Isometric Projection on Hover) */}
-                                  <div className="relative w-[65%] sm:w-[45%] aspect-square transition-all duration-[1500ms] ease-[cubic-bezier(0.76,0,0.24,1)] transform-gpu group-hover/art:[transform:rotateX(60deg)_rotateZ(45deg)_scale(1.1)] border border-white/10 group-hover/art:border-[#90243B]/50 bg-[#0A0A0A]/80 backdrop-blur-md p-2 sm:p-4 grid grid-cols-3 gap-2">
-                                      
-                                      {/* Core Blocks */}
-                                      {[...Array(9)].map((_, i) => (
-                                          <div 
-                                              key={i}
-                                              className={`relative w-full h-full border border-white/5 transition-all duration-1000 overflow-hidden bg-white/5 group-hover/art:bg-[#0A0A0A] ${i === 4 ? 'group-hover/art:border-[#90243B] group-hover/art:bg-[#90243B]/20' : ''}`}
-                                              style={{ transitionDelay: `${i * 100}ms` }}
-                                          >
-                                              {/* Rising Pillar Illusion */}
-                                              <div 
-                                                  className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-white/20 to-transparent transition-all duration-1000 ease-out transform translate-y-full group-hover/art:translate-y-0 ${i === 4 ? 'from-[#90243B]/50' : ''}`}
-                                                  style={{ height: `${40 + (i % 3) * 20}%`, transitionDelay: `${300 + (i * 100)}ms` }}
-                                              ></div>
-                                              
-                                              {/* Data Nodes */}
-                                              {(i === 0 || i === 4 || i === 8) && (
-                                                  <div 
-                                                      className={`absolute top-1 right-1 sm:top-2 sm:right-2 w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-none transition-opacity duration-500 opacity-0 group-hover/art:opacity-100 group-hover/art:animate-pulse ${i === 4 ? 'bg-[#90243B]' : 'bg-white'}`}
-                                                      style={{ transitionDelay: `${1000 + i * 100}ms` }}
-                                                  ></div>
-                                              )}
-                                          </div>
-                                      ))}
-                                      
-                                      {/* Floating Rings */}
-                                      <div className="absolute inset-[-20%] border border-white/5 rounded-full opacity-0 group-hover/art:opacity-100 transition-all duration-[2000ms] group-hover/art:animate-[spin_10s_linear_infinite]"></div>
-                                      <div className="absolute inset-[-40%] border border-dashed border-[#90243B]/20 rounded-full opacity-0 group-hover/art:opacity-100 transition-all duration-[2000ms] delay-300 group-hover/art:animate-[spin_15s_linear_infinite_reverse]"></div>
-                                      
-                                  </div>
-
-                                  {/* HUD Elements */}
-                                  <div className="absolute top-4 left-4 font-mono text-[8px] text-white/30 uppercase flex flex-col gap-1">
-                                      <span>SYS.ENGINEERING</span>
-                                      <span className="text-[#90243B] opacity-0 group-hover/art:opacity-100 transition-opacity duration-500 delay-1000">ISOMETRIC RENDER // ACTIVE</span>
-                                  </div>
-
-                                  <div className="absolute bottom-4 right-4 font-mono text-[8px] text-white/30 uppercase text-right">
-                                      <span>MEMORY: ALLOCATED</span>
-                                      <div className="w-16 h-[1px] bg-white/20 mt-1 relative overflow-hidden ml-auto">
-                                           <div className="absolute top-0 left-0 h-full bg-[#90243B] w-0 group-hover/art:w-full transition-all duration-[2000ms] ease-out delay-500"></div>
-                                      </div>
-                                  </div>
+                              <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] flex items-center justify-center group/art border border-[#1F1F1F]">
+                                 <Image src={pillar.image} alt="Software Engineering Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover opacity-90 group-hover/art:scale-110 group-hover/art:opacity-100 transition-all duration-[3000ms] ease-out" />
+                                 
+                                 {/* Geometric Crop Marks Overlay */}
+                                 <div className="absolute top-6 left-6 w-8 h-8 border-l-2 border-t-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
+                                 <div className="absolute top-6 right-6 w-8 h-8 border-r-2 border-t-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
+                                 <div className="absolute bottom-6 left-6 w-8 h-8 border-l-2 border-b-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
+                                 <div className="absolute bottom-6 right-6 w-8 h-8 border-r-2 border-b-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
                               </div>
                          )}
 
