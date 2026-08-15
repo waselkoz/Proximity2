@@ -7,9 +7,15 @@ export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(true); // Default to true to prevent flash of cursor on mobile SSR
+
   useEffect(() => {
     // Only run on desktop
-    if (window.matchMedia("(max-width: 768px)").matches) return;
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        setIsMobile(true);
+        return;
+    }
+    setIsMobile(false);
 
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -44,10 +50,7 @@ export default function CustomCursor() {
     };
   }, []);
 
-  // Don't render on SSR or mobile
-  if (typeof window !== 'undefined' && window.matchMedia("(max-width: 768px)").matches) {
-      return null;
-  }
+  if (isMobile) return null;
 
   return (
     <>

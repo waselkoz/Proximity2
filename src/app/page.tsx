@@ -296,7 +296,8 @@ export default function Home() {
                 label: "Visual Identity",
                 desc: "We strip away the noise. We build monolithic brands that command authority through stark contrast and disciplined design systems.",
                 image: "/acc-branding-v3.jpg",
-                shape: "circle"
+                shape: "circle",
+                link: "/branding"
               },
               { 
                 num: "03", 
@@ -304,7 +305,8 @@ export default function Home() {
                 label: "Motion Design",
                 desc: "Cinematic precision. We construct motion graphics and video edits with the exactness of an architectural blueprint.",
                 image: "/acc-video.jpg",
-                shape: "triangle"
+                shape: "triangle",
+                link: "/video"
               }
             ].map((pillar, idx) => {
               const isActive = activePillar === idx;
