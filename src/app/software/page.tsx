@@ -108,10 +108,10 @@ export default function SoftwareEngineering() {
       </div>
 
       {/* 1. HERO: THE MONOLITH CURTAIN (Fixed Overlay) */}
-      <div className="fixed inset-0 z-[90] pointer-events-none flex flex-col">
+      <div className="fixed inset-0 z-[90] pointer-events-none">
           
           {/* Top Half of Monolith */}
-          <motion.div style={{ y: splitTop }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-b border-[#1F1F1F] will-change-transform z-10">
+          <motion.div style={{ y: splitTop }} className="absolute top-0 left-0 w-full h-[50%] bg-[#0A0A0A] overflow-hidden border-b border-[#1F1F1F] will-change-transform z-10">
              {/* Native HTML Picture for Bulletproof Mobile Rendering */}
              <div className="absolute top-0 left-0 w-full h-[200%] z-0">
                  <picture className="w-full h-full block">
@@ -128,7 +128,7 @@ export default function SoftwareEngineering() {
           </motion.div>
 
           {/* Bottom Half of Monolith */}
-          <motion.div style={{ y: splitBottom }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-t border-[#1F1F1F] will-change-transform z-10">
+          <motion.div style={{ y: splitBottom }} className="absolute bottom-0 left-0 w-full h-[50%] bg-[#0A0A0A] overflow-hidden border-t border-[#1F1F1F] will-change-transform z-10">
              {/* Native HTML Picture for Bulletproof Mobile Rendering */}
              <div className="absolute bottom-0 left-0 w-full h-[200%] z-0">
                  <picture className="w-full h-full block">
