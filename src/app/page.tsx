@@ -3,6 +3,8 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { playHoverTick, playMechanicalClick } from "../utils/audio";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -203,7 +205,10 @@ export default function Home() {
               >
                 
                 {/* Card 1: Brand Identity (Bottom Left) */}
-                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:-rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-40 rotate-[-10deg] -translate-x-[18vw] lg:-translate-x-[12vw] translate-y-32 lg:translate-y-24 scale-100' : 'z-20 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                <div 
+                  onMouseEnter={playHoverTick}
+                  onClick={playMechanicalClick}
+                  className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:-rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-40 rotate-[-10deg] -translate-x-[18vw] lg:-translate-x-[12vw] translate-y-32 lg:translate-y-24 scale-100' : 'z-20 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
                   <div className="flex justify-between items-center h-[12%] px-1 pb-1">
                     <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Brand Identity</span>
                     <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 001 ]</span>
@@ -217,7 +222,10 @@ export default function Home() {
                 </div>
 
                 {/* Card 2: Website (Hero Top) */}
-                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-10 rotate-[2deg] -translate-y-24 scale-105' : 'z-30 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                <div 
+                  onMouseEnter={playHoverTick}
+                  onClick={playMechanicalClick}
+                  className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-16 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-10 rotate-[2deg] -translate-y-24 scale-105' : 'z-30 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
                   <div className="flex justify-between items-center h-[12%] px-1 pb-1">
                     <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Website</span>
                     <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 002 ]</span>
@@ -231,7 +239,10 @@ export default function Home() {
                 </div>
 
                 {/* Card 3: Video (Pushed Right) */}
-                <div className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-30 rotate-[12deg] translate-x-[30vw] lg:translate-x-[20vw] translate-y-28 lg:translate-y-20 scale-100' : 'z-10 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
+                <div 
+                  onMouseEnter={playHoverTick}
+                  onClick={playMechanicalClick}
+                  className={`group absolute inset-0 w-full h-full bg-white border border-[#E5E5E5] p-2 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:z-50 hover:-translate-y-12 hover:rotate-6 hover:scale-110 cursor-pointer ${deckExpanded ? 'z-30 rotate-[12deg] translate-x-[30vw] lg:translate-x-[20vw] translate-y-28 lg:translate-y-20 scale-100' : 'z-10 rotate-0 translate-x-0 translate-y-0 scale-90'}`}>
                   <div className="flex justify-between items-center h-[12%] px-1 pb-1">
                     <span className="font-black uppercase text-[1rem] leading-none tracking-tighter text-[#0A0A0A]">Video Editing</span>
                     <span className="font-mono text-[9px] tracking-widest text-[#0A0A0A]/40">[ 003 ]</span>
@@ -291,9 +302,9 @@ export default function Home() {
               return (
               <div 
                 key={idx}
-                onMouseEnter={() => setActivePillar(idx)}
+                onMouseEnter={() => { playHoverTick(); setActivePillar(idx); }}
                 onMouseLeave={() => setActivePillar(null)}
-                onClick={() => setActivePillar(isActive ? null : idx)}
+                onClick={() => { playMechanicalClick(); setActivePillar(isActive ? null : idx); }}
                 className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden min-h-[140px] sm:min-h-[200px]
                   ${isActive 
                     ? 'flex-[3.5] lg:flex-[3.5] bg-white text-black' 
@@ -459,14 +470,48 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. Full-Screen Terminal Takeover (App-like Mobile Footer) */}
+        {/* 5. The Redacted Manifesto */}
+        <section className="w-full bg-white text-[#0A0A0A] px-5 sm:px-12 py-32 sm:py-48 border-t border-[#E5E5E5] relative overflow-hidden z-10">
+           <div className="max-w-[1400px] mx-auto flex flex-col items-start lg:items-center">
+             <div className="w-full font-mono text-[9px] sm:text-[10px] text-[#0A0A0A]/40 uppercase tracking-[0.2em] mb-16 lg:text-center">
+                03 // Manifesto
+             </div>
+             
+             <div className="flex flex-col gap-4 sm:gap-6 w-full max-w-5xl">
+                {[
+                  "WE DO NOT BUILD WEBSITES.",
+                  "WE ENGINEER DIGITAL EXPERIENCES.",
+                  "NO TEMPLATES. NO BLOAT.",
+                  "PURE PERFORMANCE AND FORM.",
+                  "WE STRIP AWAY THE NOISE",
+                  "UNTIL ONLY THE TRUTH REMAINS."
+                ].map((line, i) => (
+                  <div key={i} className="relative w-max overflow-hidden group/redact cursor-default">
+                    <h2 className="text-[6.5vw] sm:text-[4rem] lg:text-[5rem] font-black uppercase tracking-tighter leading-[0.85] text-[#0A0A0A]">
+                      {line}
+                    </h2>
+                    {/* The Redaction Bar */}
+                    <motion.div 
+                      className="absolute inset-0 bg-[#0A0A0A] origin-right"
+                      initial={{ scaleX: 1 }}
+                      whileInView={{ scaleX: 0 }}
+                      viewport={{ once: true, margin: "-10%" }}
+                      transition={{ duration: 0.8, delay: i * 0.1, ease: [0.76, 0, 0.24, 1] }}
+                    />
+                  </div>
+                ))}
+             </div>
+           </div>
+        </section>
+
+        {/* 6. Full-Screen Terminal Takeover (App-like Mobile Footer) */}
         <section className="w-full bg-[#0A0A0A] text-white px-5 sm:px-12 py-20 sm:py-32 border-t border-[#1F1F1F] relative min-h-[100dvh] flex flex-col justify-center z-10">
           
           <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between gap-16 sm:gap-24 lg:gap-32 w-full">
             
             <div className="lg:w-[45%] flex flex-col">
               <div className="font-mono text-[9px] sm:text-[10px] text-white/30 mb-8 sm:mb-16 uppercase tracking-[0.2em]">
-                 03 // Initiate
+                 04 // Initiate
               </div>
               <h2 className="text-[18vw] sm:text-[14vw] lg:text-[8rem] font-black uppercase tracking-tighter mb-6 sm:mb-12 leading-[0.8]">
                 Let's <br/> build.
