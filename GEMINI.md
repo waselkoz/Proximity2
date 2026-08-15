@@ -68,5 +68,9 @@ avoid glows and gradients, use solid colors instead
 be as innovative as you can think, come up with ideas that would make the user say wow.
 ##debugging:
 you need to minimize contexte and token usage you go through the whole code base never stoping until you find the issue and fix it then you test again to make sure it is fixed, and you keep doing this until the issue is fixed, and not changing anything else that is working
-think throught of what the user input and try to replicate exactly what he said,
-refrain from using futuristic words
+think throught of what the user input and try to replicate exactly what he said.
+
+## 6. Copywriting & Tone (CRITICAL):
+- **NO FUTURISTIC/SCI-FI JARGON**: Absolutely refrain from using words like "Initiate", "Deploying", "Execute", "Return to Core", "System Active", etc.
+- **Keep it Simple & Standard**: Use standard, universally understandable web terminology (e.g., "Explore Work", "Coming Soon", "Back to Home", "Submit Request").
+- **Professional & Direct**: The tone should be that of a high-end, premium design agency—confident, minimal, and clear.
