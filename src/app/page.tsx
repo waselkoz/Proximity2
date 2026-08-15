@@ -266,24 +266,15 @@ export default function Home() {
                 label: "Digital Architecture",
                 desc: "We architect high-performance, conversion-optimized digital experiences. Every interaction is calculated. Every millisecond counts.",
                 image: "/acc-website.jpg",
-                shape: "rectangle",
-                bgStyle: {
-                  backgroundImage: 'linear-gradient(to right, #00000008 1px, transparent 1px), linear-gradient(to bottom, #00000008 1px, transparent 1px)',
-                  backgroundSize: '40px 40px'
-                }
+                shape: "rectangle"
               },
               { 
                 num: "02", 
                 title: "Branding", 
                 label: "Visual Identity",
                 desc: "We strip away the noise. We build monolithic brands that command authority through stark contrast and disciplined design systems.",
-                image: "/acc-branding.jpg",
-                shape: "circle",
-                bgStyle: {
-                  backgroundImage: 'radial-gradient(#00000010 2px, transparent 2px)',
-                  backgroundSize: '20px 20px',
-                  backgroundPosition: '0 0, 10px 10px'
-                }
+                image: "/acc-branding-v3.jpg",
+                shape: "circle"
               },
               { 
                 num: "03", 
@@ -291,11 +282,7 @@ export default function Home() {
                 label: "Motion Design",
                 desc: "Cinematic precision. We construct motion graphics and video edits with the exactness of an architectural blueprint.",
                 image: "/acc-video.jpg",
-                shape: "triangle",
-                bgStyle: {
-                  backgroundImage: 'repeating-linear-gradient(45deg, #00000005 0px, #00000005 1px, transparent 1px, transparent 4px)',
-                  backgroundSize: '100% 100%'
-                }
+                shape: "triangle"
               }
             ].map((pillar, idx) => {
               const isActive = activePillar === idx;
@@ -316,10 +303,17 @@ export default function Home() {
                 `}
               >
                 {/* Unique Creative Background (Visible only when active) */}
-                <div 
-                  className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}
-                  style={pillar.bgStyle}
-                ></div>
+                <div className={`absolute inset-0 pointer-events-none transition-all duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+                    {pillar.num === "01" && (
+                        <div className="w-full h-full" style={{backgroundImage: 'radial-gradient(#00000015 1px, transparent 1px)', backgroundSize: '24px 24px'}}></div>
+                    )}
+                    {pillar.num === "02" && (
+                        <div className="w-full h-full" style={{backgroundImage: 'linear-gradient(45deg, #00000005 25%, transparent 25%, transparent 50%, #00000005 50%, #00000005 75%, transparent 75%, transparent)', backgroundSize: '64px 64px'}}></div>
+                    )}
+                    {pillar.num === "03" && (
+                        <div className="w-full h-full" style={{backgroundImage: 'linear-gradient(90deg, #0000000A 1px, transparent 1px), linear-gradient(0deg, #0000000A 1px, transparent 1px)', backgroundSize: '100px 100px'}}></div>
+                    )}
+                </div>
 
                 {/* Header Section */}
                 <div className="relative z-10 flex justify-between w-full items-start">
@@ -336,24 +330,109 @@ export default function Home() {
                 </div>
                 
                 {/* Expanded Content (Images & Words) */}
-                <div className={`z-10 flex-1 flex flex-col lg:flex-row justify-center lg:items-center gap-6 lg:gap-12 mt-8 lg:mt-0 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? 'relative opacity-100 translate-y-0' : 'absolute opacity-0 translate-y-8 pointer-events-none invisible'}`}>
-                    <div className="w-full lg:w-1/2 flex flex-col items-start lg:pr-8">
-                        <div className="font-sans font-medium text-sm sm:text-base leading-relaxed tracking-tight max-w-sm">
+                <div className={`z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 mt-8 lg:mt-0 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? 'relative opacity-100 translate-y-0' : 'absolute opacity-0 translate-y-8 pointer-events-none invisible'}`}>
+                    
+                    {/* Words */}
+                    <div className="w-full lg:w-5/12 flex flex-col items-start lg:pr-8">
+                        <div className="font-sans font-medium text-sm sm:text-base lg:text-lg leading-relaxed tracking-tight text-[#0A0A0A]">
                              {pillar.desc}
                         </div>
                         {/* Brutalist Explore Button */}
-                        <button className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center gap-3 group/btn">
+                        <button className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center gap-3 group/btn bg-white">
                           Explore Module 
                           <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
                         </button>
                     </div>
                     
-                    <div className="w-full lg:w-1/2 aspect-video lg:aspect-[4/3] relative overflow-hidden border border-[#E5E5E5] p-2 bg-white shadow-xl transform transition-transform duration-700 hover:scale-[1.02]">
-                         <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A]">
-                            <Image src={pillar.image} alt={pillar.title} fill className="object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500" />
-                            {/* Scanning line animation over image */}
-                            <div className="absolute inset-0 w-full h-[2px] bg-[#90243B]/50 animate-[scan_3s_ease-in-out_infinite]"></div>
-                         </div>
+                    {/* The Living Modules (Pure CSS Interactive Art) */}
+                    <div className="w-full lg:w-7/12 h-[200px] lg:h-[400px] relative overflow-hidden bg-[#0A0A0A] shadow-2xl">
+                         {/* 01: Websites (Architectural DOM) */}
+                         {pillar.num === "01" && (
+                             <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] p-4 lg:p-8 flex flex-col justify-between group/art border border-[#1F1F1F]">
+                                 <div className="w-full flex justify-between items-start relative z-10">
+                                     <div className="w-1/3 h-2 bg-white/20 group-hover/art:w-2/3 transition-all duration-[1500ms] ease-[cubic-bezier(0.76,0,0.24,1)]"></div>
+                                     <div className="w-3 h-3 rounded-none border border-[#90243B] group-hover/art:bg-[#90243B] transition-colors duration-500"></div>
+                                 </div>
+                                 <div className="flex-1 w-full flex items-stretch justify-center gap-2 lg:gap-4 py-6 relative z-10">
+                                     <div className="w-1/3 border border-white/10 group-hover/art:border-white/40 transform -translate-y-4 group-hover/art:translate-y-0 transition-all duration-1000 ease-out bg-white/5"></div>
+                                     <div className="w-2/3 border border-white/10 group-hover/art:border-white/40 relative overflow-hidden bg-white/5 transition-colors duration-1000 delay-100">
+                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-white/30 animate-[scan_3s_ease-in-out_infinite]"></div>
+                                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px)] bg-[size:10px_100%]"></div>
+                                     </div>
+                                 </div>
+                                 <div className="w-full h-1/4 border-t border-white/20 pt-4 flex gap-2 relative z-10">
+                                    <div className="h-full w-1/4 bg-white/10 group-hover/art:bg-white/30 transition-colors duration-700"></div>
+                                    <div className="h-full w-1/2 bg-white/5 group-hover/art:bg-white/20 transition-colors duration-700 delay-100"></div>
+                                    <div className="h-full flex-1 bg-white/5 group-hover/art:bg-white/10 transition-colors duration-700 delay-200"></div>
+                                 </div>
+                                 
+                                 {/* Grid background behind the DOM elements */}
+                                 <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] bg-[size:20px_20px] opacity-20 group-hover/art:opacity-50 transition-opacity duration-1000"></div>
+                             </div>
+                         )}
+
+                         {/* 02: Branding (Hyper-realistic Poster Mockup) */}
+                         {pillar.num === "02" && (
+                             <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] flex items-center justify-center group/art border border-[#1F1F1F]">
+                                <Image src={pillar.image} alt="Branding Design Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover opacity-90 group-hover/art:scale-110 group-hover/art:opacity-100 transition-all duration-[3000ms] ease-out" />
+                                
+                                {/* Geometric Crop Marks Overlay */}
+                                <div className="absolute top-6 left-6 w-8 h-8 border-l-2 border-t-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
+                                <div className="absolute top-6 right-6 w-8 h-8 border-r-2 border-t-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
+                                <div className="absolute bottom-6 left-6 w-8 h-8 border-l-2 border-b-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
+                                <div className="absolute bottom-6 right-6 w-8 h-8 border-r-2 border-b-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
+                                
+                                {/* Subtle vignette */}
+                                <div className="absolute inset-0 bg-[radial-gradient(transparent_50%,#00000099_150%)] pointer-events-none z-0"></div>
+                             </div>
+                         )}
+
+                         {/* 03: Video (Cinematic Timeline) */}
+                         {pillar.num === "03" && (
+                             <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] flex flex-col group/art border border-[#1F1F1F]">
+                                 {/* Timecode overlay */}
+                                 <div className="absolute top-4 lg:top-6 left-4 lg:left-6 font-mono text-[10px] lg:text-xs text-[#90243B] z-20 flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-[#90243B] group-hover/art:animate-ping"></div>
+                                    REC <span className="text-white opacity-80 ml-2 font-light">00:04:23:12</span>
+                                 </div>
+                                 
+                                 {/* Abstract Viewport */}
+                                 <div className="flex-1 flex flex-col w-full relative group-hover/art:scale-105 transition-transform duration-[2000ms] ease-out">
+                                    <div className="absolute inset-0 flex">
+                                        <div className="w-1/2 h-full bg-[#111]"></div>
+                                        <div className="w-1/2 h-full bg-[#1a1a1a]"></div>
+                                    </div>
+                                    <div className="absolute inset-0 flex items-center justify-center mix-blend-overlay opacity-30">
+                                         <div className="w-[80%] h-[80%] border border-white rounded-full"></div>
+                                         <div className="w-full h-[1px] absolute top-1/2 bg-white"></div>
+                                         <div className="h-full w-[1px] absolute left-1/2 bg-white"></div>
+                                    </div>
+                                 </div>
+                                 
+                                 {/* Timeline UI */}
+                                 <div className="h-[35%] lg:h-1/3 w-full bg-[#111] border-t border-[#333] relative flex flex-col z-10">
+                                     <div className="w-full h-4 border-b border-[#333] bg-[#0A0A0A] flex">
+                                         {Array.from({ length: 20 }).map((_, i) => (
+                                             <div key={i} className="flex-1 border-r border-[#222]"></div>
+                                         ))}
+                                     </div>
+                                     <div className="flex-1 flex items-end relative overflow-hidden">
+                                         {Array.from({ length: 40 }).map((_, i) => (
+                                             <div key={i} className="flex-1 border-r border-[#222] h-full relative">
+                                                <div 
+                                                    className="absolute bottom-0 w-full bg-white/20 hover:bg-white/40 transition-colors" 
+                                                    style={{height: `${Math.random() * 60 + 20}%`}}>
+                                                </div>
+                                             </div>
+                                         ))}
+                                         {/* Playhead */}
+                                         <div className="absolute top-0 left-1/4 w-[2px] h-full bg-[#90243B] group-hover/art:left-[80%] transition-all duration-[3000ms] ease-in-out shadow-[0_0_10px_#90243B]">
+                                            <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#90243B] absolute -top-2 -left-[5px]"></div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         )}
                     </div>
                 </div>
 
@@ -365,13 +444,6 @@ export default function Home() {
                   `}>
                     {pillar.title}
                   </h3>
-                </div>
-                
-                {/* Background Brutalist Shape Watermark */}
-                <div className={`absolute -right-10 -bottom-10 lg:-right-20 lg:-bottom-20 opacity-[0.03] pointer-events-none transition-all duration-1000 ${isActive ? 'scale-100 rotate-12' : 'scale-50 rotate-0'}`}>
-                   {pillar.shape === 'rectangle' && <div className="w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] border-[40px] border-black"></div>}
-                   {pillar.shape === 'circle' && <div className="w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] rounded-full bg-black"></div>}
-                   {pillar.shape === 'triangle' && <div className="w-0 h-0 border-l-[150px] lg:border-l-[250px] border-l-transparent border-r-[150px] lg:border-r-[250px] border-b-[260px] lg:border-b-[433px] border-b-black"></div>}
                 </div>
               </div>
               );
