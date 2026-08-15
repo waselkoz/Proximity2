@@ -113,8 +113,14 @@ export default function SoftwareEngineering() {
           {/* Top Half of Monolith */}
           <motion.div 
              style={{ y: splitTop }} 
-             className="absolute top-0 left-0 w-full h-[50%] overflow-hidden border-b border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A] bg-[url('/monolith-bg-mobile.jpg')] sm:bg-[url('/monolith-bg-v2.jpg')] bg-[length:100%_200%] bg-top bg-no-repeat"
+             className="absolute top-0 left-0 w-full h-[50%] overflow-hidden border-b border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A]"
           >
+             {/* Desktop Image (Inline Style to bypass Tailwind Compiler & Cache Bugs) */}
+             <div className="hidden sm:block absolute inset-0 z-0 pointer-events-none opacity-40" style={{ backgroundImage: "url('/monolith-bg-v2.jpg')", backgroundSize: "100% 200%", backgroundPosition: "top center" }}></div>
+             
+             {/* Mobile Image (Inline Style) */}
+             <div className="block sm:hidden absolute inset-0 z-0 pointer-events-none opacity-40" style={{ backgroundImage: "url('/monolith-bg-mobile.jpg')", backgroundSize: "100% 200%", backgroundPosition: "top center" }}></div>
+
              {/* Dark overlay to match opacity */}
              <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
              
@@ -128,8 +134,14 @@ export default function SoftwareEngineering() {
           {/* Bottom Half of Monolith */}
           <motion.div 
              style={{ y: splitBottom }} 
-             className="absolute bottom-0 left-0 w-full h-[50%] overflow-hidden border-t border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A] bg-[url('/monolith-bg-mobile.jpg')] sm:bg-[url('/monolith-bg-v2.jpg')] bg-[length:100%_200%] bg-bottom bg-no-repeat"
+             className="absolute bottom-0 left-0 w-full h-[50%] overflow-hidden border-t border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A]"
           >
+             {/* Desktop Image (Inline Style to bypass Tailwind Compiler & Cache Bugs) */}
+             <div className="hidden sm:block absolute inset-0 z-0 pointer-events-none opacity-40" style={{ backgroundImage: "url('/monolith-bg-v2.jpg')", backgroundSize: "100% 200%", backgroundPosition: "bottom center" }}></div>
+             
+             {/* Mobile Image (Inline Style) */}
+             <div className="block sm:hidden absolute inset-0 z-0 pointer-events-none opacity-40" style={{ backgroundImage: "url('/monolith-bg-mobile.jpg')", backgroundSize: "100% 200%", backgroundPosition: "bottom center" }}></div>
+
              {/* Dark overlay to match opacity */}
              <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
 
