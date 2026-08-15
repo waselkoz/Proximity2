@@ -111,14 +111,12 @@ export default function SoftwareEngineering() {
       <div className="fixed inset-0 z-[90] pointer-events-none">
           
           {/* Top Half of Monolith */}
-          <motion.div style={{ y: splitTop }} className="absolute top-0 left-0 w-full h-[50%] bg-[#0A0A0A] overflow-hidden border-b border-[#1F1F1F] will-change-transform z-10">
-             {/* Native HTML Picture for Bulletproof Mobile Rendering */}
-             <div className="absolute top-0 left-0 w-full h-[200%] z-0">
-                 <picture className="w-full h-full block">
-                     <source media="(min-width: 640px)" srcSet="/monolith-bg-v2.jpg" />
-                     <img src="/monolith-bg-mobile.jpg" alt="Monolith Background" className="w-full h-full object-cover opacity-40" />
-                 </picture>
-             </div>
+          <motion.div 
+             style={{ y: splitTop }} 
+             className="absolute top-0 left-0 w-full h-[50%] overflow-hidden border-b border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A] bg-[url('/monolith-bg-mobile.jpg')] sm:bg-[url('/monolith-bg-v2.jpg')] bg-[length:100%_200%] bg-top bg-no-repeat"
+          >
+             {/* Dark overlay to match opacity */}
+             <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
              
              <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL MONOLITH
@@ -128,14 +126,12 @@ export default function SoftwareEngineering() {
           </motion.div>
 
           {/* Bottom Half of Monolith */}
-          <motion.div style={{ y: splitBottom }} className="absolute bottom-0 left-0 w-full h-[50%] bg-[#0A0A0A] overflow-hidden border-t border-[#1F1F1F] will-change-transform z-10">
-             {/* Native HTML Picture for Bulletproof Mobile Rendering */}
-             <div className="absolute bottom-0 left-0 w-full h-[200%] z-0">
-                 <picture className="w-full h-full block">
-                     <source media="(min-width: 640px)" srcSet="/monolith-bg-v2.jpg" />
-                     <img src="/monolith-bg-mobile.jpg" alt="Monolith Background" className="w-full h-full object-cover opacity-40" />
-                 </picture>
-             </div>
+          <motion.div 
+             style={{ y: splitBottom }} 
+             className="absolute bottom-0 left-0 w-full h-[50%] overflow-hidden border-t border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A] bg-[url('/monolith-bg-mobile.jpg')] sm:bg-[url('/monolith-bg-v2.jpg')] bg-[length:100%_200%] bg-bottom bg-no-repeat"
+          >
+             {/* Dark overlay to match opacity */}
+             <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
 
              {/* Raw Structural Edge */}
              <div className="absolute z-10 top-0 left-0 w-full h-[1px] bg-[#90243B]"></div>
