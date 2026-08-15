@@ -6,7 +6,7 @@ import { SiNextdotjs, SiReact, SiFramer, SiTailwindcss, SiNodedotjs, SiPostgresq
 import { FaAws } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // Audio Fallbacks
 const playMechanicalClick = () => {
@@ -79,12 +79,18 @@ export default function SoftwareEngineering() {
   // Configurator State
   const [selectedType, setSelectedType] = useState(projectTypes[0]);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const toggleFeature = (id: string) => {
     playMechanicalClick();
     setSelectedFeatures(prev => 
       prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
     );
+  };
+
+  const handleSubmit = () => {
+    playMechanicalClick();
+    setIsSubmitted(true);
   };
 
   return (
@@ -481,70 +487,98 @@ export default function SoftwareEngineering() {
                        className="w-full bg-transparent border-b border-white/20 py-4 font-mono text-sm tracking-widest uppercase text-white outline-none focus:border-white transition-colors" 
                      />
                      <button 
-                       onClick={playMechanicalClick} 
-                       className="w-full bg-white text-black py-5 font-black uppercase tracking-[0.3em] text-xs hover:bg-[#90243B] hover:text-white transition-colors flex items-center justify-center gap-4 group mt-4"
+                       onClick={handleSubmit} 
+                       disabled={isSubmitted}
+                       className="w-full bg-white text-black py-5 font-black uppercase tracking-[0.3em] text-xs hover:bg-[#90243B] hover:text-white transition-colors flex items-center justify-center gap-4 group mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                      >
-                       SUBMIT REQUEST
-                       <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                       {isSubmitted ? "PROCESSING..." : "SUBMIT REQUEST"}
+                       {!isSubmitted && <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />}
                      </button>
                  </div>
              </div>
 
              {/* Right: The Editorial Receipt */}
-             <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-                 <div className="w-full max-w-md bg-[#F4F4F4] text-[#0A0A0A] p-8 sm:p-12 shadow-2xl relative rotate-1 hover:rotate-0 transition-transform duration-500">
-                     
-                     {/* Receipt Header */}
-                     <div className="border-b-2 border-[#0A0A0A] pb-6 mb-6 text-center">
-                         <div className="font-black text-2xl uppercase tracking-tighter mb-2">Proximity Studio</div>
-                         <div className="font-mono text-[10px] uppercase tracking-widest opacity-60">Project Scope Estimate</div>
-                         <div className="font-mono text-[10px] mt-4 opacity-40">DATE: ACTIVE SESSION</div>
-                     </div>
-                     
-                     {/* Receipt Body */}
-                     <div className="font-mono text-xs uppercase tracking-widest flex flex-col gap-6 mb-12">
-                         <div>
-                             <div className="opacity-50 mb-1">Architecture</div>
-                             <div className="flex justify-between font-bold border-b border-dashed border-[#0A0A0A]/20 pb-1">
-                                 <span>{selectedType.label}</span>
-                             </div>
-                         </div>
-                         
-                         <div>
-                             <div className="opacity-50 mb-1">Features</div>
-                             {selectedFeatures.length === 0 ? (
-                                 <div className="opacity-50 italic">None Selected</div>
-                             ) : (
-                                 selectedFeatures.map(fId => {
-                                     const feature = featuresList.find(f => f.id === fId);
-                                     return (
-                                         <div key={fId} className="flex justify-between border-b border-dashed border-[#0A0A0A]/20 pb-1 mb-2">
-                                             <span>+ {feature?.label}</span>
-                                         </div>
-                                     );
-                                 })
-                             )}
-                         </div>
-                     </div>
-                     
-                     {/* Receipt Footer */}
-                     <div className="border-t-2 border-[#0A0A0A] pt-6 flex flex-col gap-2">
-                         <div className="flex justify-between items-center font-mono text-[10px] uppercase tracking-widest opacity-60">
-                             <span>Est. Timeline</span>
-                             <span>{selectedType.baseTimeline}</span>
-                         </div>
-                         <div className="flex justify-between items-end font-black uppercase mt-4">
-                             <span className="text-sm">Base Value</span>
-                             <span className="text-2xl">{selectedType.basePrice}</span>
-                         </div>
-                         <div className="text-[8px] font-mono uppercase text-center mt-8 opacity-40">
-                             Final scope pending audit.<br/>Thank you for your business.
-                         </div>
-                     </div>
+             <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative min-h-[500px]" style={{ perspective: "1000px" }}>
+                 <AnimatePresence mode="wait">
+                    {!isSubmitted ? (
+                        <motion.div 
+                            key="receipt"
+                            exit={{ rotateX: 90, opacity: 0, y: -50 }}
+                            style={{ transformOrigin: "top" }}
+                            transition={{ duration: 0.4, ease: "easeIn" }}
+                            className="w-full max-w-md bg-[#F4F4F4] text-[#0A0A0A] p-8 sm:p-12 shadow-2xl relative rotate-1"
+                        >
+                            {/* Receipt Header */}
+                            <div className="border-b-2 border-[#0A0A0A] pb-6 mb-6 text-center">
+                                <div className="font-black text-2xl uppercase tracking-tighter mb-2">Proximity Studio</div>
+                                <div className="font-mono text-[10px] uppercase tracking-widest opacity-60">Project Scope Estimate</div>
+                                <div className="font-mono text-[10px] mt-4 opacity-40">DATE: ACTIVE SESSION</div>
+                            </div>
+                            
+                            {/* Receipt Body */}
+                            <div className="font-mono text-xs uppercase tracking-widest flex flex-col gap-6 mb-12">
+                                <div>
+                                    <div className="opacity-50 mb-1">Architecture</div>
+                                    <div className="flex justify-between font-bold border-b border-dashed border-[#0A0A0A]/20 pb-1">
+                                        <span>{selectedType.label}</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div className="opacity-50 mb-1">Features</div>
+                                    {selectedFeatures.length === 0 ? (
+                                        <div className="opacity-50 italic">None Selected</div>
+                                    ) : (
+                                        selectedFeatures.map(fId => {
+                                            const feature = featuresList.find(f => f.id === fId);
+                                            return (
+                                                <div key={fId} className="flex justify-between border-b border-dashed border-[#0A0A0A]/20 pb-1 mb-2">
+                                                    <span>+ {feature?.label}</span>
+                                                </div>
+                                            );
+                                        })
+                                    )}
+                                </div>
+                            </div>
+                            
+                            {/* Receipt Footer */}
+                            <div className="border-t-2 border-[#0A0A0A] pt-6 flex flex-col gap-2">
+                                <div className="flex justify-between items-center font-mono text-[10px] uppercase tracking-widest opacity-60">
+                                    <span>Est. Timeline</span>
+                                    <span>{selectedType.baseTimeline}</span>
+                                </div>
+                                <div className="flex justify-between items-end font-black uppercase mt-4">
+                                    <span className="text-sm">Base Value</span>
+                                    <span className="text-2xl">{selectedType.basePrice}</span>
+                                </div>
+                                <div className="text-[8px] font-mono uppercase text-center mt-8 opacity-40">
+                                    Final scope pending audit.<br/>Thank you for your business.
+                                </div>
+                            </div>
 
-                     {/* Jagged Bottom Edge (CSS trick) */}
-                     <div className="absolute -bottom-2 left-0 w-full h-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBvbHlnb24gcG9pbnRzPSIwLDEwIDUsMCAxMCwxMCIgZmlsbD0iI0Y0RjRGNCIvPjwvc3ZnPg==')] bg-repeat-x"></div>
-                 </div>
+                            {/* Jagged Bottom Edge (CSS trick) */}
+                            <div className="absolute -bottom-2 left-0 w-full h-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBvbHlnb24gcG9pbnRzPSIwLDEwIDUsMCAxMCwxMCIgZmlsbD0iI0Y0RjRGNCIvPjwvc3ZnPg==')] bg-repeat-x"></div>
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="success"
+                            initial={{ rotateX: -90, opacity: 0, y: -50 }}
+                            animate={{ rotateX: 0, opacity: 1, y: 0 }}
+                            style={{ transformOrigin: "top" }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                            className="w-full max-w-md flex flex-col items-center justify-center border border-white/20 bg-white/5 p-12 text-center relative z-10 backdrop-blur-md"
+                        >
+                            <div className="w-16 h-16 bg-[#90243B] mb-8 flex items-center justify-center">
+                                <Check size={32} className="text-white" />
+                            </div>
+                            <h3 className="text-3xl font-black uppercase tracking-tighter mb-4 leading-none">REQUEST<br/>SECURED.</h3>
+                            <div className="w-full h-[1px] bg-[#90243B] mb-4"></div>
+                            <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 leading-relaxed">
+                                OUR SYSTEMS ARE PROCESSING YOUR BRIEF.<br/>A REPRESENTATIVE WILL CONTACT YOU.
+                            </p>
+                        </motion.div>
+                    )}
+                 </AnimatePresence>
              </div>
 
         </div>
