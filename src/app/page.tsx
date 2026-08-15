@@ -101,7 +101,7 @@ export default function Home() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
             <span className="relative inline-flex rounded-full h-1 w-1 sm:h-1.5 sm:w-1.5 bg-white"></span>
           </div>
-          <span className="opacity-80">System Active</span>
+          <span className="opacity-80">Online</span>
         </div>
       </nav>
 
@@ -138,10 +138,6 @@ export default function Home() {
             <Image src="/motion.jpg" alt="Cinematic Motion" fill className="object-cover contrast-150 saturate-200" priority />
             <div className="absolute inset-0 bg-black/40"></div>
           </div>
-
-          <div className="font-mono text-[9px] sm:text-[10px] mb-8 sm:mb-16 tracking-[0.2em] uppercase py-1.5 border-l-2 pl-3 sm:pl-4 relative z-10 text-white border-white mix-blend-difference">
-            [ PROXIMITY — DIGITAL ATELIER ]
-          </div>
           
           {/* Static, Massive, High-Contrast Typography */}
           <h1 className="text-[14vw] sm:text-[6.5rem] lg:text-[8rem] font-black tracking-tighter leading-[0.85] sm:leading-[0.85] mb-12 sm:mb-16 max-w-6xl uppercase break-words relative z-10 mix-blend-difference text-white">
@@ -151,7 +147,7 @@ export default function Home() {
           </h1>
           
           <button className="group flex items-center gap-4 sm:gap-6 pb-2 sm:pb-3 border-b-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] pr-2 sm:pr-4 relative z-10 text-white border-white mix-blend-difference">
-            <span>Initiate Sequence</span>
+            <span>Explore Work</span>
             <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center bg-white group-hover:bg-[#90243B] transition-colors">
               <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black group-hover:text-white transition-transform group-hover:translate-x-[1px]" />
             </div>
@@ -159,8 +155,8 @@ export default function Home() {
           
           {/* Mechanical Engine Indicator */}
           <div className="absolute bottom-12 left-5 sm:left-12 font-mono text-[8px] tracking-[0.3em] text-white/50 mix-blend-difference uppercase flex gap-4 pointer-events-none">
-            <span>Engine: ACTIVE</span>
-            <span>Index: 0{activeBgIndex + 1}</span>
+            <span>Status: Online</span>
+            <span>View: 0{activeBgIndex + 1}</span>
           </div>
 
         </section>

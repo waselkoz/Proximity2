@@ -30,7 +30,7 @@ These rules apply to all development on the Proximity project. Do not ignore the
    - Typography: Bold neo-grotesque sans-serif for headings (e.g., Neue Montreal / General Sans style) paired with refined monospace micro-details for metadata and labels.
 
 2. Structure & Sections to Include:
-   - Hero Section: High-impact typography, crisp contrast, micro-label "[ PROXIMITY — DIGITAL ATELIER ]", clear positioning statement: "We craft websites, visual identities, and cinematic motion for brands that value precision.", and a discrete crimson-accented CTA button.
+   - Hero Section: High-impact typography, crisp contrast, micro-label , clear positioning statement: "We craft websites, visual identities, and cinematic motion for brands that value precision.", and a discrete crimson-accented CTA button.
    - Selected Works (Portfolio Grid): Asymmetric, editorial showcase cards featuring project visuals/stills, discipline metadata tags, client name, and a one-sentence impact statement.
    - Core Disciplines (Services): Minimal, scannable 3-pillar breakdown (01 Digital Experiences, 02 Visual Identity & Graphics, 03 Motion & Cinematic Editing).
    - 3-Step Process: Streamlined engagement workflow (Audit & Strategy -> Design & Production -> Delivery).

@@ -38,7 +38,7 @@ export default function SoftwareEngineering() {
     );
   };
 
-  const commandString = `> initiate_build --type=${selectedType}${selectedModules.length > 0 ? ` --modules=${selectedModules.join(',')}` : ''} --status=ready`;
+  const commandString = `> build_project --type=${selectedType}${selectedModules.length > 0 ? ` --features=${selectedModules.join(',')}` : ''} --status=ready`;
 
   // Typewriter effect for Hero
   const [typedText, setTypedText] = useState("");
@@ -64,10 +64,10 @@ export default function SoftwareEngineering() {
       <div className="fixed top-10 left-5 sm:left-12 z-[100] flex justify-between w-[calc(100%-40px)] sm:w-[calc(100%-96px)] pointer-events-none">
           <Link href="/" onClick={playMechanicalClick} onMouseEnter={playHoverTick} className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase hover:text-[#90243B] transition-colors flex items-center gap-2 group bg-black/80 backdrop-blur-md px-4 py-2 border border-[#1F1F1F]">
             <div className="w-1.5 h-1.5 bg-[#90243B] rounded-full animate-pulse"></div>
-            [ Return to Core ]
+            [ Back to Home ]
           </Link>
           <div className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase text-[#90243B] bg-black/80 backdrop-blur-md px-4 py-2 border border-[#1F1F1F] hidden sm:block">
-            SYS.ENGINEERING // ONLINE
+            Service // Software Engineering
           </div>
       </div>
 
@@ -302,7 +302,7 @@ export default function SoftwareEngineering() {
              
              <div className="font-mono text-[10px] text-[#90243B] mb-8 uppercase tracking-[0.2em] flex items-center gap-3">
                 <TerminalSquare size={14} />
-                05 // Initiate Request
+                05 // Start Project
              </div>
              
              <h2 className="text-[clamp(2.5rem,6vw,7rem)] font-black uppercase tracking-tighter leading-[0.8] mb-12 sm:mb-20 text-center">
@@ -319,7 +319,7 @@ export default function SoftwareEngineering() {
                         <div className="w-3 h-3 rounded-full bg-white/20"></div>
                         <div className="w-3 h-3 rounded-full bg-white/20"></div>
                      </div>
-                     <div className="text-[10px] text-white/50 tracking-widest">BASH // PROXIMITY_CLI</div>
+                     <div className="text-[10px] text-white/50 tracking-widest">PROJECT BUILDER // PROXIMITY</div>
                  </div>
 
                  {/* Terminal Body */}
@@ -327,7 +327,7 @@ export default function SoftwareEngineering() {
                      
                      {/* Select Type */}
                      <div>
-                        <div className="text-[#90243B] text-[10px] sm:text-xs uppercase tracking-widest mb-4">{'>>'} Select Core Architecture:</div>
+                        <div className="text-[#90243B] text-[10px] sm:text-xs uppercase tracking-widest mb-4">Select Project Type:</div>
                         <div className="flex flex-wrap gap-2 sm:gap-4">
                            {["webapp", "ecommerce", "backend", "landing_page"].map((type) => (
                              <button 
@@ -346,7 +346,7 @@ export default function SoftwareEngineering() {
 
                      {/* Select Modules */}
                      <div>
-                        <div className="text-[#90243B] text-[10px] sm:text-xs uppercase tracking-widest mb-4">{'>>'} Inject Modules (Optional):</div>
+                        <div className="text-[#90243B] text-[10px] sm:text-xs uppercase tracking-widest mb-4">Select Features (Optional):</div>
                         <div className="flex flex-wrap gap-2 sm:gap-4">
                            {["auth", "payments", "ai_llm", "websockets", "cms"].map((mod) => {
                              const isSelected = selectedModules.includes(mod);
@@ -369,7 +369,7 @@ export default function SoftwareEngineering() {
 
                      {/* Live Command Output */}
                      <div className="mt-4 sm:mt-8 pt-4 sm:pt-8 border-t border-white/10">
-                         <div className="text-white/30 text-[10px] uppercase tracking-widest mb-2">Live Command String:</div>
+                         <div className="text-white/30 text-[10px] uppercase tracking-widest mb-2">Request Summary:</div>
                          <div className="bg-white/5 p-3 sm:p-4 border border-white/10 text-white font-bold text-[10px] sm:text-sm break-all flex items-center gap-2 sm:gap-3 relative overflow-hidden">
                             <span className="text-[#90243B] shrink-0">root@proximity:~#</span> 
                             <span>{commandString}</span>
@@ -381,14 +381,14 @@ export default function SoftwareEngineering() {
                      <div className="flex flex-col sm:flex-row gap-4 mt-2 sm:mt-4">
                          <input 
                            type="email" 
-                           placeholder="ENTER COMMS LINK (EMAIL)" 
+                           placeholder="ENTER YOUR EMAIL ADDRESS" 
                            className="flex-1 bg-transparent border-b border-white/20 py-3 sm:py-4 font-mono text-xs sm:text-sm tracking-widest uppercase text-white outline-none focus:border-[#90243B] transition-colors" 
                          />
                          <button 
                            onClick={playMechanicalClick} 
                            className="bg-white text-black px-6 sm:px-8 py-3 sm:py-4 font-black uppercase tracking-[0.3em] text-[10px] sm:text-xs hover:bg-[#90243B] hover:text-white transition-colors flex items-center justify-center gap-4 group shrink-0"
                          >
-                           EXECUTE
+                           SUBMIT REQUEST
                            <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
                          </button>
                      </div>
