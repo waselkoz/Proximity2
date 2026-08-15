@@ -81,6 +81,13 @@ export default function SoftwareEngineering() {
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Scroll tracker logic
+  const { scrollYProgress } = useScroll();
+  const formattedScroll = useTransform(scrollYProgress, (val) => {
+      const pct = Math.round(val * 100);
+      return `[ ${pct.toString().padStart(3, '0')}% ]`;
+  });
+
   const toggleFeature = (id: string) => {
     playMechanicalClick();
     setSelectedFeatures(prev => 
@@ -97,13 +104,31 @@ export default function SoftwareEngineering() {
     <div className="bg-[#0A0A0A] text-white selection:bg-[#90243B] selection:text-white font-sans overflow-x-hidden min-h-screen">
       
       {/* GLOBAL NAVIGATION (Fixed) */}
-      <div className="fixed top-10 left-5 sm:left-12 z-[100] flex justify-between w-[calc(100%-40px)] sm:w-[calc(100%-96px)] pointer-events-none">
+      <div className="fixed top-10 left-5 sm:left-12 z-[100] flex justify-between w-[calc(100%-40px)] sm:w-[calc(100%-96px)] md:w-[calc(100%-144px)] pointer-events-none">
           <Link href="/" onClick={playMechanicalClick} onMouseEnter={playHoverTick} className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase hover:text-[#90243B] transition-colors flex items-center gap-2 group bg-black/80 backdrop-blur-md px-4 py-2 border border-[#1F1F1F]">
-            <div className="w-1.5 h-1.5 bg-[#90243B] rounded-full animate-pulse"></div>
-            [ Back to Home ]
+              <div className="w-1.5 h-1.5 bg-[#90243B] group-hover:scale-150 transition-transform"></div>
+              Proximity Studio
           </Link>
-          <div className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase text-[#90243B] bg-black/80 backdrop-blur-md px-4 py-2 border border-[#1F1F1F] hidden sm:block">
-            Service &mdash; Software Engineering
+          <Link href="/contact" onClick={playMechanicalClick} onMouseEnter={playHoverTick} className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase hover:text-white hover:bg-[#90243B] transition-colors bg-white text-black px-6 py-2 border border-white">
+              START PROJECT
+          </Link>
+      </div>
+
+      {/* 0. TYPOGRAPHIC SCROLL RULER (Fixed Right) */}
+      <div className="fixed top-0 right-0 h-screen w-8 md:w-12 border-l border-[#1F1F1F] z-[100] pointer-events-none flex flex-col items-center">
+          <div className="w-[1px] h-full bg-[#1F1F1F] absolute top-0 left-1/2 -translate-x-1/2"></div>
+          
+          {/* Moving Indicator */}
+          <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px]">
+              <motion.div 
+                  className="w-full h-12 bg-[#90243B] absolute left-0 flex items-center justify-end"
+                  style={{ top: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]), y: "-50%" }}
+              >
+                  {/* The number */}
+                  <motion.div className="font-mono text-[9px] text-[#90243B] absolute right-6 md:right-8 whitespace-nowrap bg-[#0A0A0A] px-2 py-1 border border-[#1F1F1F]">
+                      {formattedScroll}
+                  </motion.div>
+              </motion.div>
           </div>
       </div>
 
@@ -424,7 +449,30 @@ export default function SoftwareEngineering() {
          </div>
       </section>
 
-      {/* 4. THE CONFIGURATOR: THE EDITORIAL RECEIPT */}
+      {/* 4. ACCESS ARCHIVES (Portfolio CTA) */}
+      <section className="relative w-full h-[60vh] sm:h-[80vh] border-t border-[#1F1F1F] flex items-center justify-center overflow-hidden group bg-[#0A0A0A]">
+          {/* Background Image Reveal */}
+          <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-30 transition-opacity duration-1000">
+              <Image 
+                  src="/portfolio_preview.jpg" 
+                  alt="Portfolio Preview" 
+                  fill 
+                  className="object-cover object-center grayscale contrast-125 scale-105 group-hover:scale-100 transition-transform duration-1000"
+              />
+          </div>
+          
+          {/* Massive Typographic Link */}
+          <Link href="/portfolio" onClick={playMechanicalClick} className="relative z-10 text-center w-full block">
+              <div className="font-mono text-[10px] sm:text-xs text-[#90243B] uppercase tracking-[0.5em] mb-4 sm:mb-8 transition-colors group-hover:text-white">
+                  Execute Review Protocol
+              </div>
+              <h2 className="text-[12vw] sm:text-[10vw] font-black uppercase tracking-tighter leading-none text-white transition-all duration-700 mix-blend-difference group-hover:tracking-normal group-hover:scale-105">
+                  ACCESS ARCHIVES
+              </h2>
+          </Link>
+      </section>
+
+      {/* 5. CONFIGURATOR (Submit Brief) */}
       <section className="relative w-full py-24 sm:py-40 bg-[#0A0A0A] overflow-hidden border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-12 flex flex-col lg:flex-row gap-16 lg:gap-24 relative z-10">
              
