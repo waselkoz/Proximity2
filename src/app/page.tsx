@@ -371,12 +371,12 @@ export default function Home() {
                         </div>
                         {/* Brutalist Explore Button / Link */}
                         {pillar.link ? (
-                          <Link href={pillar.link} className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group/btn bg-white w-fit">
+                          <Link href={pillar.link} onClick={(e) => e.stopPropagation()} className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group/btn bg-white w-fit relative z-50 pointer-events-auto">
                             Explore Module 
                             <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
                           </Link>
                         ) : (
-                          <button className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group/btn bg-white w-fit">
+                          <button onClick={(e) => e.stopPropagation()} className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group/btn bg-white w-fit relative z-50 pointer-events-auto">
                             Explore Module 
                             <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
                           </button>
