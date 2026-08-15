@@ -270,7 +270,7 @@ export default function Home() {
               },
               { 
                 num: "02", 
-                title: "Branding", 
+                title: "Graphic Design", 
                 label: "Visual Identity",
                 desc: "We strip away the noise. We build monolithic brands that command authority through stark contrast and disciplined design systems.",
                 image: "/acc-branding-v3.jpg",
@@ -278,7 +278,7 @@ export default function Home() {
               },
               { 
                 num: "03", 
-                title: "Video", 
+                title: "Video Editing", 
                 label: "Motion Design",
                 desc: "Cinematic precision. We construct motion graphics and video edits with the exactness of an architectural blueprint.",
                 image: "/acc-video.jpg",
