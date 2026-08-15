@@ -2,6 +2,8 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowRight, Plus, Minus, Check } from "lucide-react";
+import { SiNextdotjs, SiReact, SiFramer, SiTailwindcss, SiNodedotjs, SiPostgresql, SiRedis, SiPrisma, SiVercel, SiDocker, SiCloudflare } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef } from "react";
@@ -27,9 +29,9 @@ const steps = [
 ];
 
 const techCategories = [
-  { id: "frontend", label: "FRONT-END", tools: ["Next.js", "React", "Framer Motion", "Tailwind CSS"], reason: "Selected for zero-latency routing and fluid cinematic interactions." },
-  { id: "backend", label: "BACK-END", tools: ["Node.js", "PostgreSQL", "Redis", "Prisma"], reason: "Architected for high-throughput data processing and absolute reliability." },
-  { id: "infrastructure", label: "INFRA", tools: ["Vercel", "AWS", "Docker", "Cloudflare"], reason: "Deployed on edge networks for global micro-second delivery." },
+  { id: "frontend", label: "FRONT-END", tools: [{name: "Next.js", icon: SiNextdotjs}, {name: "React", icon: SiReact}, {name: "Framer Motion", icon: SiFramer}, {name: "Tailwind CSS", icon: SiTailwindcss}], reason: "Selected for zero-latency routing and fluid cinematic interactions." },
+  { id: "backend", label: "BACK-END", tools: [{name: "Node.js", icon: SiNodedotjs}, {name: "PostgreSQL", icon: SiPostgresql}, {name: "Redis", icon: SiRedis}, {name: "Prisma", icon: SiPrisma}], reason: "Architected for high-throughput data processing and absolute reliability." },
+  { id: "infrastructure", label: "INFRA", tools: [{name: "Vercel", icon: SiVercel}, {name: "AWS", icon: FaAws}, {name: "Docker", icon: SiDocker}, {name: "Cloudflare", icon: SiCloudflare}], reason: "Deployed on edge networks for global micro-second delivery." },
 ];
 
 const projectTypes = [
@@ -330,65 +332,89 @@ export default function SoftwareEngineering() {
          </div>
       </section>
 
-      {/* 3. THE ARSENAL: THE INTERACTIVE DIRECTORY */}
-      <section className="relative w-full py-24 sm:py-40 bg-white text-[#0A0A0A] overflow-hidden">
-         <div className="max-w-[1400px] mx-auto px-5 sm:px-12 relative z-10">
-             
-             <div className="mb-20">
+      {/* 3. TECHNOLOGIES USED (Extreme Color-Blocked Marquees) */}
+      <section className="relative w-full border-t border-[#1F1F1F]">
+         
+         <div className="bg-[#0A0A0A] py-12 sm:py-16 px-5 sm:px-12 relative z-10 border-b border-[#1F1F1F]">
+             <div className="max-w-[1400px] mx-auto">
                  <div className="font-mono text-[10px] text-[#90243B] uppercase tracking-[0.2em] mb-4">
-                     03 &mdash; System Specifications
+                     03 &mdash; System Architecture
                  </div>
-                 <h2 className="text-[clamp(3rem,8vw,8rem)] font-black uppercase tracking-tighter leading-none">
-                   THE ARSENAL
+                 <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tighter leading-none text-white">
+                   TECHNOLOGIES USED
                  </h2>
              </div>
+         </div>
 
-             <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+         {/* The Marquees (Extreme Color Blocking) */}
+         <div className="flex flex-col relative w-full overflow-hidden">
+             {techCategories.map((cat, i) => {
+                 // Extreme Color Blocking Logic
+                 let bgClass = "bg-[#0A0A0A]";
+                 let textClass = "text-white/20 group-hover:text-white";
+                 let hoverBorder = "group-hover:border-[#90243B]";
+                 let labelColor = "text-[#90243B]";
+                 let overlayBg = "bg-[#0A0A0A]/95";
+                 let reasonText = "text-white/90";
                  
-                 {/* Directory Tree */}
-                 <div className="w-full lg:w-1/3 font-mono text-sm sm:text-base border border-[#E5E5E5] bg-[#FAFAFA] p-6 sm:p-8">
-                     <div className="text-[#0A0A0A]/40 mb-6 tracking-widest uppercase">/root/tech_stack/</div>
-                     <div className="flex flex-col gap-4">
-                         {techCategories.map((cat) => (
-                             <button
-                               key={cat.id}
-                               onClick={() => { playMechanicalClick(); setActiveTech(cat); }}
-                               onMouseEnter={playHoverTick}
-                               className={`text-left uppercase tracking-widest flex items-center gap-3 transition-colors ${activeTech.id === cat.id ? 'text-[#90243B] font-bold' : 'text-[#0A0A0A]/60 hover:text-[#0A0A0A]'}`}
-                             >
-                                 <div className={`w-2 h-2 ${activeTech.id === cat.id ? 'bg-[#90243B]' : 'bg-transparent border border-[#0A0A0A]/30'}`}></div>
-                                 [{cat.label}]
-                             </button>
-                         ))}
-                     </div>
-                 </div>
+                 // Row 2: Pure White
+                 if (i === 1) {
+                     bgClass = "bg-white";
+                     textClass = "text-[#0A0A0A]/20 group-hover:text-[#0A0A0A]";
+                     hoverBorder = "group-hover:border-[#90243B]";
+                     labelColor = "text-[#90243B]";
+                     overlayBg = "bg-white/95";
+                     reasonText = "text-[#0A0A0A]/90";
+                 } 
+                 // Row 3: Crimson Red
+                 else if (i === 2) {
+                     bgClass = "bg-[#90243B]";
+                     textClass = "text-[#0A0A0A]/30 group-hover:text-[#0A0A0A]";
+                     hoverBorder = "group-hover:border-[#0A0A0A]";
+                     labelColor = "text-white";
+                     overlayBg = "bg-[#90243B]/95";
+                     reasonText = "text-white";
+                 }
 
-                 {/* Typography Display */}
-                 <div className="w-full lg:w-2/3 flex flex-col justify-center min-h-[300px]">
-                     <AnimatePresence mode="wait">
-                         <motion.div
-                           key={activeTech.id}
-                           initial={{ opacity: 0, x: 20 }}
-                           animate={{ opacity: 1, x: 0 }}
-                           exit={{ opacity: 0, x: -20 }}
-                           transition={{ duration: 0.3 }}
-                           className="flex flex-col"
-                         >
-                             <div className="flex flex-wrap gap-4 sm:gap-6 mb-8">
-                                 {activeTech.tools.map(tool => (
-                                     <span key={tool} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter border-b-4 border-[#0A0A0A] leading-tight">
-                                         {tool}
+                 return (
+                 <div key={cat.id} className={`relative flex items-center group overflow-hidden cursor-crosshair py-5 sm:py-8 transition-colors duration-700 ${bgClass}`}>
+                     
+                     {/* The Infinite Scrolling Text */}
+                     <motion.div
+                         animate={{ x: i % 2 === 0 ? ["0%", "-25%"] : ["-25%", "0%"] }}
+                         transition={{ ease: "linear", duration: 30 + (i * 5), repeat: Infinity }}
+                         className={`flex w-max whitespace-nowrap items-center font-black text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tighter leading-none transition-colors duration-500 ${textClass}`}
+                     >
+                         {/* Content repeated 4 times to ensure it covers ultra-wide screens */}
+                         {[...Array(4)].map((_, idx) => (
+                             <div key={idx} className="flex items-center gap-8 sm:gap-12 pr-8 sm:pr-12">
+                                 <span className={labelColor}>{cat.label}</span>
+                                 {cat.tools.map(tool => (
+                                     <span key={`${tool.name}-${idx}`} className="flex items-center gap-3 sm:gap-4">
+                                         <tool.icon className={`w-8 h-8 lg:w-10 lg:h-10 ${i === 2 ? 'text-[#0A0A0A]/50 group-hover:text-[#0A0A0A]' : 'opacity-50 group-hover:opacity-100'} transition-opacity`} strokeWidth={2.5} />
+                                         {tool.name}
                                      </span>
                                  ))}
+                                 <span className="opacity-20">&mdash;</span>
                              </div>
-                             <p className="text-lg sm:text-2xl font-medium text-[#0A0A0A]/70 border-l-2 border-[#90243B] pl-4">
-                                 {activeTech.reason}
-                             </p>
-                         </motion.div>
-                     </AnimatePresence>
-                 </div>
+                         ))}
+                     </motion.div>
 
-             </div>
+                     {/* Hover Overlay Panel (Sleek Inline Structural Banner) */}
+                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center px-5 sm:px-12 z-20 border-y border-transparent backdrop-blur-md ${hoverBorder} ${overlayBg}`}>
+                         <div className="max-w-[1400px] mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-8">
+                             <div className={`font-mono text-[10px] uppercase tracking-widest shrink-0 ${labelColor}`}>
+                                 [ {cat.label} Specifications ]
+                             </div>
+                             <p className={`text-xs sm:text-sm font-bold leading-relaxed tracking-wide max-w-3xl sm:text-right ${reasonText}`}>
+                                 {cat.reason}
+                             </p>
+                         </div>
+                     </div>
+                     
+                 </div>
+                 );
+             })}
          </div>
       </section>
 
