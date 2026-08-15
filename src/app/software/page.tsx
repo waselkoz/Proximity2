@@ -81,13 +81,6 @@ export default function SoftwareEngineering() {
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Scroll tracker logic
-  const { scrollYProgress } = useScroll();
-  const formattedScroll = useTransform(scrollYProgress, (val) => {
-      const pct = Math.round(val * 100);
-      return `[ ${pct.toString().padStart(3, '0')}% ]`;
-  });
-
   const toggleFeature = (id: string) => {
     playMechanicalClick();
     setSelectedFeatures(prev => 
@@ -104,7 +97,7 @@ export default function SoftwareEngineering() {
     <div className="bg-[#0A0A0A] text-white selection:bg-[#90243B] selection:text-white font-sans overflow-x-hidden min-h-screen">
       
       {/* GLOBAL NAVIGATION (Fixed) */}
-      <div className="fixed top-10 left-5 sm:left-12 z-[100] flex justify-between w-[calc(100%-40px)] sm:w-[calc(100%-96px)] md:w-[calc(100%-144px)] pointer-events-none">
+      <div className="fixed top-10 left-5 sm:left-12 z-[100] flex justify-between w-[calc(100%-40px)] sm:w-[calc(100%-96px)] pointer-events-none">
           <Link href="/" onClick={playMechanicalClick} onMouseEnter={playHoverTick} className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase hover:text-[#90243B] transition-colors flex items-center gap-2 group bg-black/80 backdrop-blur-md px-4 py-2 border border-[#1F1F1F]">
               <div className="w-1.5 h-1.5 bg-[#90243B] group-hover:scale-150 transition-transform"></div>
               Proximity Studio
@@ -114,34 +107,11 @@ export default function SoftwareEngineering() {
           </Link>
       </div>
 
-      {/* 0. TYPOGRAPHIC SCROLL RULER (Fixed Right) */}
-      <div className="fixed top-0 right-0 h-screen w-8 md:w-12 border-l border-[#1F1F1F] z-[100] pointer-events-none flex flex-col items-center">
-          <div className="w-[1px] h-full bg-[#1F1F1F] absolute top-0 left-1/2 -translate-x-1/2"></div>
-          
-          {/* Moving Indicator */}
-          <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px]">
-              <motion.div 
-                  className="w-full h-12 bg-[#90243B] absolute left-0 flex items-center justify-end"
-                  style={{ top: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]), y: "-50%" }}
-              >
-                  {/* The number */}
-                  <motion.div className="font-mono text-[9px] text-[#90243B] absolute right-6 md:right-8 whitespace-nowrap bg-[#0A0A0A] px-2 py-1 border border-[#1F1F1F]">
-                      {formattedScroll}
-                  </motion.div>
-              </motion.div>
-          </div>
-      </div>
-
       {/* 1. HERO: THE MONOLITH CURTAIN (Fixed Overlay) */}
       <div className="fixed inset-0 z-[90] pointer-events-none flex flex-col">
           
           {/* Top Half of Monolith */}
-          <motion.div style={{ y: splitTop }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-b border-[#1F1F1F] will-change-transform">
-             <div className="absolute top-0 left-0 w-full h-[200%] z-0">
-                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40" priority />
-             </div>
-             <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
-             
+          <motion.div style={{ y: splitTop }} className="w-full h-1/2 bg-[#0A0A0A] relative border-b border-[#1F1F1F] will-change-transform">
              <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL MONOLITH
              </motion.h1>
@@ -150,12 +120,7 @@ export default function SoftwareEngineering() {
           </motion.div>
 
           {/* Bottom Half of Monolith */}
-          <motion.div style={{ y: splitBottom }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-t border-[#1F1F1F] will-change-transform">
-             <div className="absolute bottom-0 left-0 w-full h-[200%] z-0">
-                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40" priority />
-             </div>
-             <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
-
+          <motion.div style={{ y: splitBottom }} className="w-full h-1/2 bg-[#0A0A0A] relative border-t border-[#1F1F1F] will-change-transform">
              {/* Raw Structural Edge */}
              <div className="absolute z-10 top-0 left-0 w-full h-[1px] bg-[#90243B]"></div>
              <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
@@ -170,8 +135,13 @@ export default function SoftwareEngineering() {
           </motion.div>
       </div>
 
-      {/* SPACER (Absorbs the scroll to open the curtain) */}
-      <div ref={spacerRef} className="w-full h-[100vh]"></div>
+      {/* SPACER (Absorbs the scroll to open the curtain and holds the background image) */}
+      <div ref={spacerRef} className="relative h-screen w-full flex items-center justify-center">
+          <div className="absolute inset-0 z-0">
+              <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-60" priority />
+              <div className="absolute inset-0 bg-black/40"></div>
+          </div>
+      </div>
 
       {/* 2. BESPOKE DELIVERY: THE STICKY ASSEMBLY LINE */}
       <section className="relative w-full bg-[#0A0A0A] border-t-[1px] border-white/10">
