@@ -81,6 +81,25 @@ export default function SoftwareEngineering() {
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Lock fixed height on mount to prevent mobile address-bar jump
+  const [fixedHeight, setFixedHeight] = useState("100vh");
+  useEffect(() => {
+      setFixedHeight(`${window.innerHeight}px`);
+  }, []);
+
+  // Spacer ref for accurate scroll tracking
+  const spacerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+      target: spacerRef,
+      offset: ["start start", "end start"]
+  });
+
+  // Scroll animations for the Monolith Curtain
+  const splitTop = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  const splitBottom = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const monolithTextOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const monolithTextScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+
   const toggleFeature = (id: string) => {
     playMechanicalClick();
     setSelectedFeatures(prev => 
@@ -108,7 +127,7 @@ export default function SoftwareEngineering() {
       </div>
 
       {/* 1. HERO: THE MONOLITH CURTAIN (Fixed Overlay) */}
-      <div className="fixed inset-0 z-[90] pointer-events-none">
+      <div className="fixed top-0 left-0 w-full z-[90] pointer-events-none" style={{ height: fixedHeight }}>
           
           {/* Top Half of Monolith */}
           <motion.div 
@@ -144,17 +163,17 @@ export default function SoftwareEngineering() {
              <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL MONOLITH
              </motion.h1>
-             
-             {/* Scroll Indicator */}
-             <motion.div style={{ opacity: monolithTextOpacity }} className="absolute z-10 bottom-12 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
-                 <span>Scroll to Open</span>
-                 <div className="w-[1px] h-12 bg-[#90243B]"></div>
-             </motion.div>
+          </motion.div>
+
+          {/* Scroll Indicator (Fixed outside doors so it doesn't drop off screen) */}
+          <motion.div style={{ opacity: monolithTextOpacity }} className="absolute z-20 bottom-12 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
+              <span>Scroll to Open</span>
+              <div className="w-[1px] h-12 bg-[#90243B]"></div>
           </motion.div>
       </div>
 
       {/* SPACER (Absorbs the scroll to open the curtain) */}
-      <div ref={spacerRef} className="h-screen w-full"></div>
+      <div ref={spacerRef} className="w-full h-[120vh]"></div>
 
       {/* 2. BESPOKE DELIVERY: THE STICKY ASSEMBLY LINE */}
       <section className="relative w-full bg-[#0A0A0A] border-t-[1px] border-white/10">
