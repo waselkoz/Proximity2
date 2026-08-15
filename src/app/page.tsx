@@ -15,6 +15,22 @@ export default function Home() {
   const deckRef = useRef<HTMLDivElement>(null);
   const [deckExpanded, setDeckExpanded] = useState(false);
 
+  // Scroll-linked Kinetic Background Typography
+  const bgText1Ref = useRef<HTMLDivElement>(null);
+  const bgText2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (bgText1Ref.current && bgText2Ref.current) {
+        // Hardware-accelerated parallax translation based on scroll
+        bgText1Ref.current.style.transform = `translateX(${-window.scrollY * 0.4}px)`;
+        bgText2Ref.current.style.transform = `translateX(${window.scrollY * 0.4 - 1500}px)`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -147,8 +163,19 @@ export default function Home() {
         </section>
 
         {/* The Capabilities Statement (Inserted immediately after Hero) */}
-        <section className="w-full bg-white text-[#0A0A0A] px-5 sm:px-12 py-20 sm:py-32 border-t border-[#E5E5E5] relative z-10">
-          <div className="max-w-[1400px] mx-auto">
+        <section className="w-full bg-white text-[#0A0A0A] border-t border-[#E5E5E5] relative z-10 overflow-hidden">
+          
+          {/* Scroll-Linked Kinetic Typography Background */}
+          <div className="absolute inset-0 z-0 flex flex-col justify-center pointer-events-none opacity-[0.03] select-none overflow-hidden">
+            <div ref={bgText1Ref} className="text-[20vw] font-black uppercase whitespace-nowrap tracking-tighter leading-none will-change-transform">
+              PROXIMITY DIGITAL ATELIER PROXIMITY DIGITAL ATELIER PROXIMITY
+            </div>
+            <div ref={bgText2Ref} className="text-[20vw] font-black uppercase whitespace-nowrap tracking-tighter leading-none will-change-transform -translate-x-[1500px]">
+              DIGITAL ATELIER PROXIMITY DIGITAL ATELIER PROXIMITY DIGITAL
+            </div>
+          </div>
+
+          <div className="max-w-[1400px] mx-auto relative z-10 px-5 sm:px-12 py-20 sm:py-32">
             <div className="font-mono text-[9px] sm:text-[10px] text-[#0A0A0A]/40 mb-12 sm:mb-20 uppercase tracking-[0.2em] flex gap-4 items-center">
               <span>01 // Capabilities</span>
               <div className="flex-1 h-[1px] bg-[#E5E5E5]"></div>
