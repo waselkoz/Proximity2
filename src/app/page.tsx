@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { playHoverTick, playMechanicalClick } from "../utils/audio";
@@ -282,11 +283,12 @@ export default function Home() {
             {[
               { 
                 num: "01", 
-                title: "Websites", 
+                title: "Software Engineering", 
                 label: "Digital Architecture",
                 desc: "We architect high-performance, conversion-optimized digital experiences. Every interaction is calculated. Every millisecond counts.",
                 image: "/acc-website.jpg",
-                shape: "rectangle"
+                shape: "rectangle",
+                link: "/software"
               },
               { 
                 num: "02", 
@@ -365,38 +367,74 @@ export default function Home() {
                         <div className="font-sans font-medium text-sm sm:text-base lg:text-lg leading-relaxed tracking-tight text-[#0A0A0A]">
                              {pillar.desc}
                         </div>
-                        {/* Brutalist Explore Button */}
-                        <button className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center gap-3 group/btn bg-white">
-                          Explore Module 
-                          <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
-                        </button>
+                        {/* Brutalist Explore Button / Link */}
+                        {pillar.link ? (
+                          <Link href={pillar.link} className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group/btn bg-white w-fit">
+                            Explore Module 
+                            <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
+                          </Link>
+                        ) : (
+                          <button className="mt-8 px-6 py-3 border-2 border-black font-black uppercase tracking-widest text-[10px] sm:text-xs hover:bg-[#90243B] hover:border-[#90243B] hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group/btn bg-white w-fit">
+                            Explore Module 
+                            <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
+                          </button>
+                        )}
                     </div>
                     
                     {/* The Living Modules (Pure CSS Interactive Art) */}
                     <div className="w-full lg:w-7/12 h-[200px] lg:h-[400px] relative overflow-hidden bg-[#0A0A0A] shadow-2xl">
-                         {/* 01: Websites (Architectural DOM) */}
+                         {/* 01: Software Engineering (Quantum Core 3D Art) */}
                          {pillar.num === "01" && (
-                             <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] p-4 lg:p-8 flex flex-col justify-between group/art border border-[#1F1F1F]">
-                                 <div className="w-full flex justify-between items-start relative z-10">
-                                     <div className="w-1/3 h-2 bg-white/20 group-hover/art:w-2/3 transition-all duration-[1500ms] ease-[cubic-bezier(0.76,0,0.24,1)]"></div>
-                                     <div className="w-3 h-3 rounded-none border border-[#90243B] group-hover/art:bg-[#90243B] transition-colors duration-500"></div>
-                                 </div>
-                                 <div className="flex-1 w-full flex items-stretch justify-center gap-2 lg:gap-4 py-6 relative z-10">
-                                     <div className="w-1/3 border border-white/10 group-hover/art:border-white/40 transform -translate-y-4 group-hover/art:translate-y-0 transition-all duration-1000 ease-out bg-white/5"></div>
-                                     <div className="w-2/3 border border-white/10 group-hover/art:border-white/40 relative overflow-hidden bg-white/5 transition-colors duration-1000 delay-100">
-                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-white/30 animate-[scan_3s_ease-in-out_infinite]"></div>
-                                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px)] bg-[size:10px_100%]"></div>
-                                     </div>
-                                 </div>
-                                 <div className="w-full h-1/4 border-t border-white/20 pt-4 flex gap-2 relative z-10">
-                                    <div className="h-full w-1/4 bg-white/10 group-hover/art:bg-white/30 transition-colors duration-700"></div>
-                                    <div className="h-full w-1/2 bg-white/5 group-hover/art:bg-white/20 transition-colors duration-700 delay-100"></div>
-                                    <div className="h-full flex-1 bg-white/5 group-hover/art:bg-white/10 transition-colors duration-700 delay-200"></div>
-                                 </div>
-                                 
-                                 {/* Grid background behind the DOM elements */}
-                                 <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] bg-[size:20px_20px] opacity-20 group-hover/art:opacity-50 transition-opacity duration-1000"></div>
-                             </div>
+                              <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] p-4 flex flex-col justify-center items-center group/art border border-[#1F1F1F] [perspective:1000px]">
+                                  
+                                  {/* Grid Background */}
+                                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+
+                                  {/* The Quantum Core (Isometric Projection on Hover) */}
+                                  <div className="relative w-[65%] sm:w-[45%] aspect-square transition-all duration-[1500ms] ease-[cubic-bezier(0.76,0,0.24,1)] transform-gpu group-hover/art:[transform:rotateX(60deg)_rotateZ(45deg)_scale(1.1)] border border-white/10 group-hover/art:border-[#90243B]/50 bg-[#0A0A0A]/80 backdrop-blur-md p-2 sm:p-4 grid grid-cols-3 gap-2">
+                                      
+                                      {/* Core Blocks */}
+                                      {[...Array(9)].map((_, i) => (
+                                          <div 
+                                              key={i}
+                                              className={`relative w-full h-full border border-white/5 transition-all duration-1000 overflow-hidden bg-white/5 group-hover/art:bg-[#0A0A0A] ${i === 4 ? 'group-hover/art:border-[#90243B] group-hover/art:bg-[#90243B]/20' : ''}`}
+                                              style={{ transitionDelay: `${i * 100}ms` }}
+                                          >
+                                              {/* Rising Pillar Illusion */}
+                                              <div 
+                                                  className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-white/20 to-transparent transition-all duration-1000 ease-out transform translate-y-full group-hover/art:translate-y-0 ${i === 4 ? 'from-[#90243B]/50' : ''}`}
+                                                  style={{ height: `${40 + (i % 3) * 20}%`, transitionDelay: `${300 + (i * 100)}ms` }}
+                                              ></div>
+                                              
+                                              {/* Data Nodes */}
+                                              {(i === 0 || i === 4 || i === 8) && (
+                                                  <div 
+                                                      className={`absolute top-1 right-1 sm:top-2 sm:right-2 w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-none transition-opacity duration-500 opacity-0 group-hover/art:opacity-100 group-hover/art:animate-pulse ${i === 4 ? 'bg-[#90243B]' : 'bg-white'}`}
+                                                      style={{ transitionDelay: `${1000 + i * 100}ms` }}
+                                                  ></div>
+                                              )}
+                                          </div>
+                                      ))}
+                                      
+                                      {/* Floating Rings */}
+                                      <div className="absolute inset-[-20%] border border-white/5 rounded-full opacity-0 group-hover/art:opacity-100 transition-all duration-[2000ms] group-hover/art:animate-[spin_10s_linear_infinite]"></div>
+                                      <div className="absolute inset-[-40%] border border-dashed border-[#90243B]/20 rounded-full opacity-0 group-hover/art:opacity-100 transition-all duration-[2000ms] delay-300 group-hover/art:animate-[spin_15s_linear_infinite_reverse]"></div>
+                                      
+                                  </div>
+
+                                  {/* HUD Elements */}
+                                  <div className="absolute top-4 left-4 font-mono text-[8px] text-white/30 uppercase flex flex-col gap-1">
+                                      <span>SYS.ENGINEERING</span>
+                                      <span className="text-[#90243B] opacity-0 group-hover/art:opacity-100 transition-opacity duration-500 delay-1000">ISOMETRIC RENDER // ACTIVE</span>
+                                  </div>
+
+                                  <div className="absolute bottom-4 right-4 font-mono text-[8px] text-white/30 uppercase text-right">
+                                      <span>MEMORY: ALLOCATED</span>
+                                      <div className="w-16 h-[1px] bg-white/20 mt-1 relative overflow-hidden ml-auto">
+                                           <div className="absolute top-0 left-0 h-full bg-[#90243B] w-0 group-hover/art:w-full transition-all duration-[2000ms] ease-out delay-500"></div>
+                                      </div>
+                                  </div>
+                              </div>
                          )}
 
                          {/* 02: Branding (Hyper-realistic Poster Mockup) */}
