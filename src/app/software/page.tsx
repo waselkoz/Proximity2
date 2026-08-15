@@ -126,7 +126,7 @@ export default function SoftwareEngineering() {
              {/* Mobile Image (Inline Style) */}
              <div className="block sm:hidden absolute inset-0 z-0 pointer-events-none opacity-80" style={{ backgroundImage: "url('/monolith-mobile-final.jpg')", backgroundSize: "100% 200%", backgroundPosition: "top center" }}></div>
              
-             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
+             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[8vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL EXPERIENCES
              </motion.h1>
              {/* Raw Structural Edge */}
@@ -152,7 +152,7 @@ export default function SoftwareEngineering() {
 
              {/* Raw Structural Edge */}
              <div className="absolute z-10 top-0 left-0 w-full h-[1px] bg-[#90243B]"></div>
-             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
+             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[8vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL EXPERIENCES
              </motion.h1>
           </motion.div>
