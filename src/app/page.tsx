@@ -480,10 +480,10 @@ export default function Home() {
         </section>
         {/* 5. The Monolithic Reveal (Initiate Section) */}
         <motion.section 
-          className="w-full bg-[#030611] text-white px-5 sm:px-12 py-10 sm:py-20 relative min-h-[100dvh] flex flex-col justify-between overflow-hidden"
+          className="w-full bg-gradient-to-b from-[#90243B] to-[#2D030D] text-white px-5 sm:px-12 py-10 sm:py-20 relative min-h-[100dvh] flex flex-col justify-between overflow-hidden"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.01 }}
         >
           
           {/* Monolithic Pillars Overlay */}
@@ -492,13 +492,10 @@ export default function Home() {
                 <motion.div 
                   key={i}
                   className="flex-1 bg-black h-[120%] -translate-y-[10%]"
-                  variants={{
-                    hidden: { y: "-10%" },
-                    visible: { 
-                      y: i % 2 === 0 ? "-120%" : "120%", 
-                      transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.1 + (i * 0.08) } 
-                    }
-                  }}
+                  initial={{ y: "-10%" }}
+                  whileInView={{ y: i % 2 === 0 ? "-120%" : "120%" }}
+                  viewport={{ once: true, amount: "some" }}
+                  transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1], delay: 0.1 + (i * 0.08) }}
                 />
              ))}
           </div>
