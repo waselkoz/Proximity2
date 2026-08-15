@@ -113,7 +113,10 @@ export default function SoftwareEngineering() {
           {/* Top Half of Monolith */}
           <motion.div style={{ y: splitTop }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-b border-[#1F1F1F] will-change-transform">
              <div className="absolute top-0 left-0 w-full h-[200%] z-0">
-                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40" priority />
+                 {/* Desktop Image */}
+                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40 hidden sm:block" priority />
+                 {/* Mobile Portrait Image */}
+                 <Image src="/monolith-bg-mobile.jpg" alt="Monolith Structure Mobile" fill className="object-cover object-center opacity-40 block sm:hidden" priority />
              </div>
              
              <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
@@ -126,7 +129,10 @@ export default function SoftwareEngineering() {
           {/* Bottom Half of Monolith */}
           <motion.div style={{ y: splitBottom }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-t border-[#1F1F1F] will-change-transform">
              <div className="absolute bottom-0 left-0 w-full h-[200%] z-0">
-                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40" priority />
+                 {/* Desktop Image */}
+                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40 hidden sm:block" priority />
+                 {/* Mobile Portrait Image */}
+                 <Image src="/monolith-bg-mobile.jpg" alt="Monolith Structure Mobile" fill className="object-cover object-center opacity-40 block sm:hidden" priority />
              </div>
 
              {/* Raw Structural Edge */}
