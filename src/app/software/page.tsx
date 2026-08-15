@@ -136,29 +136,38 @@ export default function SoftwareEngineering() {
       <div className="fixed inset-0 z-[90] pointer-events-none flex flex-col">
           
           {/* Top Half of Monolith */}
-          <motion.div style={{ y: splitTop }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.8)] border-b border-[#1F1F1F]">
-             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap">
+          <motion.div style={{ y: splitTop }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-b border-[#1F1F1F] will-change-transform">
+             <div className="absolute top-0 left-0 w-full h-[200%] z-0">
+                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40" priority />
+             </div>
+             <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
+             
+             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL MONOLITH
              </motion.h1>
-             {/* Glowing Edge */}
-             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#90243B] shadow-[0_0_30px_2px_#90243B]"></div>
+             {/* Raw Structural Edge */}
+             <div className="absolute z-10 bottom-0 left-0 w-full h-[1px] bg-[#90243B]"></div>
           </motion.div>
 
           {/* Bottom Half of Monolith */}
-          <motion.div style={{ y: splitBottom }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-[#1F1F1F]">
-             {/* Glowing Edge */}
-             <div className="absolute top-0 left-0 w-full h-[1px] bg-[#90243B] shadow-[0_0_30px_2px_#90243B]"></div>
-             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap">
+          <motion.div style={{ y: splitBottom }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative border-t border-[#1F1F1F] will-change-transform">
+             <div className="absolute bottom-0 left-0 w-full h-[200%] z-0">
+                 <Image src="/monolith-bg-v2.jpg" alt="Monolith Structure" fill className="object-cover object-center opacity-40" priority />
+             </div>
+             <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
+
+             {/* Raw Structural Edge */}
+             <div className="absolute z-10 top-0 left-0 w-full h-[1px] bg-[#90243B]"></div>
+             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap will-change-transform">
                DIGITAL MONOLITH
              </motion.h1>
              
              {/* Scroll Indicator */}
-             <motion.div style={{ opacity: monolithTextOpacity }} className="absolute bottom-12 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
+             <motion.div style={{ opacity: monolithTextOpacity }} className="absolute z-10 bottom-12 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
                  <span>Scroll to Open</span>
-                 <div className="w-[1px] h-12 bg-gradient-to-b from-[#90243B] to-transparent animate-pulse"></div>
+                 <div className="w-[1px] h-12 bg-[#90243B]"></div>
              </motion.div>
           </motion.div>
-
       </div>
 
       {/* SPACER (Absorbs the scroll to open the curtain) */}
@@ -363,6 +372,8 @@ export default function SoftwareEngineering() {
          </div>
       </section>
 
+
+
       {/* 3. TECHNOLOGIES USED (Extreme Color-Blocked Marquees) */}
       <section className="relative w-full border-t border-[#1F1F1F]">
          
@@ -452,12 +463,12 @@ export default function SoftwareEngineering() {
       {/* 4. ACCESS ARCHIVES (Portfolio CTA) */}
       <section className="relative w-full h-[60vh] sm:h-[80vh] border-t border-[#1F1F1F] flex items-center justify-center overflow-hidden group bg-[#0A0A0A]">
           {/* Background Image Reveal */}
-          <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-30 transition-opacity duration-1000">
+          <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-30 transition-opacity duration-1000 pointer-events-none">
               <Image 
                   src="/portfolio_preview.jpg" 
                   alt="Portfolio Preview" 
                   fill 
-                  className="object-cover object-center grayscale contrast-125 scale-105 group-hover:scale-100 transition-transform duration-1000"
+                  className="object-cover object-center grayscale scale-105 group-hover:scale-100 transition-transform duration-1000"
               />
           </div>
           
