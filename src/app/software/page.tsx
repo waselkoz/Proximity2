@@ -45,18 +45,18 @@ const featuresList = [
 ];
 
 export default function SoftwareEngineering() {
-  // Hero Scroll Animation
-  const heroRef = useRef(null);
+  // Hero Scroll Animation (The Spacer)
+  const spacerRef = useRef(null);
   const { scrollYProgress: heroScroll } = useScroll({
-    target: heroRef,
+    target: spacerRef,
     offset: ["start start", "end start"]
   });
   
-  // The split calculation: starts at 0, moves to 50% / -50% to open the monolith
-  const splitTop = useTransform(heroScroll, [0, 0.4], ["0%", "-51%"]);
-  const splitBottom = useTransform(heroScroll, [0, 0.4], ["0%", "51%"]);
-  const monolithTextOpacity = useTransform(heroScroll, [0, 0.1], [1, 0]);
-  const heroBgOpacity = useTransform(heroScroll, [0.8, 1], [1, 0]);
+  // The split calculation: starts at 0, completely opens by 0.7
+  const splitTop = useTransform(heroScroll, [0, 0.7], ["0%", "-100%"]);
+  const splitBottom = useTransform(heroScroll, [0, 0.7], ["0%", "100%"]);
+  const monolithTextOpacity = useTransform(heroScroll, [0, 0.3], [1, 0]);
+  const monolithTextScale = useTransform(heroScroll, [0, 0.5], [1, 1.1]);
 
   // Assembly Line State (Mobile Accordion)
   const [activeStep, setActiveStep] = useState(0);
@@ -89,44 +89,37 @@ export default function SoftwareEngineering() {
           </div>
       </div>
 
-      {/* 1. HERO: THE MONOLITH SPLIT */}
-      <section ref={heroRef} className="relative w-full h-[200vh] bg-[#0A0A0A]">
-         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-            
-            {/* The Hidden Content (Revealed when Monolith Splits) */}
-            <motion.div style={{ opacity: heroBgOpacity }} className="absolute inset-0 flex flex-col items-center justify-center bg-white text-[#0A0A0A] px-5 text-center z-10 pt-20">
-                <div className="font-mono text-[10px] sm:text-xs text-[#0A0A0A]/40 uppercase tracking-[0.2em] mb-8">
-                  Proximity // Digital Architecture
-                </div>
-                <h2 className="text-[clamp(2.5rem,6vw,7rem)] font-black uppercase tracking-tighter leading-[0.85] max-w-6xl">
-                   We don&apos;t just write code.<br/>We architect <span className="text-white bg-[#0A0A0A] px-2 leading-tight">systems</span> that scale.
-                </h2>
-            </motion.div>
+      {/* 1. HERO: THE MONOLITH CURTAIN (Fixed Overlay) */}
+      <div className="fixed inset-0 z-[90] pointer-events-none flex flex-col">
+          
+          {/* Top Half of Monolith */}
+          <motion.div style={{ y: splitTop }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative shadow-[0_20px_50px_rgba(0,0,0,0.8)] border-b border-[#1F1F1F]">
+             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap">
+               DIGITAL MONOLITH
+             </motion.h1>
+             {/* Glowing Edge */}
+             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#90243B] shadow-[0_0_30px_2px_#90243B]"></div>
+          </motion.div>
 
-            {/* Top Half of Monolith */}
-            <motion.div style={{ y: splitTop }} className="absolute top-0 left-0 w-full h-1/2 bg-[#0A0A0A] flex items-end justify-center overflow-hidden z-20 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-               <motion.h1 style={{ opacity: monolithTextOpacity }} className="text-[15vw] font-black uppercase text-white leading-none translate-y-[50%] tracking-tighter">
-                 DIGITAL
-               </motion.h1>
-               <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20"></div>
-            </motion.div>
+          {/* Bottom Half of Monolith */}
+          <motion.div style={{ y: splitBottom }} className="w-full h-1/2 bg-[#0A0A0A] overflow-hidden relative shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-[#1F1F1F]">
+             {/* Glowing Edge */}
+             <div className="absolute top-0 left-0 w-full h-[1px] bg-[#90243B] shadow-[0_0_30px_2px_#90243B]"></div>
+             <motion.h1 style={{ opacity: monolithTextOpacity, scale: monolithTextScale }} className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] text-[10vw] font-black uppercase text-white leading-none tracking-tighter whitespace-nowrap">
+               DIGITAL MONOLITH
+             </motion.h1>
+             
+             {/* Scroll Indicator */}
+             <motion.div style={{ opacity: monolithTextOpacity }} className="absolute bottom-12 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
+                 <span>Scroll to Open</span>
+                 <div className="w-[1px] h-12 bg-gradient-to-b from-[#90243B] to-transparent animate-pulse"></div>
+             </motion.div>
+          </motion.div>
 
-            {/* Bottom Half of Monolith */}
-            <motion.div style={{ y: splitBottom }} className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0A0A0A] flex items-start justify-center overflow-hidden z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-               <div className="absolute top-0 left-0 w-full h-[1px] bg-white/20"></div>
-               <motion.h1 style={{ opacity: monolithTextOpacity }} className="text-[15vw] font-black uppercase text-white leading-none -translate-y-[50%] tracking-tighter">
-                 MONOLITH
-               </motion.h1>
-               
-               {/* Scroll Indicator */}
-               <motion.div style={{ opacity: monolithTextOpacity }} className="absolute bottom-12 font-mono text-[10px] uppercase tracking-[0.2em] flex flex-col items-center gap-4 text-white/50">
-                   <span>Scroll to Open</span>
-                   <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
-               </motion.div>
-            </motion.div>
+      </div>
 
-         </div>
-      </section>
+      {/* SPACER (Absorbs the scroll to open the curtain) */}
+      <div ref={spacerRef} className="w-full h-[100vh]"></div>
 
       {/* 2. BESPOKE DELIVERY: THE STICKY ASSEMBLY LINE */}
       <section className="relative w-full bg-[#0A0A0A] border-t-[1px] border-white/10">
@@ -193,7 +186,7 @@ export default function SoftwareEngineering() {
                              </div>
                              
                              {/* Content Panel */}
-                             <div className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${activeStep === index || (typeof window !== 'undefined' && window.innerWidth >= 1024 && activeStep === index) ? 'max-h-[500px] opacity-100 mt-6 sm:mt-8' : 'max-h-0 opacity-0'}`}>
+                             <div className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${activeStep === index ? 'max-h-[500px] opacity-100 mt-6 sm:mt-8' : 'max-h-0 opacity-0'}`}>
                                  <p className="text-lg sm:text-2xl font-medium text-white/70 max-w-2xl leading-relaxed">
                                      {step.desc}
                                  </p>
@@ -351,7 +344,7 @@ export default function SoftwareEngineering() {
                      <div className="border-b-2 border-[#0A0A0A] pb-6 mb-6 text-center">
                          <div className="font-black text-2xl uppercase tracking-tighter mb-2">Proximity Studio</div>
                          <div className="font-mono text-[10px] uppercase tracking-widest opacity-60">Project Scope Estimate</div>
-                         <div className="font-mono text-[10px] mt-4 opacity-40">DATE: {new Date().toLocaleDateString()}</div>
+                         <div className="font-mono text-[10px] mt-4 opacity-40">DATE: ACTIVE SESSION</div>
                      </div>
                      
                      {/* Receipt Body */}
