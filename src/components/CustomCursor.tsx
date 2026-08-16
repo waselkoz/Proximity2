@@ -76,15 +76,6 @@ export default function CustomCursor() {
         }}
         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}
       >
-          {isHovering && (
-             <motion.div 
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               className="text-[6px] font-black text-black tracking-widest uppercase mix-blend-normal"
-             >
-               View
-             </motion.div>
-          )}
       </motion.div>
     </>
   );
