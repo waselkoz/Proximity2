@@ -185,7 +185,7 @@ export default function Home() {
 
           <div className="max-w-[1400px] mx-auto relative z-10 px-5 sm:px-12 pt-32 sm:pt-48 pb-20 sm:pb-32">
             <div className="font-mono text-[9px] sm:text-[10px] text-[#0A0A0A]/40 mb-12 sm:mb-20 uppercase tracking-[0.2em] flex gap-4 items-center">
-              <span>01 // Capabilities</span>
+              <span>01 Capabilities</span>
               <div className="flex-1 h-[1px] bg-[#E5E5E5]"></div>
             </div>
             {/* The Refined Manifesto */}
@@ -271,7 +271,7 @@ export default function Home() {
         <section className="w-full bg-[#0A0A0A] text-white overflow-hidden border-t-[6px] sm:border-t-8 border-[#90243B] z-10 relative">
           <div className="px-5 sm:px-12 py-10 sm:py-12">
              <div className="font-mono text-[9px] sm:text-[10px] text-white/40 uppercase tracking-[0.2em]">
-                02 // Core Disciplines
+                02 Core Disciplines
              </div>
           </div>
           
@@ -338,7 +338,7 @@ export default function Home() {
                 {/* Header Section */}
                 <div className="relative z-10 flex justify-between w-full items-start">
                    <div className={`font-mono text-[8px] sm:text-[10px] tracking-[0.2em] uppercase transition-colors duration-500 ${isActive ? 'text-[#90243B]' : 'text-white/40'}`}>
-                     {pillar.num} // {pillar.label}
+                     {pillar.num} {pillar.label}
                    </div>
                    
                    <div className="flex items-center gap-3">
@@ -502,7 +502,7 @@ export default function Home() {
           {/* Footer Content */}
           <div className="w-full flex justify-between items-start mb-10 sm:mb-20 relative z-10">
              <div className="font-mono text-[9px] sm:text-[10px] text-white/60 uppercase tracking-[0.2em]">
-                03 // Contact
+                03 Contact
              </div>
              <div className="font-mono text-[9px] sm:text-[10px] text-white uppercase tracking-[0.2em] flex items-center gap-3">
                 <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
@@ -527,16 +527,16 @@ export default function Home() {
                  hello@proximity.agency
                </a>
                <div className="font-mono text-[9px] sm:text-[10px] text-white/50 uppercase tracking-[0.2em] flex flex-col gap-2">
-                 <span>Operating HQ // London</span>
-                 <span>Worldwide Remote // Available</span>
+                 <span>Operating HQ London</span>
+                 <span>Worldwide Remote Available</span>
                </div>
              </div>
 
              {/* Right: Stripped Form */}
              <div className="lg:col-span-7 flex flex-col gap-6 w-full lg:pl-12 relative z-10">
-               <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="01 // NAME / ORGANIZATION" />
-               <input type="email" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="02 // EMAIL ADDRESS" />
-               <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="03 // PROJECT DETAILS" />
+               <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="01 NAME / ORGANIZATION" />
+               <input type="email" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="02 EMAIL ADDRESS" />
+               <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="03 PROJECT DETAILS" />
                
                <button className="w-full bg-white text-black py-6 sm:py-8 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#1A233A] hover:text-white transition-colors mt-6">
                  [ SUBMIT INQUIRY ]
