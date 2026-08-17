@@ -491,8 +491,6 @@ export default function Home() {
  </motion.div>
  )}
  </AnimatePresence>
- </div>
-
  {/* Footer Section */}
  <div className={`w-full flex justify-start relative z-10 transition-all duration-700 ${isActive ? 'mt-8 lg:mt-auto' : 'mt-auto'}`}>
  <h3 className={`text-4xl sm:text-6xl font-black uppercase tracking-tighter origin-left transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]
