@@ -341,7 +341,7 @@ export default function Home() {
                 onMouseEnter={() => { playHoverTick(); setActivePillar(idx); }}
                 onMouseLeave={() => setActivePillar(null)}
                 onClick={() => { playMechanicalClick(); setActivePillar(isActive ? null : idx); }}
-                className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden min-h-[140px] sm:min-h-[200px]
+                className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-[flex,background-color] duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden min-h-[140px] sm:min-h-[200px]
                   ${isActive 
                     ? 'flex-[3.5] lg:flex-[3.5] bg-white text-black' 
                     : isOtherActive 
@@ -385,7 +385,7 @@ export default function Home() {
                 </div>
                 
                 {/* Expanded Content (Images & Words) */}
-                <div className={`z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 mt-8 lg:mt-0 transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? 'relative opacity-100 translate-y-0' : 'absolute opacity-0 translate-y-8 pointer-events-none invisible'}`}>
+                <div className={`z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 mt-8 lg:mt-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? 'relative opacity-100 translate-y-0' : 'absolute opacity-0 translate-y-8 pointer-events-none invisible'}`}>
                     
                     {/* Words */}
                     <div className="w-full lg:w-5/12 flex flex-col items-start lg:pr-8">
@@ -407,13 +407,13 @@ export default function Home() {
                     </div>
                     
                     {/* The Living Modules (Pure CSS Interactive Art) */}
-                    <div className="w-full lg:w-7/12 h-[200px] lg:h-[400px] relative overflow-hidden bg-[#0A0A0A] shadow-2xl">
+                    <div className="w-full lg:w-7/12 h-[200px] lg:h-[400px] relative overflow-hidden bg-[#0A0A0A] shadow-none lg:shadow-2xl">
                          {/* 01: Software Engineering (Clean Image Mockup) */}
                          {pillar.num === "01" && (
                               <div className="w-full h-full relative overflow-hidden bg-[#111111] flex items-center justify-center group/art border border-[#1F1F1F]">
                                  <div className="relative w-full h-full p-4 sm:p-8 flex items-center justify-center">
-                                     <div className="relative w-full h-full border border-[#222222] shadow-2xl bg-black">
-                                        <Image src={pillar.image} alt="Software Engineering Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top opacity-90 group-hover/art:opacity-100 transition-all duration-[3000ms] ease-out" />
+                                     <div className="relative w-full h-full border border-[#222222] shadow-none lg:shadow-2xl bg-black">
+                                        <Image src={pillar.image} alt="Software Engineering Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top opacity-90 group-hover/art:opacity-100 transition-opacity duration-1000 ease-out" />
                                      </div>
                                  </div>
                                  
@@ -463,24 +463,14 @@ export default function Home() {
                                     </div>
                                  </div>
                                  
-                                 {/* Timeline UI */}
+                                 {/* Timeline UI - Optimized for Mobile */}
                                  <div className="h-[35%] lg:h-1/3 w-full bg-[#111] border-t border-[#333] relative flex flex-col z-10">
-                                     <div className="w-full h-4 border-b border-[#333] bg-[#0A0A0A] flex">
-                                         {Array.from({ length: 20 }).map((_, i) => (
-                                             <div key={i} className="flex-1 border-r border-[#222]"></div>
-                                         ))}
-                                     </div>
-                                     <div className="flex-1 flex items-end relative overflow-hidden">
-                                         {Array.from({ length: 40 }).map((_, i) => (
-                                             <div key={i} className="flex-1 border-r border-[#222] h-full relative">
-                                                <div 
-                                                    className="absolute bottom-0 w-full bg-white/20 hover:bg-white/40 transition-colors" 
-                                                    style={{height: `${((i * 47) % 60) + 20}%`}}>
-                                                </div>
-                                             </div>
-                                         ))}
+                                     <div className="w-full h-4 border-b border-[#333] bg-[#0A0A0A]" style={{ backgroundImage: 'repeating-linear-gradient(to right, transparent, transparent calc(5% - 1px), #222 calc(5% - 1px), #222 5%)' }}></div>
+                                     <div className="flex-1 w-full relative overflow-hidden" style={{ backgroundImage: 'repeating-linear-gradient(to right, transparent, transparent calc(2.5% - 1px), #222 calc(2.5% - 1px), #222 2.5%)' }}>
+                                         {/* Simulated Waveform using a single pseudo-element pattern */}
+                                         <div className="absolute bottom-0 w-full h-full opacity-20 bg-[linear-gradient(90deg,transparent_2px,white_2px,white_4px,transparent_4px)] bg-[size:8px_100%] [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
                                          {/* Playhead */}
-                                         <div className="absolute top-0 left-1/4 w-[2px] h-full bg-[#90243B] group-hover/art:left-[80%] transition-all duration-[3000ms] ease-in-out shadow-[0_0_10px_#90243B]">
+                                         <div className="absolute top-0 left-1/4 w-[2px] h-full bg-[#90243B] group-hover/art:left-[80%] transition-[left] duration-[3000ms] ease-in-out shadow-none lg:shadow-[0_0_10px_#90243B]">
                                             <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#90243B] absolute -top-2 -left-[5px]"></div>
                                          </div>
                                      </div>
