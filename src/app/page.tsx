@@ -385,15 +385,9 @@ export default function Home() {
  </div>
  
  {/* Expanded Content (Images & Words) */}
- <AnimatePresence>
+ {/* Expanded Content (Images & Words) */}
  {isActive && (
- <motion.div 
- initial={{ opacity: 0, y: 20 }}
- animate={{ opacity: 1, y: 0 }}
- exit={{ opacity: 0, y: 20 }}
- transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
- className="z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 mt-8 lg:mt-0"
- >
+ <div className="z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 mt-8 lg:mt-0 animate-in fade-in slide-in-from-bottom-4 duration-500">
  
  {/* Words */}
  <div className="w-full lg:w-full max-w-2xl flex flex-col items-start lg:pr-8">
@@ -414,9 +408,8 @@ export default function Home() {
  )}
  </div>
 
- </motion.div>
+ </div>
  )}
- </AnimatePresence>
  {/* Footer Section */}
  <div className={`w-full flex justify-start relative z-10 transition-all duration-700 ${isActive ? 'mt-8 lg:mt-auto' : 'mt-auto'}`}>
  <h3 className={`text-4xl sm:text-6xl font-black uppercase tracking-tighter origin-left transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]
