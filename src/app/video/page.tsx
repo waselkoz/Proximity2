@@ -178,7 +178,7 @@ export default function EditorialVideoPage() {
                         transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
                         className="text-2xl sm:text-4xl lg:text-5xl font-light leading-snug tracking-tight text-white/90"
                     >
-                        We strictly reject generic templates. Every project is made from <span className="font-black">absolute zero</span>. Our concepts are drawn from raw imagination, refined through relentless self-critique, and forged into something undeniable.
+                        We believe in clean design, seamless performance, and clear communication. Every project is built on solid strategy and executed with <span className="font-black">absolute precision</span> to drive real impact.
                     </motion.h2>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
