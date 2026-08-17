@@ -103,7 +103,7 @@ export default function SoftwareEngineering() {
       
       {/* GLOBAL NAVIGATION (Fixed) */}
       <div className="fixed top-10 left-5 sm:left-12 z-[100] flex justify-between w-[calc(100%-40px)] sm:w-[calc(100%-96px)] pointer-events-none">
-          <Link href="/" onClick={playMechanicalClick} onMouseEnter={playHoverTick} className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase hover:text-[#90243B] transition-colors flex items-center gap-2 group bg-black/80 backdrop-blur-md px-4 py-2 border border-[#1F1F1F]">
+          <Link href="/" onClick={playMechanicalClick} onMouseEnter={playHoverTick} className="pointer-events-auto font-mono text-[10px] tracking-widest uppercase hover:text-[#90243B] transition-colors flex items-center gap-2 group bg-[#0A0A0A] px-4 py-2 border border-[#1F1F1F]">
               <div className="w-1.5 h-1.5 bg-[#90243B] group-hover:scale-150 transition-transform"></div>
               Proximity Studio
           </Link>
@@ -117,8 +117,8 @@ export default function SoftwareEngineering() {
           
           {/* Top Half of Monolith */}
           <motion.div 
-             style={{ y: splitTop }} 
-             className="absolute top-0 left-0 w-full h-[50%] overflow-hidden border-b border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A]"
+             style={{ y: splitTop, willChange: 'transform' }} 
+             className="absolute top-0 left-0 w-full h-[50%] overflow-hidden border-b border-[#1F1F1F] z-10 bg-[#0A0A0A]"
           >
              {/* Desktop Image (Inline Style to bypass Tailwind Compiler & Cache Bugs) */}
              <div className="hidden sm:block absolute inset-0 z-0 pointer-events-none opacity-80" style={{ backgroundImage: "url('/monolith-desktop-final.jpg')", backgroundSize: "100% 200%", backgroundPosition: "top center" }}></div>
@@ -141,8 +141,8 @@ export default function SoftwareEngineering() {
 
           {/* Bottom Half of Monolith */}
           <motion.div 
-             style={{ y: splitBottom }} 
-             className="absolute bottom-0 left-0 w-full h-[50%] overflow-hidden border-t border-[#1F1F1F] will-change-transform z-10 bg-[#0A0A0A]"
+             style={{ y: splitBottom, willChange: 'transform' }} 
+             className="absolute bottom-0 left-0 w-full h-[50%] overflow-hidden border-t border-[#1F1F1F] z-10 bg-[#0A0A0A]"
           >
              {/* Desktop Image (Inline Style to bypass Tailwind Compiler & Cache Bugs) */}
              <div className="hidden sm:block absolute inset-0 z-0 pointer-events-none opacity-80" style={{ backgroundImage: "url('/monolith-desktop-final.jpg')", backgroundSize: "100% 200%", backgroundPosition: "bottom center" }}></div>
@@ -247,14 +247,14 @@ export default function SoftwareEngineering() {
          
          {/* Extraordinary Background: Cinematic Brutalist Parallax */}
          <motion.div 
-            style={{ y: chatBgY, scale: chatBgScale }}
+            style={{ y: chatBgY, scale: chatBgScale, willChange: 'transform' }}
             className="absolute inset-0 z-0 w-full h-[130%]"
          >
              <Image
                  src="/software-bg.jpg"
                  alt="Software Engineering Architecture"
                  fill
-                 className="object-cover object-center opacity-50 grayscale mix-blend-luminosity"
+                 className="object-cover object-center opacity-30 grayscale"
                  priority
              />
              {/* Vignette Overlay for Text Legibility */}
@@ -384,7 +384,7 @@ export default function SoftwareEngineering() {
                  let textClass = "text-white/20 group-hover:text-white";
                  let hoverBorder = "group-hover:border-[#90243B]";
                  let labelColor = "text-[#90243B]";
-                 let overlayBg = "bg-[#0A0A0A]/95";
+                 let overlayBg = "bg-[#0A0A0A]";
                  let reasonText = "text-white/90";
                  
                  // Row 2: Pure White
@@ -393,7 +393,7 @@ export default function SoftwareEngineering() {
                      textClass = "text-[#0A0A0A]/20 group-hover:text-[#0A0A0A]";
                      hoverBorder = "group-hover:border-[#90243B]";
                      labelColor = "text-[#90243B]";
-                     overlayBg = "bg-white/95";
+                     overlayBg = "bg-white";
                      reasonText = "text-[#0A0A0A]/90";
                  } 
                  // Row 3: Crimson Red
@@ -402,7 +402,7 @@ export default function SoftwareEngineering() {
                      textClass = "text-[#0A0A0A]/30 group-hover:text-[#0A0A0A]";
                      hoverBorder = "group-hover:border-[#0A0A0A]";
                      labelColor = "text-white";
-                     overlayBg = "bg-[#90243B]/95";
+                     overlayBg = "bg-[#90243B]";
                      reasonText = "text-white";
                  }
 
@@ -431,7 +431,7 @@ export default function SoftwareEngineering() {
                      </motion.div>
 
                      {/* Hover Overlay Panel (Sleek Inline Structural Banner) */}
-                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center px-5 sm:px-12 z-20 border-y border-transparent backdrop-blur-md ${hoverBorder} ${overlayBg}`}>
+                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center px-5 sm:px-12 z-20 border-y border-transparent ${hoverBorder} ${overlayBg}`}>
                          <div className="max-w-[1400px] mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-8">
                              <div className={`font-mono text-[10px] uppercase tracking-widest shrink-0 ${labelColor}`}>
                                  [ {cat.label} Specifications ]
