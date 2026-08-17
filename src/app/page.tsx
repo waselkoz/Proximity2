@@ -140,13 +140,13 @@ export default function Home() {
  </div>
  
  {/* Static, Massive, High-Contrast Typography */}
- <h1 className="text-[14vw] sm:text-[6.5rem] lg:text-[8rem] font-black tracking-tighter leading-[0.85] sm:leading-[0.85] mb-12 sm:mb-16 max-w-6xl uppercase break-words relative z-10 text-white">
+ <h1 className="text-[14vw] sm:text-[6.5rem] lg:text-[8rem] font-black tracking-tighter leading-[0.85] sm:leading-[0.85] mb-12 sm:mb-16 max-w-6xl uppercase break-words relative z-10 text-white mix-blend-difference">
  We craft <br className="hidden sm:block"/> 
  architecture <br className="hidden lg:block"/> 
- for brands that value <span className="bg-white text-black px-1 sm:px-2 whitespace-nowrap mt-2 sm:mt-0 inline-block ">precision.</span>
+ for brands that value <span className="bg-white text-black px-1 sm:px-2 whitespace-nowrap mt-2 sm:mt-0 inline-block mix-blend-normal">precision.</span>
  </h1>
  
- <div className="flex flex-col sm:flex-row gap-8 sm:gap-16 items-start relative z-10 text-white">
+ <div className="flex flex-col sm:flex-row gap-8 sm:gap-16 items-start relative z-10 text-white mix-blend-difference">
  <Link href="/portfolio" className="group flex items-center gap-4 sm:gap-6 pb-2 sm:pb-3 border-b-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] pr-2 sm:pr-4 border-white">
  <span>Explore Work</span>
  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center bg-white group-hover:bg-[#90243B] transition-colors">
@@ -163,7 +163,7 @@ export default function Home() {
  </div>
  
  {/* Mechanical Engine Indicator */}
- <div className="absolute bottom-12 left-5 sm:left-12 font-mono text-[8px] tracking-[0.3em] text-white/50 uppercase flex gap-4 pointer-events-none">
+ <div className="absolute bottom-12 left-5 sm:left-12 font-mono text-[8px] tracking-[0.3em] text-white/50 uppercase flex gap-4 pointer-events-none mix-blend-difference">
  <span>Status: Online</span>
  <span>View: 0{activeBgIndex + 1}</span>
  </div>
@@ -351,8 +351,8 @@ export default function Home() {
  : 'flex-1 bg-[#0A0A0A]'}
  `}
  >
- {/* Unique Creative Background (Visible only when active) */}
- <div className={`absolute inset-0 pointer-events-none transition-all duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+ {/* Unique Creative Background (Visible only when active, disabled on mobile for performance) */}
+ <div className={`hidden lg:block absolute inset-0 pointer-events-none transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
  {pillar.num === "01" && (
  <div className="w-full h-full" style={{backgroundImage: 'radial-gradient(#00000015 1px, transparent 1px)', backgroundSize: '24px 24px'}}></div>
  )}
@@ -430,7 +430,7 @@ export default function Home() {
  {/* 02: Branding (Hyper-realistic Poster Mockup) */}
  {pillar.num === "02" && (
  <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] flex items-center justify-center group/art border border-[#1F1F1F]">
- <Image src={pillar.image} alt="Branding Design Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover opacity-90 group-hover/art:scale-110 group-hover/art:opacity-100 transition-all duration-[3000ms] ease-out" />
+ <Image src={pillar.image} alt="Branding Design Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover opacity-90 group-hover/art:scale-110 group-hover/art:opacity-100 transition-[opacity,transform] duration-[3000ms] ease-out" />
  
  {/* Geometric Crop Marks Overlay */}
  <div className="absolute top-6 left-6 w-8 h-8 border-l-2 border-t-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
