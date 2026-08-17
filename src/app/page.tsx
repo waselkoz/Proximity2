@@ -302,7 +302,7 @@ export default function Home() {
  </div>
  </div>
  
- <div className="flex flex-col lg:flex-row w-full lg:h-[75vh]">
+ <div className="flex flex-col lg:flex-row w-full h-[500px] sm:h-[600px] lg:h-[75vh]">
  {[
  { 
  num: "01", 
@@ -341,12 +341,12 @@ export default function Home() {
  onMouseEnter={() => { playHoverTick(); setActivePillar(idx); }}
  onMouseLeave={() => setActivePillar(null)}
  onClick={() => { playMechanicalClick(); setActivePillar(isActive ? null : idx); }}
- className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-[max-height,flex-grow,background-color,opacity,color] duration-[700ms] ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden 
+ className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-all duration-[700ms] ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden 
   ${isActive 
-  ? 'max-h-[800px] lg:max-h-none lg:h-full lg:flex-[3.5] bg-white text-black' 
+  ? 'flex-[3.5] lg:flex-[3.5] bg-white text-black' 
   : isOtherActive 
-  ? 'max-h-[100px] sm:max-h-[120px] lg:h-full lg:flex-[0.5] opacity-50 bg-[#0A0A0A]' 
-  : 'max-h-[100px] sm:max-h-[120px] lg:h-full lg:flex-1 bg-[#0A0A0A]'}
+  ? 'flex-[0.7] lg:flex-[0.5] opacity-50 bg-[#0A0A0A]' 
+  : 'flex-1 bg-[#0A0A0A]'}
   `}
  >
  {/* Unique Creative Background (Visible only when active, disabled on mobile for performance) */}
