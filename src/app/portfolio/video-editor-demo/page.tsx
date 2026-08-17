@@ -19,11 +19,22 @@ const playHoverTick = () => {
   }
 };
 
+type Note = { frame: number; text: string };
+
 export default function VideoTerminal() {
   const [activeFrame, setActiveFrame] = useState(0); // 0 to 100
   const timelineRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // New States
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [activeTab, setActiveTab] = useState<'PHASE' | 'NOTES'>('PHASE');
+  const [draftNote, setDraftNote] = useState<string>('');
+  
+  const [selectedFormat, setSelectedFormat] = useState('Social Media Campaign');
+  const [isColorChecked, setIsColorChecked] = useState(false);
+  const [isAudioChecked, setIsAudioChecked] = useState(false);
 
   // Lock body scroll
   useEffect(() => {
@@ -85,6 +96,23 @@ export default function VideoTerminal() {
       scale = 1.15;
   }
 
+  // Estimator Logic
+  let estimatedTime = "2-3 WEEKS";
+  let budgetTier = "TIER 1 (STANDARD)";
+  if (selectedFormat === 'Brand Anthem Video') {
+      estimatedTime = "4-6 WEEKS";
+      budgetTier = "TIER 2 (PREMIUM)";
+  } else if (selectedFormat === 'Commercial / Broadcast') {
+      estimatedTime = "6-8+ WEEKS";
+      budgetTier = "TIER 3 (ELITE)";
+  }
+  if (isColorChecked || isAudioChecked) {
+      if (selectedFormat === 'Social Media Campaign') estimatedTime = "3-4 WEEKS";
+      if (isColorChecked && isAudioChecked && selectedFormat !== 'Social Media Campaign') {
+          budgetTier = selectedFormat === 'Brand Anthem Video' ? "TIER 3 (ELITE)" : "TIER 4 (CINEMA)";
+      }
+  }
+
   // Fake Timecode Generation
   const [timecode, setTimecode] = useState("00:00:00:00");
   useEffect(() => {
@@ -126,28 +154,87 @@ export default function VideoTerminal() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 gap-2 z-10">
           
           {/* Left Panel: Asset Browser / Phase Data */}
-          <div className="hidden lg:flex w-1/4 bg-[#0A0A0A]/90 backdrop-blur-md border border-[#1F1F1F] flex-col overflow-hidden">
-              <div className="p-2 border-b border-[#1F1F1F] text-[9px] font-mono tracking-widest uppercase text-white/40 flex items-center gap-2 bg-[#111]">
-                 <LayoutDashboard size={10} /> PHASE_INSPECTOR
+          <div className="hidden lg:flex w-1/4 bg-[#0A0A0A]/90 backdrop-blur-md border border-[#1F1F1F] flex-col overflow-hidden h-[50vh] lg:h-auto">
+              <div className="flex border-b border-[#1F1F1F] shrink-0">
+                  <button onClick={() => { playMechanicalClick(); setActiveTab('PHASE'); }} className={`flex-1 p-2 text-[9px] font-mono tracking-widest uppercase transition-colors flex items-center justify-center gap-2 ${activeTab === 'PHASE' ? 'bg-[#111] text-white/80' : 'text-white/30 hover:bg-[#111]/50'}`}>
+                     <LayoutDashboard size={10} /> PHASE
+                  </button>
+                  <button onClick={() => { playMechanicalClick(); setActiveTab('NOTES'); }} className={`flex-1 p-2 text-[9px] font-mono tracking-widest uppercase border-l border-[#1F1F1F] transition-colors flex items-center justify-center gap-2 ${activeTab === 'NOTES' ? 'bg-[#111] text-white/80' : 'text-white/30 hover:bg-[#111]/50'}`}>
+                     CLIENT_NOTES ({notes.length})
+                  </button>
               </div>
-              <div className="p-6 flex flex-col gap-6">
-                  <div className="w-12 h-12 border border-[#333] flex items-center justify-center bg-[#111]">
-                      <Icon size={20} className="text-[#90243B]" />
-                  </div>
-                  <div>
-                      <div className="text-[10px] font-mono text-[#90243B] tracking-widest mb-2">ACTIVE PHASE</div>
-                      <h2 className="text-2xl font-black uppercase tracking-tighter leading-none mb-4">{phase}</h2>
-                      <p className="text-sm font-mono text-white/50 leading-relaxed uppercase">{content}</p>
-                  </div>
+              
+              {activeTab === 'PHASE' ? (
+                  <div className="p-6 flex flex-col gap-6 overflow-y-auto">
+                      <div className="w-12 h-12 border border-[#333] flex items-center justify-center bg-[#111] shrink-0">
+                          <Icon size={20} className="text-[#90243B]" />
+                      </div>
+                      <div>
+                          <div className="text-[10px] font-mono text-[#90243B] tracking-widest mb-2">ACTIVE PHASE</div>
+                          <h2 className="text-xl lg:text-2xl font-black uppercase tracking-tighter leading-none mb-4">{phase}</h2>
+                          <p className="text-xs lg:text-sm font-mono text-white/50 leading-relaxed uppercase">{content}</p>
+                      </div>
 
-                  <div className="border-t border-[#1F1F1F] mt-4 pt-4">
-                      <div className="text-[10px] font-mono text-white/40 tracking-widest mb-3">CURRENT_STATUS</div>
-                      {activeFrame <= 25 && <div className="text-xs font-mono text-white/80">&gt; Finalizing storyboards and shot list.</div>}
-                      {activeFrame > 25 && activeFrame <= 50 && <div className="text-xs font-mono text-white/80">&gt; Camera and lighting setup complete.</div>}
-                      {activeFrame > 50 && activeFrame <= 75 && <div className="text-xs font-mono text-white/80">&gt; Refining color grade and visual flow.</div>}
-                      {activeFrame > 75 && <div className="text-xs font-mono text-white/80">&gt; Audio mix optimized for delivery.</div>}
+                      <div className="border-t border-[#1F1F1F] mt-4 pt-4">
+                          <div className="text-[10px] font-mono text-white/40 tracking-widest mb-3">WHY THIS MATTERS</div>
+                          <p className="text-[9px] lg:text-[10px] font-mono text-white/70 leading-relaxed">
+                              {activeFrame <= 25 ? "Thorough pre-production eliminates expensive on-set pivots and ensures the creative vision is structurally sound." : 
+                               activeFrame <= 50 ? "High-end cinema cameras capture maximum dynamic range, giving us total control over the image in post." : 
+                               activeFrame <= 75 ? "Rigorous editorial rhythm and invisible VFX elevate the narrative from a simple video to a cinematic experience." : 
+                               "Theatrical color grading and spatial audio mix are the final 10% that deliver 90% of the premium feel."}
+                          </p>
+                      </div>
                   </div>
-              </div>
+              ) : (
+                  <div className="p-4 flex flex-col h-full overflow-hidden">
+                      <div className="flex-1 overflow-y-auto flex flex-col gap-3 pr-2 scrollbar-thin scrollbar-thumb-[#333] scrollbar-track-transparent">
+                          {notes.length === 0 ? (
+                              <div className="text-[10px] font-mono text-white/30 text-center mt-10 uppercase">
+                                  No client notes on timeline.<br/><br/>Click "ADD NOTE" to drop a marker.
+                              </div>
+                          ) : (
+                              notes.map((note, idx) => (
+                                  <div key={idx} className="bg-[#111] border border-[#333] p-3 cursor-pointer hover:border-[#90243B] transition-colors" onClick={() => { playMechanicalClick(); setActiveFrame(note.frame); }}>
+                                      <div className="text-[9px] font-mono text-[#90243B] tracking-widest mb-1 flex justify-between">
+                                          <span>FRAME: {note.frame.toString().padStart(3, '0')}</span>
+                                          <span>CLIENT</span>
+                                      </div>
+                                      <div className="text-xs text-white/80">{note.text}</div>
+                                  </div>
+                              ))
+                          )}
+                      </div>
+                      
+                      <div className="mt-4 pt-4 border-t border-[#1F1F1F] flex flex-col gap-2 shrink-0">
+                          <input 
+                              type="text" 
+                              placeholder={`NOTE AT FRAME ${activeFrame.toString().padStart(3, '0')}...`} 
+                              className="w-full bg-[#111] border border-[#333] text-[10px] font-mono text-white p-2 outline-none focus:border-[#90243B]"
+                              value={draftNote}
+                              onChange={e => setDraftNote(e.target.value)}
+                              onKeyDown={e => {
+                                  if (e.key === 'Enter' && draftNote.trim()) {
+                                      setNotes(prev => [...prev, { frame: activeFrame, text: draftNote.trim() }]);
+                                      setDraftNote('');
+                                      playMechanicalClick();
+                                  }
+                              }}
+                          />
+                          <button 
+                              onClick={() => {
+                                  if (draftNote.trim()) {
+                                      setNotes(prev => [...prev, { frame: activeFrame, text: draftNote.trim() }]);
+                                      setDraftNote('');
+                                      playMechanicalClick();
+                                  }
+                              }}
+                              className="w-full bg-[#90243B] text-white py-2 text-[9px] font-black tracking-widest uppercase hover:bg-white hover:text-black transition-colors"
+                          >
+                              ADD NOTE TO TIMELINE
+                          </button>
+                      </div>
+                  </div>
+              )}
           </div>
 
           {/* Center Panel: The Viewport */}
@@ -163,6 +250,13 @@ export default function VideoTerminal() {
                           fill
                           className="object-cover"
                        />
+                   </div>
+
+                   {/* Dynamic Technical Overlays */}
+                   <div className="absolute top-4 left-4 flex flex-col gap-2 z-20 mix-blend-difference pointer-events-none">
+                       <div className="border border-white/20 px-2 py-1 text-[9px] font-mono tracking-widest text-white/70">
+                           {activeFrame <= 25 ? "[RAW_LOG_8K]" : activeFrame <= 50 ? "[ROUGH_CUT_V1]" : activeFrame <= 75 ? "[VFX_NODE_TREE_ACTIVE]" : "[FINAL_MASTER_REC709]"}
+                       </div>
                    </div>
 
                    {/* Audio Waveform Overlay (only active in final phase) */}
@@ -211,7 +305,11 @@ export default function VideoTerminal() {
                       {/* Format Selection */}
                       <div>
                           <div className="text-[9px] font-mono text-white/40 mb-2 uppercase">PROJECT SCOPE</div>
-                          <select className="w-full bg-[#111] border border-[#333] text-xs font-mono text-white p-2 outline-none focus:border-[#90243B]">
+                          <select 
+                              className="w-full bg-[#111] border border-[#333] text-xs font-mono text-white p-2 outline-none focus:border-[#90243B]"
+                              value={selectedFormat}
+                              onChange={(e) => { setSelectedFormat(e.target.value); playMechanicalClick(); }}
+                          >
                               <option>Social Media Campaign</option>
                               <option>Brand Anthem Video</option>
                               <option>Commercial / Broadcast</option>
@@ -222,20 +320,31 @@ export default function VideoTerminal() {
                       <div>
                           <div className="text-[9px] font-mono text-white/40 mb-2 uppercase">POST_PROCESSING</div>
                           <div className="flex flex-col gap-2">
-                              <label className="flex items-center gap-3 cursor-pointer group" onClick={playMechanicalClick}>
-                                  <input type="checkbox" className="hidden peer" />
-                                  <div className="w-4 h-4 border border-[#333] bg-[#111] peer-checked:bg-[#90243B] peer-checked:border-[#90243B] flex items-center justify-center">
-                                     <Check size={10} className="text-white opacity-0 peer-checked:opacity-100" />
+                              <label className="flex items-center gap-3 cursor-pointer group" onClick={() => { playMechanicalClick(); setIsColorChecked(!isColorChecked); }}>
+                                  <div className={`w-4 h-4 border border-[#333] flex items-center justify-center transition-colors ${isColorChecked ? 'bg-[#90243B] border-[#90243B]' : 'bg-[#111]'}`}>
+                                     <Check size={10} className={`text-white transition-opacity ${isColorChecked ? 'opacity-100' : 'opacity-0'}`} />
                                   </div>
                                   <span className="text-[10px] font-mono uppercase text-white/60 group-hover:text-white transition-colors">Theatrical Color Grade</span>
                               </label>
-                              <label className="flex items-center gap-3 cursor-pointer group" onClick={playMechanicalClick}>
-                                  <input type="checkbox" className="hidden peer" />
-                                  <div className="w-4 h-4 border border-[#333] bg-[#111] peer-checked:bg-[#90243B] peer-checked:border-[#90243B] flex items-center justify-center">
-                                     <Check size={10} className="text-white opacity-0 peer-checked:opacity-100" />
+                              <label className="flex items-center gap-3 cursor-pointer group" onClick={() => { playMechanicalClick(); setIsAudioChecked(!isAudioChecked); }}>
+                                  <div className={`w-4 h-4 border border-[#333] flex items-center justify-center transition-colors ${isAudioChecked ? 'bg-[#90243B] border-[#90243B]' : 'bg-[#111]'}`}>
+                                     <Check size={10} className={`text-white transition-opacity ${isAudioChecked ? 'opacity-100' : 'opacity-0'}`} />
                                   </div>
                                   <span className="text-[10px] font-mono uppercase text-white/60 group-hover:text-white transition-colors">Original Score & Foley</span>
                               </label>
+                          </div>
+                      </div>
+
+                      {/* ESTIMATION READOUT */}
+                      <div className="bg-[#111] border border-[#333] p-4 flex flex-col gap-3 relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-[#90243B]/20 to-transparent"></div>
+                          <div className="flex justify-between items-center text-[10px] font-mono uppercase">
+                              <span className="text-white/40">EST. TURNAROUND</span>
+                              <span className="text-[#90243B] font-bold">{estimatedTime}</span>
+                          </div>
+                          <div className="flex justify-between items-center text-[10px] font-mono uppercase">
+                              <span className="text-white/40">BUDGET TIER</span>
+                              <span className="text-[#90243B] font-bold">{budgetTier}</span>
                           </div>
                       </div>
 
@@ -295,6 +404,17 @@ export default function VideoTerminal() {
               >
                   <div className="absolute -top-[1px] -translate-x-1/2 w-3 h-3 bg-[#90243B]"></div>
               </div>
+
+              {/* Timeline Notes Markers */}
+              {notes.map((note, idx) => (
+                  <div 
+                      key={idx}
+                      className="absolute top-0 w-[2px] h-full bg-[#4A90E2] z-20 pointer-events-none opacity-80"
+                      style={{ left: `${note.frame}%` }}
+                  >
+                      <div className="absolute -top-1 -translate-x-1/2 w-3 h-3 bg-[#4A90E2] rounded-full shadow-[0_0_8px_#4A90E2]"></div>
+                  </div>
+              ))}
 
               {/* Tracks Background Patterns */}
               <div className="absolute inset-0 flex flex-col border-b border-[#222]">
