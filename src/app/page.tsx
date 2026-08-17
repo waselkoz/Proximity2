@@ -4,7 +4,7 @@ import { ArrowRight, ArrowDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { playHoverTick, playMechanicalClick } from "../utils/audio";
 
 export default function Home() {
@@ -302,7 +302,7 @@ export default function Home() {
  </div>
  </div>
  
- <div className="flex flex-col lg:flex-row w-full h-[850px] sm:h-[1000px] lg:h-[75vh]">
+ <div className="flex flex-col lg:flex-row w-full lg:h-[75vh]">
  {[
  { 
  num: "01", 
@@ -343,13 +343,13 @@ export default function Home() {
  onMouseEnter={() => { playHoverTick(); setActivePillar(idx); }}
  onMouseLeave={() => setActivePillar(null)}
  onClick={() => { playMechanicalClick(); setActivePillar(isActive ? null : idx); }}
- className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-colors duration-700 overflow-hidden min-h-[140px] sm:min-h-[200px]
- ${isActive 
- ? 'flex-[3.5] lg:flex-[3.5] bg-white text-black' 
- : isOtherActive 
- ? 'flex-[0.5] lg:flex-[0.5] opacity-50 bg-[#0A0A0A]' 
- : 'flex-1 bg-[#0A0A0A]'}
- `}
+ className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-colors duration-700 overflow-hidden 
+  ${isActive 
+  ? 'h-auto lg:h-full lg:flex-[3.5] bg-white text-black' 
+  : isOtherActive 
+  ? 'h-[100px] sm:h-[120px] lg:h-full lg:flex-[0.5] opacity-50 bg-[#0A0A0A]' 
+  : 'h-[100px] sm:h-[120px] lg:h-full lg:flex-1 bg-[#0A0A0A]'}
+  `}
  >
  {/* Unique Creative Background (Visible only when active, disabled on mobile for performance) */}
  <div className={`hidden lg:block absolute inset-0 pointer-events-none transition-opacity duration-1000 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
@@ -387,7 +387,15 @@ export default function Home() {
  </div>
  
  {/* Expanded Content (Images & Words) */}
- <div className={`z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 mt-8 lg:mt-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isActive ? 'relative opacity-100 translate-y-0' : 'absolute opacity-0 translate-y-8 pointer-events-none invisible'}`}>
+ <AnimatePresence>
+ {isActive && (
+ <motion.div 
+ initial={{ opacity: 0, y: 20 }}
+ animate={{ opacity: 1, y: 0 }}
+ exit={{ opacity: 0, y: 20 }}
+ transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+ className="z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 mt-8 lg:mt-0"
+ >
  
  {/* Words */}
  <div className="w-full lg:w-5/12 flex flex-col items-start lg:pr-8">
@@ -480,6 +488,9 @@ export default function Home() {
  </div>
  )}
  </div>
+ </motion.div>
+ )}
+ </AnimatePresence>
  </div>
 
  {/* Footer Section */}
