@@ -336,19 +336,17 @@ export default function Home() {
  const isOtherActive = activePillar !== null && activePillar !== idx;
  
  return (
- <motion.div 
- layout
- transition={{ layout: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } }}
+ <div 
  key={idx}
  onMouseEnter={() => { playHoverTick(); setActivePillar(idx); }}
  onMouseLeave={() => setActivePillar(null)}
  onClick={() => { playMechanicalClick(); setActivePillar(isActive ? null : idx); }}
- className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-colors duration-700 overflow-hidden 
+ className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-[max-height,flex-grow,background-color,opacity,color] duration-[700ms] ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden 
   ${isActive 
-  ? 'h-auto lg:h-full lg:flex-[3.5] bg-white text-black' 
+  ? 'max-h-[800px] lg:max-h-none lg:h-full lg:flex-[3.5] bg-white text-black' 
   : isOtherActive 
-  ? 'h-[100px] sm:h-[120px] lg:h-full lg:flex-[0.5] opacity-50 bg-[#0A0A0A]' 
-  : 'h-[100px] sm:h-[120px] lg:h-full lg:flex-1 bg-[#0A0A0A]'}
+  ? 'max-h-[100px] sm:max-h-[120px] lg:h-full lg:flex-[0.5] opacity-50 bg-[#0A0A0A]' 
+  : 'max-h-[100px] sm:max-h-[120px] lg:h-full lg:flex-1 bg-[#0A0A0A]'}
   `}
  >
  {/* Unique Creative Background (Visible only when active, disabled on mobile for performance) */}
@@ -428,7 +426,7 @@ export default function Home() {
  {pillar.title}
  </h3>
  </div>
- </motion.div>
+ </div>
  );
  })}
  </div>
