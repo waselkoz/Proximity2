@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -146,12 +146,21 @@ export default function Home() {
             for brands that value <span className="bg-white text-black px-1 sm:px-2 whitespace-nowrap mt-2 sm:mt-0 inline-block mix-blend-normal">precision.</span>
           </h1>
           
-          <button className="group flex items-center gap-4 sm:gap-6 pb-2 sm:pb-3 border-b-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] pr-2 sm:pr-4 relative z-10 text-white border-white mix-blend-difference">
-            <span>Explore Work</span>
-            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center bg-white group-hover:bg-[#90243B] transition-colors">
-              <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black group-hover:text-white transition-transform group-hover:translate-x-[1px]" />
-            </div>
-          </button>
+          <div className="flex flex-col sm:flex-row gap-8 sm:gap-16 items-start relative z-10 mix-blend-difference text-white">
+            <Link href="/portfolio" className="group flex items-center gap-4 sm:gap-6 pb-2 sm:pb-3 border-b-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] pr-2 sm:pr-4 border-white">
+              <span>Explore Work</span>
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center bg-white group-hover:bg-[#90243B] transition-colors">
+                <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black group-hover:text-white transition-transform group-hover:translate-x-[1px]" />
+              </div>
+            </Link>
+            
+            <Link href="#contact" className="group flex items-center gap-4 sm:gap-6 pb-2 sm:pb-3 border-b-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] pr-2 sm:pr-4 border-white/40 hover:border-white transition-colors text-white/70 hover:text-white">
+              <span>Book a Project</span>
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center border border-white/40 group-hover:border-white transition-colors">
+                <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/70 group-hover:text-white transition-transform group-hover:translate-x-[1px]" />
+              </div>
+            </Link>
+          </div>
           
           {/* Mechanical Engine Indicator */}
           <div className="absolute bottom-12 left-5 sm:left-12 font-mono text-[8px] tracking-[0.3em] text-white/50 mix-blend-difference uppercase flex gap-4 pointer-events-none">
@@ -263,6 +272,24 @@ export default function Home() {
 
               </div>
             </div>
+
+            {/* Capability CTA Section */}
+            <div className="w-full mt-12 md:mt-24 pt-12 border-t border-[#E5E5E5] flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+              <p className="font-mono text-xs text-[#0A0A0A]/60 max-w-sm uppercase tracking-widest leading-relaxed">
+                We design digital products that leave no room for mediocrity.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
+                <Link href="/services" className="group bg-[#0A0A0A] hover:bg-[#90243B] text-white px-8 py-5 flex items-center justify-between gap-8 transition-colors duration-500 min-w-[240px]">
+                  <span className="font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">All Services</span>
+                  <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-500" />
+                </Link>
+                <Link href="#contact" className="group bg-transparent border-2 border-[#0A0A0A] text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white px-8 py-5 flex items-center justify-between gap-8 transition-colors duration-500 min-w-[240px]">
+                  <span className="font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">Start a Project</span>
+                  <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-500" />
+                </Link>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -343,9 +370,9 @@ export default function Home() {
                    
                    <div className="flex items-center gap-3">
                      {/* Open Indicator */}
-                     <div className={`flex items-center gap-2 transition-all duration-300 ${isActive ? 'opacity-0 hidden' : 'opacity-100 text-white/40 group-hover:text-white'}`}>
-                       <div className="w-1.5 h-1.5 bg-[#90243B] animate-pulse rounded-full"></div>
-                       <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] uppercase">TAP TO EXPAND</span>
+                     <div className={`flex items-center gap-2 sm:gap-3 transition-all duration-300 ${isActive ? 'opacity-0 hidden' : 'opacity-100 text-white'}`}>
+                       <ArrowDown size={20} className="animate-bounce" />
+                       <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase font-bold">OPEN</span>
                      </div>
                      
                      {/* Tiny Brutalist Shape Icon */}
@@ -448,7 +475,7 @@ export default function Home() {
                                              <div key={i} className="flex-1 border-r border-[#222] h-full relative">
                                                 <div 
                                                     className="absolute bottom-0 w-full bg-white/20 hover:bg-white/40 transition-colors" 
-                                                    style={{height: `${Math.random() * 60 + 20}%`}}>
+                                                    style={{height: `${((i * 47) % 60) + 20}%`}}>
                                                 </div>
                                              </div>
                                          ))}

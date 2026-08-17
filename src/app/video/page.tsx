@@ -1,269 +1,365 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowRight, Film, Scissors, MonitorPlay } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { ArrowDown } from "lucide-react";
 
-const playMechanicalClick = () => {
-  if (typeof window !== 'undefined') {
-    import('../../utils/audio').then(m => m.playMechanicalClick?.()).catch(e => console.log(e));
+// Disciplines with Unsplash images
+const disciplines = [
+  { 
+      id: '01', 
+      title: 'CINEMATIC PRODUCTION', 
+      image: 'https://images.unsplash.com/photo-1580238053495-b9720401df45?q=80&w=2000&auto=format&fit=crop', 
+      text: 'We architect visual stories from the ground up. Utilizing industry-standard cinema cameras (ARRI, RED) and rigorous pre-production planning, we capture raw, uncompromised footage designed for high-end post-production workflows.' 
+  },
+  { 
+      id: '02', 
+      title: 'COLOR GRADING', 
+      image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2000&auto=format&fit=crop', 
+      text: 'Our color pipelines are strictly node-based and non-destructive. Operating in DaVinci Resolve Studio, we craft bespoke looks, match cameras with surgical precision, and master for Rec.709, HDR10+, and theatrical projection.' 
+  },
+  { 
+      id: '03', 
+      title: 'VFX & COMPOSITING', 
+      image: 'https://images.unsplash.com/photo-1595675024853-0f3ec9098ac7?q=80&w=2000&auto=format&fit=crop', 
+      text: 'Invisible effects that elevate the narrative. From complex wire removals and architectural set extensions to full 3D integrations using Unreal Engine and Nuke, our compositing team ensures pixel-perfect reality.' 
+  },
+  { 
+      id: '04', 
+      title: 'EDITORIAL', 
+      image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop', 
+      text: 'The architecture of pacing. We assemble the timeline with a relentless focus on rhythm and emotional resonance. Our offline-to-online workflows handle massive multi-cam arrays and mixed-format media with zero friction.' 
   }
-};
-
-const playHoverTick = () => {
-  if (typeof window !== 'undefined') {
-    import('../../utils/audio').then(m => m.playHoverTick?.()).catch(e => console.log(e));
-  }
-};
-
-const services = [
-  { title: "Commercial Editing", description: "High-end video editing for brand anthems, commercials, and promotional campaigns. We focus on pacing, storytelling, and viewer retention.", icon: Scissors },
-  { title: "Color Grading", description: "Professional color correction and cinematic grading to ensure your footage looks stunning and aligns with your brand's visual identity.", icon: MonitorPlay },
-  { title: "Social Media Shorts", description: "Fast-paced, highly engaging vertical videos optimized for TikTok, Instagram Reels, and YouTube Shorts.", icon: Film }
 ];
 
-// --- Scrollytelling Components ---
+export default function EditorialVideoPage() {
+    const [activeSection, setActiveSection] = useState('01');
+    const { scrollY } = useScroll();
+    
+    // 1. Typographic Liquid Fill logic
+    // Maps scroll position (0 to 800px) to clip-path inset percentage (100% to 0%)
+    const clipPathInset = useTransform(scrollY, [0, 800], [100, 0]);
+    const fillClipPath = useTransform(clipPathInset, (val) => `inset(${val}% 0 0 0)`);
 
-// --- Scrollytelling Components ---
+    useEffect(() => {
+        document.body.style.overflow = 'auto';
+    }, []);
 
-function IntroTitle({ scrollYProgress }: { scrollYProgress: any }) {
-  const opacity = useTransform(scrollYProgress, (p: number) => {
-    if (p < 0.02) return p * 50; 
-    if (p < 0.08) return 1;
-    if (p < 0.1) return 1 - (p - 0.08) * 50;
-    return 0;
-  });
-  const scale = useTransform(scrollYProgress, (p: number) => 1 + p * 2);
-  const display = useTransform(scrollYProgress, (p: number) => p > 0.1 ? "none" : "block");
+    return (
+        <div className="w-full min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-[#90243B] selection:text-white">
 
-  return (
-    <motion.div style={{ opacity, scale, display }} className="absolute inset-0 flex items-center justify-center will-change-transform z-10 pointer-events-none">
-       <div className="relative">
-           <h1 className="text-6xl sm:text-[10vw] font-black uppercase tracking-tighter text-white">The Edit.</h1>
-           <div className="absolute -bottom-4 right-0 w-1/2 h-[2px] bg-[#90243B]"></div>
-       </div>
-    </motion.div>
-  );
+            {/* Global Nav */}
+            <nav className="fixed top-0 left-0 w-full p-6 sm:p-10 flex justify-between items-center z-50 pointer-events-none mix-blend-difference">
+                <Link href="/" className="pointer-events-auto font-mono text-[10px] tracking-[0.3em] uppercase transition-colors flex items-center gap-2 hover:text-[#90243B]">
+                    <div className="w-1.5 h-1.5 bg-[#90243B]"></div>
+                    PROXIMITY_V2
+                </Link>
+                <div className="font-mono text-[9px] uppercase tracking-widest text-white">
+                    VIDEO PRODUCTION
+                </div>
+            </nav>
+
+            {/* Hero Section: The Monolith Matrix */}
+            <section className="relative w-full min-h-[100dvh] flex flex-col justify-end overflow-hidden border-b border-[#1F1F1F]">
+                
+                {/* Structural Background Geometry (Zero Glows) */}
+                <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                    {/* Cinematic Background Image */}
+                    <Image 
+                        src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2000&auto=format&fit=crop"
+                        alt="Cinematic Background"
+                        fill
+                        priority
+                        className="object-cover opacity-15 grayscale" 
+                    />
+                    
+                    {/* Massive Solid Crimson Circle Intersecting Top Right */}
+                    <div className="absolute -top-[20vw] -right-[10vw] w-[50vw] h-[50vw] bg-[#90243B] rounded-full mix-blend-screen opacity-60"></div>
+                    
+                    {/* Architectural Hairline Grid Overlay */}
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#1F1F1F_1px,transparent_1px),linear-gradient(to_bottom,#1F1F1F_1px,transparent_1px)] bg-[size:100px_100px] mix-blend-overlay opacity-50"></div>
+                    
+                    {/* Typographic Liquid Fill (Hollow Base) */}
+                    <div className="absolute top-[30%] left-[-5%] text-[20vw] font-black uppercase text-transparent leading-none opacity-20 pointer-events-none select-none tracking-tighter" style={{ WebkitTextStroke: '2px #FFFFFF' }}>
+                        CINEMATIC
+                    </div>
+                    
+                    {/* Typographic Liquid Fill (Solid Fill linked to Scroll) */}
+                    <motion.div 
+                        className="absolute top-[30%] left-[-5%] text-[20vw] font-black uppercase text-white leading-none opacity-20 pointer-events-none select-none tracking-tighter" 
+                        style={{ clipPath: fillClipPath }}
+                    >
+                        CINEMATIC
+                    </motion.div>
+                </div>
+
+                <div className="relative z-10 max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mt-32 lg:mt-0 p-6 sm:p-12 lg:p-24 pb-32">
+                    
+                    <div className="lg:col-span-8">
+                        <div className="font-mono text-white text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-8 flex items-center gap-4">
+                            <motion.div 
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{ duration: 1, ease: "circOut", delay: 0.5 }}
+                                className="w-12 h-[1px] bg-white origin-left"
+                            ></motion.div>
+                            The Discipline
+                        </div>
+                        <h1 className="text-[12vw] md:text-[9vw] lg:text-[7vw] font-black uppercase tracking-tighter leading-[0.9] mb-8 text-white">
+                            MOTION <span className="font-serif italic text-white/50 lowercase text-[10vw] md:text-[6vw] font-light">&amp;</span><br/> CINEMATIC ARTS
+                        </h1>
+                        <p className="text-[#A0A0A0] max-w-lg text-sm sm:text-base leading-relaxed font-medium">
+                            We architect visual stories from raw light. Fusing deep cinematic theory with avant-garde post-production, we construct atmospheres that demand attention with absolute precision.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 items-start mt-12 relative z-10 mix-blend-difference">
+                            <Link href="/portfolio" className="group flex items-center gap-4 pb-2 border-b-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] pr-4 border-white text-white">
+                                <span>Explore Portfolio</span>
+                                <ArrowDown className="w-3 h-3 text-white group-hover:text-[#90243B] transition-colors -rotate-90" />
+                            </Link>
+                            <Link href="#contact" className="group flex items-center gap-4 pb-2 border-b-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] pr-4 border-white/40 text-white/70 hover:text-white hover:border-white transition-colors">
+                                <span>Start a Project</span>
+                                <ArrowDown className="w-3 h-3 text-white/70 group-hover:text-white transition-colors -rotate-90" />
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end w-full h-full max-w-xs mx-auto lg:mx-0 pb-8">
+                        <div className="flex items-center gap-4 text-[9px] font-mono tracking-widest uppercase text-white/50 mt-8 self-start lg:self-end">
+                            <ArrowDown size={14} />
+                            Scroll to explore disciplines
+                        </div>
+                    </div>
+                </div>
+
+                {/* The Kinetic Ledger (Scrolling Marquee) */}
+                <div className="absolute bottom-0 left-0 w-full h-12 bg-white flex items-center overflow-hidden z-20 border-t border-[#1F1F1F]">
+                    <motion.div 
+                        className="whitespace-nowrap font-black font-mono text-[12px] tracking-[0.5em] uppercase text-black flex gap-12"
+                        animate={{ x: [0, -1000] }}
+                        transition={{ repeat: Infinity, ease: "linear", duration: 10 }}
+                    >
+                        <span>PROXIMITY AGENCY // VIDEO PRODUCTION // PREMIUM QUALITY //</span>
+                        <span>PROXIMITY AGENCY // VIDEO PRODUCTION // PREMIUM QUALITY //</span>
+                        <span>PROXIMITY AGENCY // VIDEO PRODUCTION // PREMIUM QUALITY //</span>
+                        <span>PROXIMITY AGENCY // VIDEO PRODUCTION // PREMIUM QUALITY //</span>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Manifesto Section */}
+            <section className="relative w-full bg-[#0A0A0A] z-10 py-32 lg:py-48 px-6 sm:px-12 lg:px-24 flex justify-center items-center border-b border-[#1F1F1F] overflow-hidden">
+                <Image 
+                    src="/abstract-blurry-smooth-image-red-color-generative-ai_169016-30587.avif"
+                    alt="Abstract Crimson Background"
+                    fill
+                    className="object-cover opacity-40 mix-blend-screen pointer-events-none" 
+                />
+                
+                {/* 1px grid overlay to keep it architectural */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#1F1F1F_1px,transparent_1px),linear-gradient(to_bottom,#1F1F1F_1px,transparent_1px)] bg-[size:100px_100px] mix-blend-overlay opacity-50 pointer-events-none"></div>
+
+                <div className="relative z-10 max-w-5xl w-full flex flex-col gap-8">
+                    <div className="font-mono text-white text-[10px] tracking-widest uppercase flex items-center gap-4">
+                        <motion.div 
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, ease: "circOut" }}
+                            className="w-12 h-[1px] bg-[#90243B] origin-left"
+                        ></motion.div>
+                        The Philosophy
+                    </div>
+                    <motion.h2 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-10%" }}
+                        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                        className="text-2xl sm:text-4xl lg:text-5xl font-light leading-snug tracking-tight text-white/90"
+                    >
+                        We strictly reject generic templates. Every project is made from <span className="font-black">absolute zero</span>. Our concepts are drawn from raw imagination, refined through relentless self-critique, and forged into something undeniable.
+                    </motion.h2>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="flex flex-col sm:flex-row gap-6 mt-4 relative z-20"
+                    >
+                        <Link href="/services" className="group bg-white text-black hover:bg-[#90243B] hover:text-white px-8 py-4 flex items-center justify-between gap-8 transition-colors duration-500 w-fit">
+                            <span className="font-black uppercase tracking-[0.2em] text-[10px]">View Services</span>
+                            <ArrowDown size={14} className="group-hover:translate-x-2 transition-transform duration-500 -rotate-90" />
+                        </Link>
+                        <Link href="#contact" className="group bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 flex items-center justify-between gap-8 transition-colors duration-500 w-fit">
+                            <span className="font-black uppercase tracking-[0.2em] text-[10px]">Start a Project</span>
+                            <ArrowDown size={14} className="group-hover:translate-x-2 transition-transform duration-500 -rotate-90" />
+                        </Link>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Sticky Editorial Grid Section */}
+            <section className="relative w-full bg-[#0A0A0A] z-10 px-6 sm:px-12 lg:px-24 py-24 lg:py-48 flex flex-col lg:flex-row gap-16 lg:gap-32 max-w-[2000px] mx-auto border-l border-r border-[#1F1F1F]">
+                
+                {/* Left Column: Sticky Index */}
+                <div className="w-full lg:w-1/4 shrink-0 relative hidden lg:block">
+                    <div className="sticky top-40 flex flex-col gap-12">
+                        
+                        <div className="font-mono text-white/50 text-[9px] tracking-[0.3em] uppercase border-b border-[#1F1F1F] pb-4 mb-4">
+                            INDEX // 01-04
+                        </div>
+                        
+                        <div className="flex flex-col gap-8">
+                            {disciplines.map((d) => (
+                                <a 
+                                   key={d.id} 
+                                   href={`#section-${d.id}`}
+                                   className={`group flex items-start gap-6 transition-opacity duration-300 ${activeSection === d.id ? 'opacity-100' : 'opacity-30 hover:opacity-60'}`}
+                                >
+                                    <div className="font-mono text-[10px] tracking-widest mt-1">
+                                        {activeSection === d.id ? (
+                                            <span className="text-[#90243B]">[X]</span>
+                                        ) : (
+                                            <span className="text-white/30">[ ]</span>
+                                        )}
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="font-mono text-[10px] tracking-widest text-[#90243B] mb-2">SECTION {d.id}</span>
+                                        <h3 className="text-xl font-bold uppercase tracking-widest leading-none text-white">{d.title}</h3>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Right Column: Scrolling Content */}
+                <div className="w-full lg:w-3/4 flex flex-col gap-32 lg:gap-48 relative z-10">
+                    {/* Background Grid Line for Structural Ledger */}
+                    <motion.div 
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{ duration: 2, ease: "circOut" }}
+                        className="absolute top-0 left-0 w-[1px] h-full bg-[#1F1F1F] hidden lg:block -ml-8 lg:-ml-16 pointer-events-none origin-top"
+                    ></motion.div>
+
+                    {disciplines.map((d) => (
+                        <DisciplineSection 
+                            key={d.id} 
+                            data={d} 
+                            onInView={() => setActiveSection(d.id)} 
+                            isActive={activeSection === d.id}
+                        />
+                    ))}
+                </div>
+            </section>
+            
+            {/* Minimal Footer */}
+            <footer className="w-full border-t border-[#1F1F1F] bg-[#0A0A0A] p-6 sm:p-12 flex justify-between items-center font-mono text-[10px] uppercase tracking-widest text-white/50 mt-16 relative z-10">
+                <span>PROXIMITY_V2 // 2026</span>
+                <div className="flex items-center gap-8">
+                    <a href="#" className="hover:text-white transition-colors">START A PROJECT</a>
+                    <a href="#top" className="hover:text-white transition-colors">BACK TO TOP</a>
+                </div>
+            </footer>
+
+        </div>
+    );
 }
 
-function SnappyCard({ title, subtitle, start, end, scrollYProgress }: { title: string, subtitle: string, start: number, end: number, scrollYProgress: any }) {
-  const y = useTransform(scrollYProgress, (p: number) => {
-    if (p < start) {
-       const dist = start - p;
-       if (dist > 0.02) return "100vh";
-       return `${(dist / 0.02) * 100}vh`;
-    }
-    if (p > end) {
-       const dist = p - end;
-       if (dist > 0.02) return "-100vh";
-       return `${-(dist / 0.02) * 100}vh`;
-    }
-    return "0vh";
-  });
-  
-  const scale = useTransform(scrollYProgress, (p: number) => {
-     if (p >= start && p <= end) return 1 + ((p - start) / (end - start)) * 0.05;
-     return 1;
-  });
+// Subcomponent to handle intersection observation for active index updating
+function DisciplineSection({ data, onInView, isActive }: { data: any, onInView: () => void, isActive: boolean }) {
+    const ref = useRef<HTMLDivElement>(null);
+    const isInView = useInView(ref, { margin: "-40% 0px -40% 0px" });
 
-  return (
-    <motion.div style={{ y, scale }} className="absolute inset-0 flex items-center justify-center will-change-transform pointer-events-none z-20">
-      <div 
-        className="bg-[#050505] border border-[#1F1F1F] px-10 py-16 sm:px-24 flex flex-col items-start shadow-[0_30px_60px_rgba(0,0,0,0.9)] relative overflow-hidden backdrop-blur-md"
-      >
-         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#1F1F1F] via-[#E5E5E5]/20 to-[#1F1F1F]"></div>
-         <div className="w-8 h-[2px] bg-[#90243B] mb-8"></div>
-         <div className="absolute bottom-6 right-6 font-mono text-[10px] text-[#888] tracking-widest">{start.toFixed(2)} — {end.toFixed(2)}</div>
-         
-         <h2 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tighter mb-4 z-10 leading-none">{title}</h2>
-         <p className="font-mono text-sm text-[#888] uppercase tracking-widest z-10">{subtitle}</p>
-      </div>
-    </motion.div>
-  );
+    useEffect(() => {
+        if (isInView) {
+            onInView();
+        }
+    }, [isInView, onInView]);
+
+    return (
+        <div id={`section-${data.id}`} ref={ref} className="w-full flex flex-col gap-12 sm:gap-16 scroll-mt-32 border-b border-[#1F1F1F] pb-24 lg:pb-32 last:border-b-0 relative">
+
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 justify-between items-start">
+                
+                {/* Text Ledger */}
+                <div className="w-full lg:w-1/3 flex flex-col gap-8 order-2 lg:order-1">
+                    <div className="font-mono text-white text-[10px] tracking-widest uppercase border-l-2 border-[#90243B] pl-4">
+                        {data.id} <br/>
+                        <span className="text-[#90243B]">SERVICE</span>
+                    </div>
+                    
+                    <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tighter leading-tight text-white">
+                        {data.title}
+                    </h2>
+                    
+                    <p className="text-[#A0A0A0] leading-relaxed text-sm font-medium">
+                        {data.text}
+                    </p>
+                    
+                    <button className="self-start text-[10px] font-mono tracking-widest uppercase text-white hover:text-[#90243B] transition-colors border-b border-[#1F1F1F] hover:border-[#90243B] pb-1 mt-4 flex items-center gap-2">
+                        <span className="text-[#90243B]">+</span> EXPLORE PROJECT
+                    </button>
+                </div>
+                
+                {/* The Image Wrapper (Strict Brutalism) */}
+                <div className="relative w-full lg:w-2/3 aspect-[4/3] bg-[#111] order-1 lg:order-2 group cursor-crosshair">
+                    
+                    {/* Crimson Geometric Offset Block (Solid Color, No Glow) */}
+                    <div className="absolute top-0 left-0 w-full h-full bg-[#90243B] transition-transform duration-500 lg:group-hover:translate-x-4 lg:group-hover:translate-y-4 z-0 hidden lg:block"></div>
+
+                    {/* Image Container */}
+                    <div className="relative z-10 w-full h-full border border-[#1F1F1F] bg-[#000] overflow-hidden transition-transform duration-500 lg:group-hover:-translate-x-2 lg:group-hover:-translate-y-2">
+                        
+                        <Image 
+                            src={data.image} 
+                            alt={data.title} 
+                            fill 
+                            className="object-cover grayscale transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0" 
+                        />
+
+                        {/* 3. Aggressive Shutter Mask */}
+                        <motion.div 
+                            initial={{ x: "0%" }} 
+                            whileInView={{ x: "100%" }} 
+                            viewport={{ once: true, margin: "-10%" }}
+                            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                            className="absolute inset-0 bg-[#0A0A0A] z-20 origin-left"
+                        ></motion.div>
+                        
+                        {/* 2. Blueprint Grid Rendering (Crosshairs) */}
+                        <motion.div 
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            viewport={{ once: true, margin: "-10%" }}
+                            transition={{ duration: 0.8, ease: "circOut", delay: 0.6 }}
+                            className="absolute top-1/2 left-0 w-full h-[1px] bg-white/20 mix-blend-difference pointer-events-none group-hover:bg-[#90243B] origin-left z-10"
+                        ></motion.div>
+                        <motion.div 
+                            initial={{ scaleY: 0 }}
+                            whileInView={{ scaleY: 1 }}
+                            viewport={{ once: true, margin: "-10%" }}
+                            transition={{ duration: 0.8, ease: "circOut", delay: 0.8 }}
+                            className="absolute top-0 left-1/2 w-[1px] h-full bg-white/20 mix-blend-difference pointer-events-none group-hover:bg-[#90243B] origin-top z-10"
+                        ></motion.div>
+                        
+                        {/* Corner Target Label */}
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 1 }}
+                            className="absolute top-4 right-4 font-mono text-[9px] uppercase tracking-widest text-white border border-white/20 bg-black px-3 py-1 pointer-events-none mix-blend-difference group-hover:text-[#90243B] group-hover:border-[#90243B] z-30"
+                        >
+                            {data.id}
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    );
 }
-
-function ImpactText({ text, isCrimson = false, start, end, scrollYProgress }: { text: string, isCrimson?: boolean, start: number, end: number, scrollYProgress: any }) {
-  const opacity = useTransform(scrollYProgress, (p: number) => {
-    if (p < start || p > end) return 0;
-    const local = (p - start) / (end - start);
-    if (local < 0.1) return local * 10;
-    if (local > 0.9) return (1 - local) * 10;
-    return 1;
-  });
-  
-  const scale = useTransform(scrollYProgress, (p: number) => {
-    if (p < start || p > end) return 0.5;
-    const local = (p - start) / (end - start);
-    return 0.8 + local * 1.5; 
-  });
-
-  return (
-    <motion.div style={{ opacity, scale }} className={`absolute inset-0 flex items-center justify-center will-change-transform pointer-events-none z-30 mix-blend-difference ${isCrimson ? 'text-[#90243B]' : 'text-white'}`}>
-       <h1 className="text-6xl sm:text-[10vw] font-black uppercase tracking-tighter whitespace-nowrap">{text}</h1>
-    </motion.div>
-  );
-}
-
-function MontageImage({ src, triggerPoint, rotate, x, y, scrollYProgress, index }: { src: string, triggerPoint: number, rotate: number, x: number, y: number, scrollYProgress: any, index: number }) {
-  const opacity = useTransform(scrollYProgress, (p: number) => p >= triggerPoint ? 1 : 0);
-  
-  const scale = useTransform(scrollYProgress, (p: number) => {
-     if (p < triggerPoint) return 0.8;
-     if (p > triggerPoint + 0.02) return 1;
-     return 0.8 + ((p - triggerPoint) / 0.02) * 0.2; // Smooth pop
-  });
-
-  return (
-    <motion.div 
-      style={{ opacity, scale, rotate: `${rotate}deg`, x: `${x}vw`, y: `${y}vh`, zIndex: 40 + index }} 
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] sm:w-[35vw] aspect-video border-[1px] border-[#1F1F1F] shadow-[0_20px_50px_rgba(0,0,0,0.8)] will-change-transform bg-[#050505]"
-    >
-       <Image src={src} fill alt="montage" className="object-cover opacity-90" sizes="(max-width: 768px) 70vw, 35vw" />
-    </motion.div>
-  );
-}
-
-export default function VideoEditingPage() {
-  
-  useEffect(() => {
-    document.body.style.overflow = 'auto';
-  }, []);
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-      target: containerRef,
-      offset: ["start start", "end end"]
-  });
-
-  return (
-    <div className="w-full min-h-screen bg-[#050505] text-white font-sans selection:bg-[#90243B] selection:text-white pb-20">
-      
-      {/* Navigation */}
-      <nav className="w-full p-6 sm:p-10 flex justify-between items-center fixed top-0 z-50 text-white mix-blend-difference pointer-events-none">
-          <Link href="/" onClick={playMechanicalClick} onMouseEnter={playHoverTick} className="pointer-events-auto font-mono text-xs tracking-[0.2em] uppercase hover:text-[#90243B] transition-colors flex items-center gap-2 group">
-              <div className="w-1.5 h-1.5 bg-[#90243B] group-hover:scale-150 transition-transform"></div>
-              Proximity
-          </Link>
-          <div className="font-mono text-[10px] uppercase tracking-widest opacity-50">
-              Video Editing
-          </div>
-      </nav>
-
-      {/* Scrollytelling Hero (800vh for slower, smoother pacing) */}
-      <section ref={containerRef} className="relative w-full h-[800vh] bg-[#050505]">
-          <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center bg-[#050505] bg-[url('/brutalist-bg.jpg')] bg-cover bg-center bg-blend-multiply">
-              
-              {/* Background Vignette */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_100%)] pointer-events-none z-0"></div>
-
-              {/* Intro Title */}
-              <IntroTitle scrollYProgress={scrollYProgress} />
-
-              {/* Act 1: How We Work */}
-              <SnappyCard title="01 / Audit & Strategy" subtitle="Reviewing the Raw Footage" start={0.08} end={0.16} scrollYProgress={scrollYProgress} />
-              <SnappyCard title="02 / Edit & Pacing" subtitle="Building the Narrative Cut" start={0.16} end={0.24} scrollYProgress={scrollYProgress} />
-              <SnappyCard title="03 / Color & Sound" subtitle="Cinematic Polish & Foley" start={0.24} end={0.32} scrollYProgress={scrollYProgress} />
-
-              {/* Act 2: The Tech Stack */}
-              <ImpactText text="DAVINCI RESOLVE" start={0.35} end={0.45} scrollYProgress={scrollYProgress} />
-              <ImpactText text="AFTER EFFECTS" start={0.45} end={0.55} scrollYProgress={scrollYProgress} />
-              <ImpactText text="PREMIERE PRO" start={0.55} end={0.65} scrollYProgress={scrollYProgress} />
-              
-              {/* Act 2.5: The Impact */}
-              <ImpactText text="100+ DELIVERIES" start={0.66} end={0.71} scrollYProgress={scrollYProgress} />
-              <ImpactText text="FRAME PERFECT" isCrimson start={0.71} end={0.76} scrollYProgress={scrollYProgress} />
-
-              {/* Act 3: The Montage */}
-              {/* Using proper offset with absolute positioning in component */}
-              <MontageImage src="/acc-video.jpg" triggerPoint={0.78} rotate={-2} x={0} y={0} index={1} scrollYProgress={scrollYProgress} />
-              <MontageImage src="/acc-video-v4.jpg" triggerPoint={0.82} rotate={4} x={-5} y={-15} index={2} scrollYProgress={scrollYProgress} />
-              <MontageImage src="/cap-video.jpg" triggerPoint={0.86} rotate={-4} x={5} y={20} index={3} scrollYProgress={scrollYProgress} />
-              <MontageImage src="/cap-video-ui.jpg" triggerPoint={0.90} rotate={7} x={-20} y={0} index={4} scrollYProgress={scrollYProgress} />
-              <MontageImage src="/portfolio_preview.jpg" triggerPoint={0.94} rotate={0} x={0} y={0} index={5} scrollYProgress={scrollYProgress} />
-
-              {/* Crosshairs & Borders for framing */}
-              <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/5 border-dashed z-0 pointer-events-none"></div>
-              <div className="absolute top-10 left-10 w-8 h-8 border-t border-l border-[#90243B]/50 z-50 pointer-events-none"></div>
-              <div className="absolute top-10 right-10 w-8 h-8 border-t border-r border-[#90243B]/50 z-50 pointer-events-none"></div>
-              <div className="absolute bottom-10 left-10 w-8 h-8 border-b border-l border-[#90243B]/50 z-50 pointer-events-none"></div>
-              <div className="absolute bottom-10 right-10 w-8 h-8 border-b border-r border-[#90243B]/50 z-50 pointer-events-none"></div>
-          </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="relative z-50 w-full px-6 sm:px-12 lg:px-24 py-24 lg:py-32 bg-[#050505] border-t border-[#1F1F1F]">
-          <div className="font-mono text-xs text-[#90243B] uppercase tracking-widest mb-16 flex items-center gap-4">
-              <div className="w-8 h-[1px] bg-[#90243B]"></div>
-              Our Capabilities
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
-              {services.map((service, index) => (
-                  <motion.div 
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex flex-col gap-6 group"
-                  >
-                      <div className="w-12 h-12 bg-[#1F1F1F] border border-[#333] flex items-center justify-center group-hover:bg-[#90243B] group-hover:border-[#90243B] transition-colors duration-500">
-                          <service.icon size={20} className="text-white group-hover:scale-110 transition-transform duration-500" />
-                      </div>
-                      <h3 className="text-2xl font-black uppercase tracking-tight">{service.title}</h3>
-                      <p className="text-white/60 font-medium leading-relaxed">
-                          {service.description}
-                      </p>
-                  </motion.div>
-              ))}
-          </div>
-      </section>
-
-      {/* Inquiry Form */}
-      <section className="w-full px-6 sm:px-12 lg:px-24 py-20 lg:py-32 max-w-5xl mx-auto">
-          <div className="border border-[#1F1F1F] bg-[#0A0A0A] p-8 sm:p-16 lg:p-24 flex flex-col gap-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
-              <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay">
-                  <Image src="/vid_1_neon_1786886509536.jpg" alt="Texture" fill className="object-cover" />
-              </div>
-
-              <div className="relative z-10">
-                  <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter mb-4">Start a Project</h2>
-                  <p className="text-white/60 font-medium max-w-md">Tell us about your video project. Whether it's a single commercial or an ongoing retainer, we're ready to edit.</p>
-              </div>
-
-              <form className="flex flex-col gap-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <input 
-                          type="text" 
-                          placeholder="Your Name" 
-                          className="w-full bg-transparent border-b border-white/20 py-4 outline-none focus:border-[#90243B] transition-colors font-mono text-sm uppercase tracking-wider placeholder:text-white/30"
-                      />
-                      <input 
-                          type="email" 
-                          placeholder="Email Address" 
-                          className="w-full bg-transparent border-b border-white/20 py-4 outline-none focus:border-[#90243B] transition-colors font-mono text-sm uppercase tracking-wider placeholder:text-white/30"
-                      />
-                  </div>
-                  <textarea 
-                      placeholder="Project Details (What kind of video?)" 
-                      rows={4}
-                      className="w-full bg-transparent border-b border-white/20 py-4 outline-none focus:border-[#90243B] transition-colors font-mono text-sm uppercase tracking-wider placeholder:text-white/30 resize-none"
-                  ></textarea>
-
-                  <button 
-                      onClick={playMechanicalClick}
-                      onMouseEnter={playHoverTick}
-                      className="mt-8 bg-white text-black py-6 px-10 font-black uppercase tracking-[0.2em] text-sm hover:bg-[#90243B] hover:text-white transition-colors self-start flex items-center gap-4 group"
-                  >
-                      Submit Inquiry <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-                  </button>
-              </form>
-          </div>
-      </section>
-
-    </div>
-  );
-}
-
