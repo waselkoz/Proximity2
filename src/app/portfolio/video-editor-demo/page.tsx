@@ -56,7 +56,7 @@ export default function VideoTerminal() {
 
   // Determine active phase based on frame
   let phase = "PRE-PRODUCTION";
-  let content = "Scripting & Architecture. Defining the payload parameters.";
+  let content = "Strategy & Planning. Mapping out the creative vision and core message.";
   let Icon = LayoutDashboard;
   
   // Image Filter States
@@ -65,21 +65,21 @@ export default function VideoTerminal() {
 
   if (activeFrame > 25) { 
       phase = "PRODUCTION"; 
-      content = "Physical capture. 8K RAW format. Precision lens physics."; 
+      content = "Filming & Direction. Capturing high-quality footage on set."; 
       Icon = Camera; 
       filterStyle = "grayscale(50%) blur(2px) contrast(80%)"; // Log footage
       scale = 1.05;
   }
   if (activeFrame > 50) { 
       phase = "POST-PRODUCTION"; 
-      content = "Non-linear editing, theatrical color grading, and VFX compositing."; 
+      content = "Editing & Color. Assembling the story and crafting the visual aesthetic."; 
       Icon = Scissors; 
       filterStyle = "grayscale(0%) blur(0px) contrast(120%) saturate(120%)"; // Graded
       scale = 1.1;
   }
   if (activeFrame > 75) { 
       phase = "AUDIO MASTERING"; 
-      content = "Spatial sound design and surgical frequency balancing."; 
+      content = "Sound Design. Polishing the audio mix for maximum impact."; 
       Icon = AudioWaveform; 
       filterStyle = "grayscale(0%) blur(0px) contrast(150%) saturate(100%) sepia(20%) hue-rotate(-10deg)"; // Audio focus (slight stylistic shift)
       scale = 1.15;
@@ -141,11 +141,11 @@ export default function VideoTerminal() {
                   </div>
 
                   <div className="border-t border-[#1F1F1F] mt-4 pt-4">
-                      <div className="text-[10px] font-mono text-white/40 tracking-widest mb-3">SYSTEM_LOGS</div>
-                      {activeFrame <= 25 && <div className="text-xs font-mono text-green-500/80">&gt; Loading storyboards... OK</div>}
-                      {activeFrame > 25 && activeFrame <= 50 && <div className="text-xs font-mono text-yellow-500/80">&gt; Calibrating lens arrays... OK</div>}
-                      {activeFrame > 50 && activeFrame <= 75 && <div className="text-xs font-mono text-blue-500/80">&gt; Applying LUTs (Cinematic_04)... OK</div>}
-                      {activeFrame > 75 && <div className="text-xs font-mono text-purple-500/80">&gt; Normalizing -14 LUFS... OK</div>}
+                      <div className="text-[10px] font-mono text-white/40 tracking-widest mb-3">CURRENT_STATUS</div>
+                      {activeFrame <= 25 && <div className="text-xs font-mono text-white/80">&gt; Finalizing storyboards and shot list.</div>}
+                      {activeFrame > 25 && activeFrame <= 50 && <div className="text-xs font-mono text-white/80">&gt; Camera and lighting setup complete.</div>}
+                      {activeFrame > 50 && activeFrame <= 75 && <div className="text-xs font-mono text-white/80">&gt; Refining color grade and visual flow.</div>}
+                      {activeFrame > 75 && <div className="text-xs font-mono text-white/80">&gt; Audio mix optimized for delivery.</div>}
                   </div>
               </div>
           </div>
@@ -202,7 +202,7 @@ export default function VideoTerminal() {
           {/* Right Panel: Render Settings (Configurator) */}
           <div className="w-full lg:w-1/4 bg-[#0A0A0A]/90 backdrop-blur-md border border-[#1F1F1F] flex flex-col shrink-0 h-1/2 lg:h-auto overflow-y-auto">
               <div className="p-2 border-b border-[#1F1F1F] text-[9px] font-mono tracking-widest uppercase text-white/40 flex items-center gap-2 bg-[#111] sticky top-0 z-10">
-                 <Settings2 size={10} /> RENDER_SETTINGS
+                 <Settings2 size={10} /> PROJECT_DETAILS
               </div>
               
               {!isSubmitted ? (
@@ -210,11 +210,11 @@ export default function VideoTerminal() {
                       
                       {/* Format Selection */}
                       <div>
-                          <div className="text-[9px] font-mono text-white/40 mb-2 uppercase">FORMAT</div>
+                          <div className="text-[9px] font-mono text-white/40 mb-2 uppercase">PROJECT SCOPE</div>
                           <select className="w-full bg-[#111] border border-[#333] text-xs font-mono text-white p-2 outline-none focus:border-[#90243B]">
-                              <option>H.264 - Social Short ($8k+)</option>
-                              <option>ProRes 4444 - Brand Anthem ($15k+)</option>
-                              <option>EXR Sequence - 3D VFX ($25k+)</option>
+                              <option>Social Media Campaign</option>
+                              <option>Brand Anthem Video</option>
+                              <option>Commercial / Broadcast</option>
                           </select>
                       </div>
 
@@ -241,8 +241,8 @@ export default function VideoTerminal() {
 
                       {/* Destination */}
                       <div>
-                          <div className="text-[9px] font-mono text-white/40 mb-2 uppercase">OUTPUT_DESTINATION</div>
-                          <input type="email" placeholder="CLIENT EMAIL" className="w-full bg-[#111] border border-[#333] text-xs font-mono text-white p-2 outline-none focus:border-[#90243B]" />
+                          <div className="text-[9px] font-mono text-white/40 mb-2 uppercase">CONTACT EMAIL</div>
+                          <input type="email" placeholder="YOUR EMAIL ADDRESS" className="w-full bg-[#111] border border-[#333] text-xs font-mono text-white p-2 outline-none focus:border-[#90243B]" />
                       </div>
 
                       {/* Render Button */}
@@ -251,7 +251,7 @@ export default function VideoTerminal() {
                             onClick={() => { playMechanicalClick(); setIsSubmitted(true); }}
                             className="w-full bg-[#E5E5E5] text-[#0A0A0A] py-3 text-[10px] font-black tracking-widest uppercase hover:bg-[#90243B] hover:text-white transition-colors flex justify-center items-center gap-2 group"
                           >
-                             RENDER PROJECT <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                             SUBMIT INQUIRY <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                           </button>
                       </div>
                   </div>
@@ -260,8 +260,8 @@ export default function VideoTerminal() {
                       <div className="w-12 h-12 bg-[#90243B] flex items-center justify-center animate-pulse mb-4">
                           <Check size={20} className="text-white" />
                       </div>
-                      <div className="text-sm font-black uppercase tracking-tighter mb-2">RENDER QUEUED</div>
-                      <div className="text-[9px] font-mono text-white/50 uppercase">Uploading payload to Proximity servers... We will contact you upon completion.</div>
+                      <div className="text-sm font-black uppercase tracking-tighter mb-2">REQUEST SUBMITTED</div>
+                      <div className="text-[9px] font-mono text-white/50 uppercase">Our team will review your project details and contact you shortly.</div>
                   </div>
               )}
           </div>
