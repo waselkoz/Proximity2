@@ -398,7 +398,7 @@ export default function Home() {
  >
  
  {/* Words */}
- <div className="w-full lg:w-5/12 flex flex-col items-start lg:pr-8">
+ <div className="w-full lg:w-full max-w-2xl flex flex-col items-start lg:pr-8">
  <div className="font-sans font-medium text-sm sm:text-base lg:text-lg leading-relaxed tracking-tight text-[#0A0A0A]">
  {pillar.desc}
  </div>
@@ -415,79 +415,7 @@ export default function Home() {
  </button>
  )}
  </div>
- 
- {/* The Living Modules (Pure CSS Interactive Art) */}
- <div className="w-full lg:w-7/12 h-[200px] lg:h-[400px] relative overflow-hidden bg-[#0A0A0A] shadow-none lg:shadow-2xl">
- {/* 01: Software Engineering (Clean Image Mockup) */}
- {pillar.num === "01" && (
- <div className="w-full h-full relative overflow-hidden bg-[#111111] flex items-center justify-center group/art border border-[#1F1F1F]">
- <div className="relative w-full h-full p-4 sm:p-8 flex items-center justify-center">
- <div className="relative w-full h-full border border-[#222222] shadow-none lg:shadow-2xl bg-black">
- <Image src={pillar.image} alt="Software Engineering Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top opacity-90 group-hover/art:opacity-100 transition-opacity duration-1000 ease-out" />
- </div>
- </div>
- 
- {/* Geometric Crop Marks Overlay */}
- <div className="absolute top-4 left-4 w-6 h-6 border-l border-t border-white/30 group-hover/art:-translate-x-1 group-hover/art:-translate-y-1 transition-transform duration-1000 z-10"></div>
- <div className="absolute top-4 right-4 w-6 h-6 border-r border-t border-white/30 group-hover/art:translate-x-1 group-hover/art:-translate-y-1 transition-transform duration-1000 z-10"></div>
- <div className="absolute bottom-4 left-4 w-6 h-6 border-l border-b border-white/30 group-hover/art:-translate-x-1 group-hover/art:translate-y-1 transition-transform duration-1000 z-10"></div>
- <div className="absolute bottom-4 right-4 w-6 h-6 border-r border-b border-white/30 group-hover/art:translate-x-1 group-hover/art:translate-y-1 transition-transform duration-1000 z-10"></div>
- </div>
- )}
 
- {/* 02: Branding (Hyper-realistic Poster Mockup) */}
- {pillar.num === "02" && (
- <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] flex items-center justify-center group/art border border-[#1F1F1F]">
- <Image src={pillar.image} alt="Branding Design Mockup" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover opacity-90 group-hover/art:scale-110 group-hover/art:opacity-100 transition-[opacity,transform] duration-[3000ms] ease-out" />
- 
- {/* Geometric Crop Marks Overlay */}
- <div className="absolute top-6 left-6 w-8 h-8 border-l-2 border-t-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
- <div className="absolute top-6 right-6 w-8 h-8 border-r-2 border-t-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:-translate-y-2 transition-transform duration-1000 z-10"></div>
- <div className="absolute bottom-6 left-6 w-8 h-8 border-l-2 border-b-2 border-white/60 group-hover/art:-translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
- <div className="absolute bottom-6 right-6 w-8 h-8 border-r-2 border-b-2 border-white/60 group-hover/art:translate-x-2 group-hover/art:translate-y-2 transition-transform duration-1000 z-10"></div>
- 
- {/* Subtle vignette */}
- <div className="absolute inset-0 bg-[radial-gradient(transparent_50%,#00000099_150%)] pointer-events-none z-0"></div>
- </div>
- )}
-
- {/* 03: Video (Cinematic Timeline) */}
- {pillar.num === "03" && (
- <div className="w-full h-full relative overflow-hidden bg-[#0A0A0A] flex flex-col group/art border border-[#1F1F1F]">
- {/* Timecode overlay */}
- <div className="absolute top-4 lg:top-6 left-4 lg:left-6 font-mono text-[10px] lg:text-xs text-[#90243B] z-20 flex items-center gap-2">
- <div className="w-2 h-2 rounded-full bg-[#90243B] group-hover/art:animate-ping"></div>
- REC <span className="text-white opacity-80 ml-2 font-light">00:04:23:12</span>
- </div>
- 
- {/* Abstract Viewport */}
- <div className="flex-1 flex flex-col w-full relative group-hover/art:scale-105 transition-transform duration-[2000ms] ease-out">
- <div className="absolute inset-0 flex">
- <div className="w-1/2 h-full bg-[#111]"></div>
- <div className="w-1/2 h-full bg-[#1a1a1a]"></div>
- </div>
- <div className="absolute inset-0 flex items-center justify-center opacity-30">
- <div className="w-[80%] h-[80%] border border-white rounded-full"></div>
- <div className="w-full h-[1px] absolute top-1/2 bg-white"></div>
- <div className="h-full w-[1px] absolute left-1/2 bg-white"></div>
- </div>
- </div>
- 
- {/* Timeline UI - Optimized for Mobile */}
- <div className="h-[35%] lg:h-1/3 w-full bg-[#111] border-t border-[#333] relative flex flex-col z-10">
- <div className="w-full h-4 border-b border-[#333] bg-[#0A0A0A]" style={{ backgroundImage: 'repeating-linear-gradient(to right, transparent, transparent calc(5% - 1px), #222 calc(5% - 1px), #222 5%)' }}></div>
- <div className="flex-1 w-full relative overflow-hidden" style={{ backgroundImage: 'repeating-linear-gradient(to right, transparent, transparent calc(2.5% - 1px), #222 calc(2.5% - 1px), #222 2.5%)' }}>
- {/* Simulated Waveform using a single pseudo-element pattern */}
- <div className="absolute bottom-0 w-full h-full opacity-20 bg-[linear-gradient(90deg,transparent_2px,white_2px,white_4px,transparent_4px)] bg-[size:8px_100%] [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
- {/* Playhead */}
- <div className="absolute top-0 left-1/4 w-[2px] h-full bg-[#90243B] group-hover/art:left-[80%] transition-[left] duration-[3000ms] ease-in-out shadow-none lg:shadow-[0_0_10px_#90243B]">
- <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#90243B] absolute -top-2 -left-[5px]"></div>
- </div>
- </div>
- </div>
- </div>
- )}
- </div>
  </motion.div>
  )}
  </AnimatePresence>
