@@ -295,7 +295,7 @@ export default function Home() {
 
 
  {/* 4. The Kinetic Pillars (Core Disciplines) */}
- <section className="w-full bg-[#0A0A0A] text-white overflow-hidden border-t-[6px] sm:border-t-8 border-[#90243B] z-10 relative">
+ <section className="w-full bg-[#0A0A0A] text-white overflow-hidden border-t-[6px] sm:border-t-8 border-[#90243B] z-10 relative isolate transform-gpu will-change-transform">
  <div className="px-5 sm:px-12 py-10 sm:py-12">
  <div className="font-mono text-[9px] sm:text-[10px] text-white/40 uppercase tracking-[0.2em]">
  02 Core Disciplines
@@ -341,7 +341,7 @@ export default function Home() {
  onMouseEnter={() => { playHoverTick(); setActivePillar(idx); }}
  onMouseLeave={() => setActivePillar(null)}
  onClick={() => { playMechanicalClick(); setActivePillar(isActive ? null : idx); }}
- className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-all duration-[700ms] ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden 
+ className={`group relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1F1F1F] p-6 sm:p-12 cursor-pointer transition-[flex-grow,background-color,opacity] duration-[700ms] ease-[cubic-bezier(0.76,0,0.24,1)] overflow-hidden transform-gpu 
   ${isActive 
   ? 'flex-[3.5] lg:flex-[3.5] bg-white text-black' 
   : isOtherActive 
