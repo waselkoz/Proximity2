@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 import CustomCursor from "@/components/CustomCursor";
+import Navbar from "@/components/Navbar";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col relative">
         <CustomCursor />
+        <Navbar />
         {/* Global Cinematic Film Grain */}
         <div 
           className="pointer-events-none fixed inset-0 z-[9997] h-full w-full opacity-[0.05] sm:opacity-[0.03] sm:mix-blend-difference"

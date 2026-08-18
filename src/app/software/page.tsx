@@ -7,6 +7,7 @@ import { FaAws } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
+import { submitInquiry } from "../../utils/submitInquiry";
 
 // Audio Fallbacks
 const playMechanicalClick = () => {
@@ -73,13 +74,14 @@ export default function SoftwareEngineering() {
   const chatBgY = useTransform(chatScroll, [0, 1], ["-15%", "15%"]);
   const chatBgScale = useTransform(chatScroll, [0, 1], [1.1, 1]);
 
-  // Arsenal State
+  // Tools State
   const [activeTech, setActiveTech] = useState(techCategories[0]);
 
   // Configurator State
   const [selectedType, setSelectedType] = useState(projectTypes[0]);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   // Lock fixed height on mount to prevent mobile address-bar jump
   const [fixedHeight, setFixedHeight] = useState("100vh");
@@ -93,9 +95,27 @@ export default function SoftwareEngineering() {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!email) return;
     playMechanicalClick();
-    setIsSubmitted(true);
+    setFormStatus("submitting");
+    
+    try {
+        const featureNames = selectedFeatures.map(id => featuresList.find(f => f.id === id)?.label).join(", ");
+        await submitInquiry({
+            email: email,
+            service: `Software: ${selectedType.label}`,
+            details: `Features: ${featureNames || "None"}\nBase Price: ${selectedType.basePrice}`
+        });
+        setFormStatus("success");
+        setEmail("");
+        setSelectedFeatures([]);
+        setSelectedType(projectTypes[0]);
+        setTimeout(() => setFormStatus("idle"), 4000);
+    } catch (error) {
+        setFormStatus("error");
+        setTimeout(() => setFormStatus("idle"), 3000);
+    }
   };
 
   return (
@@ -159,10 +179,10 @@ export default function SoftwareEngineering() {
       </div>
 
       {/* SPACER (Absorbs the scroll to open the curtain) */}
-      <div ref={spacerRef} className="w-full h-[120vh]"></div>
+      <div id="capabilities" ref={spacerRef} className="w-full h-[120vh]"></div>
 
       {/* 2. BESPOKE DELIVERY: THE STICKY ASSEMBLY LINE */}
-      <section className="relative w-full bg-[#0A0A0A] border-t-[1px] border-white/10">
+      <section id="methodology" className="relative w-full bg-[#0A0A0A] border-t-[1px] border-white/10">
          <div className="max-w-[1400px] mx-auto px-5 sm:px-12 py-24 sm:py-40">
              
              <div className="mb-20 sm:mb-32">
@@ -363,7 +383,7 @@ export default function SoftwareEngineering() {
 
 
       {/* 3. TECHNOLOGIES USED (Extreme Color-Blocked Marquees) */}
-      <section className="relative w-full border-t border-[#1F1F1F]">
+      <section id="stack" className="relative w-full border-t border-[#1F1F1F]">
          
          <div className="bg-[#0A0A0A] py-12 sm:py-16 px-5 sm:px-12 relative z-10 border-b border-[#1F1F1F]">
              <div className="max-w-[1400px] mx-auto">
@@ -463,16 +483,16 @@ export default function SoftwareEngineering() {
           {/* Massive Typographic Link */}
           <Link href="/portfolio" onClick={playMechanicalClick} className="relative z-10 text-center w-full block">
               <div className="font-mono text-[10px] sm:text-xs text-[#90243B] uppercase tracking-[0.5em] mb-4 sm:mb-8 transition-colors group-hover:text-white">
-                  Execute Review Protocol
+                  Explore Work
               </div>
               <h2 className="text-[12vw] sm:text-[10vw] font-black uppercase tracking-tighter leading-none text-white transition-all duration-700 mix-blend-difference group-hover:tracking-normal group-hover:scale-105">
-                  ACCESS ARCHIVES
+                  VIEW PORTFOLIO
               </h2>
           </Link>
       </section>
 
       {/* 5. CONFIGURATOR (Submit Brief) */}
-      <section className="relative w-full py-24 sm:py-40 bg-[#0A0A0A] overflow-hidden border-t border-white/10">
+      <section id="deploy" className="relative w-full py-24 sm:py-40 bg-[#0A0A0A] overflow-hidden border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-12 flex flex-col lg:flex-row gap-16 lg:gap-24 relative z-10">
              
              {/* Left: Configuration Form */}
@@ -530,16 +550,21 @@ export default function SoftwareEngineering() {
                  <div className="flex flex-col gap-4 mt-8 pt-8 border-t border-white/10">
                      <input 
                        type="email" 
+                       value={email}
+                       onChange={(e) => setEmail(e.target.value)}
                        placeholder="ENTER YOUR EMAIL ADDRESS" 
                        className="w-full bg-transparent border-b border-white/20 py-4 font-mono text-sm tracking-widest uppercase text-white outline-none focus:border-white transition-colors" 
                      />
                      <button 
                        onClick={handleSubmit} 
-                       disabled={isSubmitted}
+                       disabled={formStatus === "submitting" || formStatus === "success"}
                        className="w-full bg-white text-black py-5 font-black uppercase tracking-[0.3em] text-xs hover:bg-[#90243B] hover:text-white transition-colors flex items-center justify-center gap-4 group mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                      >
-                       {isSubmitted ? "PROCESSING..." : "SUBMIT REQUEST"}
-                       {!isSubmitted && <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />}
+                       {formStatus === "idle" && "SUBMIT REQUEST"}
+                       {formStatus === "submitting" && "PROCESSING..."}
+                       {formStatus === "success" && "TRANSMISSION SUCCESS"}
+                       {formStatus === "error" && "TRANSMISSION FAILED"}
+                       {formStatus === "idle" && <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />}
                      </button>
                  </div>
              </div>
@@ -547,7 +572,7 @@ export default function SoftwareEngineering() {
              {/* Right: The Editorial Receipt */}
              <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative min-h-[500px]" style={{ perspective: "1000px" }}>
                  <AnimatePresence mode="wait">
-                    {!isSubmitted ? (
+                    {formStatus !== "success" ? (
                         <motion.div 
                             key="receipt"
                             exit={{ rotateX: 90, opacity: 0, y: -50 }}
@@ -618,10 +643,10 @@ export default function SoftwareEngineering() {
                             <div className="w-16 h-16 bg-[#90243B] mb-8 flex items-center justify-center">
                                 <Check size={32} className="text-white" />
                             </div>
-                            <h3 className="text-3xl font-black uppercase tracking-tighter mb-4 leading-none">REQUEST<br/>SECURED.</h3>
+                            <h3 className="text-3xl font-black uppercase tracking-tighter mb-4 leading-none">THANK<br/>YOU.</h3>
                             <div className="w-full h-[1px] bg-[#90243B] mb-4"></div>
                             <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 leading-relaxed">
-                                OUR SYSTEMS ARE PROCESSING YOUR BRIEF.<br/>A REPRESENTATIVE WILL CONTACT YOU.
+                                YOU WILL RECEIVE YOUR QUOTE AS SOON AS POSSIBLE.<br/>A REPRESENTATIVE WILL CONTACT YOU.
                             </p>
                         </motion.div>
                     )}

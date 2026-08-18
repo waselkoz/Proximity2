@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Check } from "lucide-react";
+import { submitInquiry } from "../../utils/submitInquiry";
 
 // Disciplines with Unsplash images
 const disciplines = [
@@ -72,19 +73,9 @@ export default function EditorialVideoPage() {
  return (
  <div className="w-full min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-[#90243B] selection:text-white">
 
- {/* Global Nav */}
- <nav className="fixed top-0 left-0 w-full p-6 sm:p-10 flex justify-between items-center z-50 pointer-events-none ">
- <Link href="/" className="pointer-events-auto font-mono text-[10px] tracking-[0.3em] uppercase transition-colors flex items-center gap-2 hover:text-[#90243B]">
- <div className="w-1.5 h-1.5 bg-[#90243B]"></div>
- PROXIMITY_V2
- </Link>
- <div className="font-mono text-[9px] uppercase tracking-widest text-white">
- VIDEO PRODUCTION
- </div>
- </nav>
 
  {/* Hero Section: The Monolith Matrix */}
- <section className="relative w-full min-h-[100dvh] flex flex-col justify-end overflow-hidden border-b border-[#1F1F1F]">
+ <section id="discipline" className="relative w-full min-h-[100dvh] flex flex-col justify-end overflow-hidden border-b border-[#1F1F1F]">
  
  {/* Structural Background Geometry (Zero Glows) */}
  <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -99,9 +90,6 @@ export default function EditorialVideoPage() {
  
  {/* Massive Solid Crimson Circle Intersecting Top Right */}
  <div className="absolute -top-[20vw] -right-[10vw] w-[50vw] h-[50vw] bg-[#90243B] rounded-full opacity-60"></div>
- 
- {/* Architectural Hairline Grid Overlay */}
- <div className="absolute inset-0 bg-[linear-gradient(to_right,#1F1F1F_1px,transparent_1px),linear-gradient(to_bottom,#1F1F1F_1px,transparent_1px)] bg-[size:100px_100px] opacity-50"></div>
  
  {/* Typographic Liquid Fill (Hollow Base) */}
  <div className="absolute top-[30%] left-[-5%] text-[20vw] font-black uppercase text-transparent leading-none opacity-20 pointer-events-none select-none tracking-tighter" style={{ WebkitTextStroke: '2px #FFFFFF' }}>
@@ -171,7 +159,7 @@ export default function EditorialVideoPage() {
  </section>
 
  {/* Manifesto Section */}
- <section className="relative w-full bg-[#0A0A0A] z-10 py-32 lg:py-48 px-6 sm:px-12 lg:px-24 flex justify-center items-center border-b border-[#1F1F1F] overflow-hidden">
+ <section id="philosophy" className="relative w-full bg-[#0A0A0A] z-10 py-32 lg:py-48 px-6 sm:px-12 lg:px-24 flex justify-center items-center border-b border-[#1F1F1F] overflow-hidden">
  <Image 
  src="/images (3).jpeg"
  alt="Abstract Background"
@@ -179,9 +167,6 @@ export default function EditorialVideoPage() {
  className="object-cover opacity-20 pointer-events-none" 
  />
  
- {/* 1px grid overlay to keep it architectural */}
- <div className="absolute inset-0 bg-[linear-gradient(to_right,#1F1F1F_1px,transparent_1px),linear-gradient(to_bottom,#1F1F1F_1px,transparent_1px)] bg-[size:100px_100px] opacity-50 pointer-events-none"></div>
-
  <div className="relative z-10 max-w-5xl w-full flex flex-col gap-8">
  <div className="font-mono text-white text-[10px] tracking-widest uppercase flex items-center gap-4">
  <motion.div 
@@ -222,7 +207,7 @@ export default function EditorialVideoPage() {
  </section>
 
  {/* Horizontal Scroll Section */}
- <section ref={targetRef} className="relative w-full h-[400vh] bg-[#0A0A0A] z-10 border-t border-[#1F1F1F]">
+ <section id="process" ref={targetRef} className="relative w-full h-[400vh] bg-[#0A0A0A] z-10 border-t border-[#1F1F1F]">
  
  {/* The Sticky Viewport */}
  <div className="sticky top-0 h-screen flex items-center overflow-hidden z-10">
@@ -235,7 +220,6 @@ export default function EditorialVideoPage() {
  fill 
  className="object-cover opacity-15 grayscale" 
  />
- <div className="absolute inset-0 bg-[linear-gradient(to_right,#1F1F1F_1px,transparent_1px),linear-gradient(to_bottom,#1F1F1F_1px,transparent_1px)] bg-[size:100px_100px] opacity-30 lg: lg:opacity-50"></div>
  </div>
  
  {/* Horizontal Scrolling Track */}
@@ -253,14 +237,14 @@ export default function EditorialVideoPage() {
  {/* Split Section: Tools & Portfolio */}
  <section className="w-full flex flex-col lg:flex-row border-t border-[#1F1F1F] bg-[#0A0A0A] relative z-20">
  
- {/* Left Column: The Arsenal */}
+ {/* Left Column: The Tools */}
  <div className="w-full lg:w-1/2 p-6 sm:p-12 lg:p-24 border-b lg:border-b-0 lg:border-r border-[#1F1F1F] flex flex-col justify-center bg-white relative overflow-hidden">
  
 
 
  <div className="font-mono text-black/50 text-[10px] tracking-widest uppercase mb-12 flex items-center gap-4 relative z-10">
  <div className="w-8 h-[1px] bg-[#90243B]"></div>
- The Arsenal
+ Tools
  </div>
  
  <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tighter text-black mb-16 leading-none relative z-10">
@@ -282,7 +266,7 @@ export default function EditorialVideoPage() {
  
  {/* Cinematic Background Image */}
  <Image 
- src="/videoportfoliobg.jpeg" 
+ src="/video_portfolio_bg.jpg" 
  alt="Portfolio Preview" 
  fill 
  quality={100}
@@ -309,6 +293,53 @@ export default function EditorialVideoPage() {
  </div>
  </Link>
  </section>
+
+  {/* Contact Section: Project Inquiry */}
+  <section id="contact" className="w-full bg-[#0A0A0A] text-white px-5 sm:px-12 py-20 lg:py-32 border-t border-[#1F1F1F] relative z-10 overflow-hidden">
+    {/* Background Image */}
+    <div className="absolute inset-0 z-0 pointer-events-none">
+        <Image 
+            src="/video_form_bg.jpg" 
+            alt="Abstract Geometric Background"
+            fill
+            quality={100}
+            className="object-cover opacity-80 mix-blend-lighten"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/20 to-[#0A0A0A]"></div>
+    </div>
+    
+    <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between gap-16 lg:gap-8 relative z-10">
+       {/* Left Side: Typography */}
+       <div className="w-full lg:w-5/12 flex flex-col justify-between">
+           <div>
+               <div className="font-mono text-[9px] sm:text-[10px] text-[#90243B] uppercase tracking-[0.2em] mb-8">
+                   [ Project Inquiry ]
+               </div>
+               <h2 className="text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-6">
+                   START A <br /> PROJECT.
+               </h2>
+               <p className="font-sans font-medium text-sm sm:text-base text-white/60 max-w-sm leading-relaxed mt-6">
+                   Provide a link to a video reference that matches your visual direction, along with your project brief. We will review your requirements and get back to you with next steps.
+               </p>
+           </div>
+           
+           <div className="mt-16 lg:mt-24">
+               <a href="mailto:hello@proximity.agency" className="text-2xl font-black tracking-tighter uppercase border-b-2 border-white/20 pb-1 w-fit hover:border-white transition-colors">
+                   hello@proximity.agency
+               </a>
+               <div className="font-mono text-[9px] sm:text-[10px] text-white/40 uppercase tracking-[0.2em] mt-6 flex flex-col gap-2">
+                   <span>Operating HQ London</span>
+                   <span>Worldwide Remote Available</span>
+               </div>
+           </div>
+       </div>
+
+       {/* Right Side: Brutalist Configurator */}
+       <div className="w-full lg:w-7/12 flex flex-col gap-6 lg:pl-12">
+           <VideoConfiguratorForm />
+       </div>
+    </div>
+  </section>
  
  {/* Minimal Footer */}
  <footer className="w-full border-t border-[#1F1F1F] bg-[#0A0A0A] p-6 sm:p-12 flex justify-between items-center font-mono text-[10px] uppercase tracking-widest text-white/50 relative z-10">
@@ -353,4 +384,148 @@ function CarouselCard({ data }: { data: any }) {
  );
 }
 
+function VideoConfiguratorForm() {
+    const [projectType, setProjectType] = useState<string | null>(null);
+    const [footageStatus, setFootageStatus] = useState<string | null>(null);
+    
+    // Text Inputs State
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [refLink, setRefLink] = useState('');
+    const [brief, setBrief] = useState('');
+    
+    const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
+    const handleSubmit = async () => {
+        if (!name || !email) return;
+        setFormStatus("submitting");
+        
+        try {
+            await submitInquiry({ 
+                name, 
+                email, 
+                details: `Ref Link: ${refLink}\nBrief: ${brief}\nFootage: ${footageStatus || 'Not selected'}`,
+                service: `Video Editing: ${projectType || 'Not selected'}` 
+            });
+            setFormStatus("success");
+            setName(""); setEmail(""); setRefLink(""); setBrief(""); setProjectType(null); setFootageStatus(null);
+            setTimeout(() => setFormStatus("idle"), 3000);
+        } catch (error) {
+            setFormStatus("error");
+            setTimeout(() => setFormStatus("idle"), 3000);
+        }
+    };
+
+    const projectTypes = [
+        {
+            title: 'Commercial & Promotional',
+            desc: 'Cutting short, high-impact advertisements or product promos designed to capture attention quickly and drive marketing goals.'
+        },
+        {
+            title: 'Corporate & Event',
+            desc: 'Producing internal business communications, training modules, conference highlights, or live event recordings.'
+        },
+        {
+            title: 'Music Videos',
+            desc: 'Synchronizing visual cuts tightly with music beats, rhythms, and artistic or performance-based themes.'
+        },
+        {
+            title: 'Social Media & Online',
+            desc: 'Creating fast-paced content for YouTube, TikTok, or Reels relying on sound effects and high retention tactics.'
+        }
+    ];
+    const footageStatuses = ['We will provide the raw assets', 'Proximity will source the assets', 'Hybrid (Mix of both)'];
+
+    return (
+        <div className="w-full lg:pl-12 relative min-h-[500px]">
+            <AnimatePresence mode="wait">
+                {!isSubmitted ? (
+                    <motion.div
+                        key="form"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="w-full flex flex-col gap-10"
+                    >
+                        {/* Standard Inputs */}
+            <div className="flex flex-col gap-6">
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-3 outline-none focus:border-[#90243B] transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="01 NAME / BRAND" />
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-3 outline-none focus:border-[#90243B] transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="02 EMAIL ADDRESS" />
+            </div>
+
+            {/* Configurator Toggles */}
+            <div className="flex flex-col gap-10 mt-4">
+                {/* Project Type */}
+                <div>
+                    <div className="font-mono text-[10px] text-[#90243B] uppercase tracking-widest mb-4">03 PROJECT TYPE</div>
+                    <div className="flex flex-col gap-3">
+                        {projectTypes.map(type => (
+                            <button 
+                                key={type.title} 
+                                onClick={() => setProjectType(type.title)}
+                                className={`p-5 text-left border transition-colors flex flex-col gap-2 group ${projectType === type.title ? 'bg-[#90243B] border-[#90243B] text-white' : 'border-white/20 hover:border-white bg-black/50'}`}
+                            >
+                                <span className={`text-xs font-bold uppercase tracking-widest ${projectType === type.title ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>{type.title}</span>
+                                <span className={`font-sans text-xs leading-relaxed ${projectType === type.title ? 'text-white/90' : 'text-white/40 group-hover:text-white/60'}`}>{type.desc}</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Footage Status */}
+                <div>
+                    <div className="font-mono text-[10px] text-[#90243B] uppercase tracking-widest mb-4">04 RAW FOOTAGE STATUS</div>
+                    <div className="flex flex-col gap-3">
+                        {footageStatuses.map(status => (
+                            <button 
+                                key={status} 
+                                onClick={() => setFootageStatus(status)}
+                                className={`py-4 px-4 text-xs font-bold uppercase tracking-widest border transition-colors text-left ${footageStatus === status ? 'bg-white border-white text-black' : 'border-white/20 text-white/60 hover:border-white hover:text-white bg-black/50'}`}
+                            >
+                                {status}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+
+            {/* Final Inputs */}
+            <div className="flex flex-col gap-6 mt-4">
+                <input type="url" value={refLink} onChange={(e) => setRefLink(e.target.value)} className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-3 outline-none focus:border-[#90243B] transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="05 REFERENCE VIDEO LINK (URL)" />
+                <textarea value={brief} onChange={(e) => setBrief(e.target.value)} className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-3 outline-none focus:border-[#90243B] transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none resize-none min-h-[80px]" placeholder="06 PROJECT BRIEF & TIMELINE"></textarea>
+            </div>
+
+            <button 
+                onClick={handleSubmit}
+                disabled={formStatus === "submitting" || formStatus === "success"}
+                className="w-full bg-white text-black py-6 sm:py-8 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#90243B] hover:text-white transition-colors mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                {formStatus === "idle" && "[ SUBMIT REQUEST ]"}
+                {formStatus === "submitting" && "[ TRANSMITTING... ]"}
+                {formStatus === "success" && "[ TRANSMISSION SUCCESS ]"}
+                {formStatus === "error" && "[ TRANSMISSION FAILED ]"}
+            </button>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="success"
+                        initial={{ opacity: 0, rotateX: 90 }}
+                        animate={{ opacity: 1, rotateX: 0 }}
+                        exit={{ opacity: 0, rotateX: -90 }}
+                        transition={{ duration: 0.6, ease: "backOut" }}
+                        className="w-full h-full min-h-[500px] flex flex-col items-center justify-center bg-white border border-[#1F1F1F] text-[#0A0A0A] p-12 text-center"
+                    >
+                        <div className="w-16 h-16 rounded-full border border-black flex items-center justify-center mb-6">
+                            <Check className="w-8 h-8" />
+                        </div>
+                        <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Request Received</h3>
+                        <p className="font-mono text-xs text-black/60 uppercase tracking-widest max-w-sm mx-auto">
+                            Our team is reviewing your project parameters. You will receive an encrypted transmission shortly.
+                        </p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}

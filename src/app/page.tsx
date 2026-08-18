@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { playHoverTick, playMechanicalClick } from "../utils/audio";
+import { submitInquiry } from "../utils/submitInquiry";
 
 export default function Home() {
  const [mounted, setMounted] = useState(false);
@@ -17,6 +18,25 @@ export default function Home() {
  // State and Ref for Scroll-Triggered Mobile Deck
  const deckRef = useRef<HTMLDivElement>(null);
  const [deckExpanded, setDeckExpanded] = useState(false);
+
+ // Form State
+ const [formData, setFormData] = useState({ name: "", email: "", details: "" });
+ const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+ const handleFormSubmit = async () => {
+     if (!formData.name || !formData.email) return;
+     playMechanicalClick();
+     setFormStatus("submitting");
+     try {
+         await submitInquiry({ ...formData, service: "General Inquiry" });
+         setFormStatus("success");
+         setFormData({ name: "", email: "", details: "" });
+         setTimeout(() => setFormStatus("idle"), 3000);
+     } catch (error) {
+         setFormStatus("error");
+         setTimeout(() => setFormStatus("idle"), 3000);
+     }
+ };
 
  // Scroll-linked Kinetic Background Typography
  const bgText1Ref = useRef<HTMLDivElement>(null);
@@ -77,33 +97,32 @@ export default function Home() {
  }
  `}</style>
 
+ {/* GLOBAL HOMEPAGE ENHANCEMENTS: Structural Grid & Watermark */}
+ {/* 1. Architectural Grid Lines */}
+ <div className="pointer-events-none fixed inset-0 z-0 flex w-full justify-between px-5 sm:px-12 opacity-[0.03]">
+    <div className="h-full w-[1px] bg-black"></div>
+    <div className="h-full w-[1px] bg-black"></div>
+    <div className="h-full w-[1px] bg-black"></div>
+    <div className="h-full w-[1px] bg-black"></div>
+ </div>
+ 
+ {/* 2. Typographic Watermark (Translates on scroll) */}
+ <motion.div 
+    className="pointer-events-none fixed top-[30vh] left-0 w-full z-0 overflow-hidden flex justify-center opacity-[0.02] mix-blend-multiply"
+    initial={{ x: "10%" }}
+    animate={{ x: "-10%" }}
+    transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+ >
+    <span className="font-black text-[30vw] uppercase tracking-tighter leading-none whitespace-nowrap">
+        PRXMTY_V2
+    </span>
+ </motion.div>
+
  {/* 1. The Mechanical Shutter (Load Animation) */}
  <div className={`fixed inset-x-0 top-0 h-[50dvh] bg-[#0A0A0A] z-[100] ${mounted ? 'animate-shutter-up' : ''} pointer-events-none`}></div>
  <div className={`fixed inset-x-0 bottom-0 h-[50dvh] bg-[#0A0A0A] z-[100] ${mounted ? 'animate-shutter-down' : ''} pointer-events-none flex items-center justify-center`}>
  <Image src="/Logo_crimson.png" alt="Proximity Logo" width={300} height={100} className={`h-6 sm:h-8 w-auto object-contain brightness-0 invert absolute top-1/2 -translate-y-1/2 transition-opacity duration-500 ${mounted ? 'opacity-0' : 'opacity-100'}`} priority />
  </div>
-
- {/* Navigation */}
- <nav className="w-full px-5 sm:px-12 py-5 sm:py-8 flex justify-between items-center z-50 fixed top-0 bg-transparent border-b border-white/20">
- <div className="flex items-center gap-4">
- <Image src="/Logo_crimson.png" alt="Proximity Logo" width={300} height={100} className="h-4 sm:h-5 w-auto object-contain brightness-0 invert" priority />
- </div>
- 
- <div className="hidden lg:flex gap-12 text-[10px] font-black uppercase tracking-[0.2em] text-white/60">
- <span className="hover:text-white cursor-pointer transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-white hover:after:w-full after:transition-all">Work</span>
- <span className="hover:text-white cursor-pointer transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-white hover:after:w-full after:transition-all">Disciplines</span>
- <span className="hover:text-white cursor-pointer transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-white hover:after:w-full after:transition-all">Studio</span>
- <span className="hover:text-white cursor-pointer transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-white hover:after:w-full after:transition-all">Contact</span>
- </div>
-
- <div className="flex items-center gap-2 sm:gap-3 text-[9px] sm:text-[10px] font-mono text-white uppercase tracking-widest">
- <div className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2 items-center justify-center">
- <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
- <span className="relative inline-flex rounded-full h-1 w-1 sm:h-1.5 sm:w-1.5 bg-white"></span>
- </div>
- <span className="opacity-80">Online</span>
- </div>
- </nav>
 
  <main className="w-full relative z-10 pt-24 sm:pt-0">
  
@@ -171,7 +190,7 @@ export default function Home() {
  </section>
 
  {/* The Capabilities Statement (Inserted immediately after Hero) */}
- <section className="w-full bg-white text-[#0A0A0A] border-t border-[#E5E5E5] relative z-10 overflow-hidden">
+ <section id="capabilities" className="w-full bg-white text-[#0A0A0A] border-t border-[#E5E5E5] relative z-10 overflow-hidden">
  
  {/* Tactical Architectural Grid Background */}
  <div className="absolute inset-0 z-0 pointer-events-none" style={{
@@ -273,29 +292,14 @@ export default function Home() {
  </div>
  </div>
 
- {/* Capability CTA Section */}
- <div className="w-full mt-12 md:mt-24 pt-12 border-t border-[#E5E5E5] flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
- <p className="font-mono text-xs text-[#0A0A0A]/60 max-w-sm uppercase tracking-widest leading-relaxed">
- We design digital products that leave no room for mediocrity.
- </p>
- <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
- <Link href="/services" className="group bg-[#0A0A0A] hover:bg-[#90243B] text-white px-8 py-5 flex items-center justify-between gap-8 transition-colors duration-500 min-w-[240px]">
- <span className="font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">All Services</span>
- <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-500" />
- </Link>
- <Link href="#contact" className="group bg-transparent border-2 border-[#0A0A0A] text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white px-8 py-5 flex items-center justify-between gap-8 transition-colors duration-500 min-w-[240px]">
- <span className="font-black uppercase tracking-[0.2em] text-[10px] sm:text-xs">Start a Project</span>
- <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-500" />
- </Link>
- </div>
- </div>
+
 
  </div>
  </section>
 
 
  {/* 4. The Kinetic Pillars (Core Disciplines) */}
- <section className="w-full bg-[#0A0A0A] text-white overflow-hidden border-t-[6px] sm:border-t-8 border-[#90243B] z-10 relative isolate transform-gpu will-change-transform">
+ <section id="disciplines" className="w-full bg-[#0A0A0A] text-white overflow-hidden border-t-[6px] sm:border-t-8 border-[#90243B] z-10 relative isolate transform-gpu will-change-transform">
  <div className="px-5 sm:px-12 py-10 sm:py-12">
  <div className="font-mono text-[9px] sm:text-[10px] text-white/40 uppercase tracking-[0.2em]">
  02 Core Disciplines
@@ -426,6 +430,7 @@ export default function Home() {
  </section>
  {/* 5. The Monolithic Reveal (Initiate Section) */}
  <motion.section 
+ id="contact"
  className="w-full bg-gradient-to-b from-[#90243B] to-[#2D030D] text-white px-5 sm:px-12 py-10 sm:py-20 relative min-h-[100dvh] flex flex-col justify-between overflow-hidden"
  initial="hidden"
  whileInView="visible"
@@ -481,12 +486,37 @@ export default function Home() {
 
  {/* Right: Stripped Form */}
  <div className="lg:col-span-7 flex flex-col gap-6 w-full lg:pl-12 relative z-10">
- <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="01 NAME / ORGANIZATION" />
- <input type="email" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="02 EMAIL ADDRESS" />
- <input type="text" className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" placeholder="03 PROJECT DETAILS" />
+ <input 
+    type="text" 
+    value={formData.name}
+    onChange={(e) => setFormData({...formData, name: e.target.value})}
+    className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" 
+    placeholder="01 NAME / ORGANIZATION" 
+ />
+ <input 
+    type="email" 
+    value={formData.email}
+    onChange={(e) => setFormData({...formData, email: e.target.value})}
+    className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" 
+    placeholder="02 EMAIL ADDRESS" 
+ />
+ <input 
+    type="text" 
+    value={formData.details}
+    onChange={(e) => setFormData({...formData, details: e.target.value})}
+    className="w-full bg-transparent border-b border-white/20 text-sm sm:text-lg py-5 outline-none focus:border-white transition-colors font-black uppercase tracking-[0.1em] text-white placeholder:text-white/40 rounded-none" 
+    placeholder="03 PROJECT DETAILS" 
+ />
  
- <button className="w-full bg-white text-black py-6 sm:py-8 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#1A233A] hover:text-white transition-colors mt-6">
- [ SUBMIT INQUIRY ]
+ <button 
+    onClick={handleFormSubmit}
+    disabled={formStatus === "submitting" || formStatus === "success"}
+    className="w-full bg-white text-black py-6 sm:py-8 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#1A233A] hover:text-white transition-colors mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
+ >
+    {formStatus === "idle" && "[ SUBMIT INQUIRY ]"}
+    {formStatus === "submitting" && "[ TRANSMITTING... ]"}
+    {formStatus === "success" && "[ TRANSMISSION SUCCESS ]"}
+    {formStatus === "error" && "[ TRANSMISSION FAILED ]"}
  </button>
  </div>
 
