@@ -498,12 +498,11 @@ function VideoConfiguratorForm() {
 
             <button 
                 onClick={handleSubmit}
-                disabled={formStatus === "submitting" || formStatus === "success"}
+                disabled={formStatus === "submitting"}
                 className="w-full bg-white text-black py-6 sm:py-8 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#90243B] hover:text-white transition-colors mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 {formStatus === "idle" && "[ SUBMIT REQUEST ]"}
                 {formStatus === "submitting" && "[ TRANSMITTING... ]"}
-                {formStatus === "success" && "[ TRANSMISSION SUCCESS ]"}
                 {formStatus === "error" && "[ TRANSMISSION FAILED ]"}
             </button>
                     </motion.div>
