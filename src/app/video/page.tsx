@@ -439,7 +439,7 @@ function VideoConfiguratorForm() {
     return (
         <div className="w-full lg:pl-12 relative min-h-[500px]">
             <AnimatePresence mode="wait">
-                {!isSubmitted ? (
+                {formStatus !== "success" ? (
                     <motion.div
                         key="form"
                         initial={{ opacity: 0 }}
